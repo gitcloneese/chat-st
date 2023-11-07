@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://$PROJECT_DIR$/cmds.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699264009704" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/distribute.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167761" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/cmds.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699343270204" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/distribute.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699343275512" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699343398339" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699343027429" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/tools/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699342158894" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/tools/init.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699343027382" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/tools/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699342345285" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/tools/platform.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699342723671" />
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1699343072045" />
+  </component>
+</project>
