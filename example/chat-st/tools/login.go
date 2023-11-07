@@ -4,16 +4,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/go-kratos/kratos/v2/encoding"
+	"log"
 	"net/http"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
-	"xy3-proto/pkg/log"
 )
 
 // login
 // 获取登录token
 func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogin.LoginRsp, error) {
-	log.Info("正在获取登录token... account:%v", accountId)
+	log.Printf("正在获取登录token... account:%v", accountId)
 	reqB, err := json.Marshal(pbLogin.LoginReq{
 		AccountToken: accountResp.AccountToken,
 		SDKAccountId: accountId,
@@ -21,7 +22,7 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 	if err != nil {
 		return nil, err
 	}
-	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", Addr, loginPath), "application/json", bytes.NewReader(reqB))
+	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", LoginAddr, apiLoginPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
 		return nil, err
 	}
@@ -36,11 +37,11 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 	if err != nil || from == 0 {
 		return nil, err
 	}
-	resp.Body.Close()
+	defer resp.Body.Close()
 
-	if err := json.Unmarshal(buff.Bytes(), loginRsp); err != nil {
+	if err := encoding.GetCodec("json").Unmarshal(buff.Bytes(), loginRsp); err != nil {
 		return nil, err
 	}
-	log.Info("请求登录成功！accountId: %v player:%v", accountId, loginRsp.PlayerID)
+	log.Printf("请求登录成功！accountId: %v player:%v", accountId, loginRsp.PlayerID)
 	return loginRsp, nil
 }

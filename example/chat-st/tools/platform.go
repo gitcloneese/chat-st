@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/go-kratos/kratos/v2/encoding"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -47,9 +48,9 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 	if err != nil || from == 0 {
 		return nil, err
 	}
-	resp.Body.Close()
+	defer resp.Body.Close()
 
-	if err := json.Unmarshal(buff.Bytes(), loginResp); err != nil {
+	if err := encoding.GetCodec("json").Unmarshal(buff.Bytes(), loginResp); err != nil {
 		return nil, err
 	}
 	return loginResp, nil

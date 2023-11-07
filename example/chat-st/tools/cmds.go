@@ -1,19 +1,17 @@
-package main
+package tools
 
 import (
-	"log"
-	"x-server/example/chat-st/tools"
-
 	"encoding/json"
+	"log"
 
 	"google.golang.org/protobuf/proto"
-	chat "xy3-proto/new-chat"
+	newChat "xy3-proto/new-chat"
 )
 
-func cmdsLogic(ops chat.Operation, data []byte) {
+func cmdLogic(ops newChat.Operation, data []byte) {
 	log.Printf("Recv Ops %v Data %v", ops, data)
 
-	v, has := tools.CmdM[ops]
+	v, has := CmdM[ops]
 	if !has || v == nil {
 		log.Printf("ops %v not find parse message", ops)
 		return
@@ -30,5 +28,5 @@ func cmdsLogic(ops chat.Operation, data []byte) {
 		return
 	}
 
-	log.Printf("ops %v message \n\t%v", chat.Operation(ops), string(buf))
+	log.Printf("ops %v message \n\t%v", ops, string(buf))
 }

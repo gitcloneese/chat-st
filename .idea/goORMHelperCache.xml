@@ -34,7 +34,35 @@
         <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699343398339" />
+              <option name="lastModified" value="1699344989590" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699349490869" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699349380879" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699346278970" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/platform.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699346277250" />
             </ScannedPath>
           </value>
         </entry>
