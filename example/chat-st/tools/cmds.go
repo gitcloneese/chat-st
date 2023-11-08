@@ -2,21 +2,21 @@ package tools
 
 import (
 	"encoding/json"
-	"log"
-
 	"google.golang.org/protobuf/proto"
+	"log"
 	newChat "xy3-proto/new-chat"
 )
 
 func cmdLogic(ops newChat.Operation, data []byte) {
-	log.Printf("Recv Ops %v Data %v", ops, data)
-
 	v, has := CmdM[ops]
 	if !has || v == nil {
 		log.Printf("ops %v not find parse message", ops)
 		return
 	}
-	err := proto.Unmarshal(data, v)
+
+	vv := v.ProtoReflect().New().Interface()
+
+	err := proto.Unmarshal(data, vv)
 	if err != nil {
 		log.Printf("ops %v message parse err %v", ops, err)
 		return
