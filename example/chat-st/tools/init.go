@@ -50,6 +50,24 @@ var (
 	}
 )
 
+func operationMsg(op pbchat.Operation) proto.Message {
+	switch op {
+	case pbchat.Operation_OP_SendChatReply:
+		return new(pbchat.SendChatReply)
+	case pbchat.Operation_OP_RecvChat:
+		return new(pbchat.ChatMessage)
+	case pbchat.Operation_OP_UpdateRoomList:
+		return new(pbchat.UpdateRoomList)
+	case pbchat.Operation_OP_RoomList:
+		return new(pbchat.RoomListReq)
+	case pbchat.Operation_OP_RoomListReply:
+		return new(pbchat.RoomListResp)
+	case pbchat.Operation_OP_RoomHistoryReply:
+		return new(pbchat.ChatHistory)
+	}
+	return nil
+}
+
 var (
 	HttpClient = http.Client{
 		Timeout:   time.Second * 10,
@@ -157,5 +175,4 @@ func PrepareChat() {
 	for _, v := range PlayerTokens {
 		go chat(v)
 	}
-
 }

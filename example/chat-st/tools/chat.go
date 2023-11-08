@@ -16,12 +16,14 @@ import (
 )
 
 func chat(info *pblogin.LoginRsp) {
+	// TODO: 可以分别设置不同的flag, 来测试压什么任务
 	// 设置区服
 	err := setZoneServer(info)
 	if err != nil {
 		log.Printf("开始聊天,玩家:%v 设置区服失败 error:%v\n", info.PlayerID, err)
 		return
 	}
+
 	// 发送消息
 	go func() {
 		now := time.Now()
@@ -38,6 +40,7 @@ func chat(info *pblogin.LoginRsp) {
 
 		log.Printf("发送聊天 玩家:%v 发送消息结束 latency:%v", info.PlayerID, latency)
 	}()
+
 	// 接收消息
 	receiveMsg(info)
 }

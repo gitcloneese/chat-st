@@ -8,15 +8,12 @@ import (
 )
 
 func cmdLogic(ops newChat.Operation, data []byte) {
-	v, has := CmdM[ops]
-	if !has || v == nil {
+	v := operationMsg(ops)
+	if v == nil {
 		log.Printf("ops %v not find parse message", ops)
 		return
 	}
-
-	vv := v.ProtoReflect().New().Interface()
-
-	err := proto.Unmarshal(data, vv)
+	err := proto.Unmarshal(data, v)
 	if err != nil {
 		log.Printf("ops %v message parse err %v", ops, err)
 		return
