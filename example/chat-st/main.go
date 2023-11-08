@@ -19,9 +19,7 @@ func ping(c *websocket.Conn) {
 	}
 }
 
-//1. 先造玩家
-
-// -addr = http: //127.0.0.1:8200 -playerNum=100 -local=1 -loginAdd=http://127.0.0.1:8000
+// -addr = http://127.0.0.1:8200 -playerNum=100 -chatCount=100 -local=1 -loginAdd=http://127.0.0.1:8000  -t=1
 func main() {
 	now := time.Now()
 	tools.PreparePlayers()

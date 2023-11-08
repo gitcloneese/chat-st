@@ -7,6 +7,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"log"
 	"net/http"
+	"sync"
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
@@ -88,7 +89,8 @@ var (
 	isLocal          bool
 	localPlayerIdAcc int64 = 100000000
 
-	PlayerTokens map[string]*pblogin.LoginRsp
+	PlayerTokens     map[string]*pblogin.LoginRsp
+	PlayerTokensLock = new(sync.RWMutex)
 
 	apiAccountRoleListPath = accountRoleListPath
 	apiLoginPath           = loginPath
@@ -139,6 +141,18 @@ func addFlag(fs *flag.FlagSet) {
 	log.Printf("addr:%v wsPath:%v playerNum:%v", Addr, apiConnectChatPath, PlayerNum)
 }
 
+func generatePlayerToken(ws *sync.WaitGroup) {
+	defer ws.Done()
+	account := generateAccount()
+	info, err := getChatToken(account)
+	if err != nil {
+		return
+	}
+	PlayerTokensLock.Lock()
+	defer PlayerTokensLock.Unlock()
+	PlayerTokens[account] = info
+}
+
 // PreparePlayers
 // 准备所有玩家token信息
 func PreparePlayers() {
@@ -148,16 +162,13 @@ func PreparePlayers() {
 		PlayerTokens = make(map[string]*pblogin.LoginRsp)
 	}
 	playerNums := PlayerNum
+	wg := new(sync.WaitGroup)
+	wg.Add(playerNums)
 	for playerNums > 0 {
 		playerNums--
-		account := generateAccount()
-		info, err := getChatToken(account)
-		if err != nil {
-			continue
-		}
-		time.Sleep(time.Millisecond * 10)
-		PlayerTokens[account] = info
+		go generatePlayerToken(wg)
 	}
+	wg.Wait()
 	latency := time.Since(now).Seconds()
 	n := len(PlayerTokens)
 	if n > 0 {
@@ -198,7 +209,7 @@ func PrepareChat() {
 	switch T {
 	case 0:
 		log.Println(`=====================开始压测!!!================================`)
-		log.Println(`=========当前压测类型t为0:压测全部(发送消息/接收消息)=================`)
+		log.Println(`=========当前压测类型t为0:压测全部(发送消息/阻塞接收消息)=================`)
 		log.Println(`===============================================================`)
 		TestChat()
 	case 1:
@@ -208,8 +219,13 @@ func PrepareChat() {
 		TestSendMessage()
 	case 2:
 		log.Println(`=====================开始压测!!!================================`)
-		log.Println(`=========当前压测类型t为2:压测接收消息==============================`)
+		log.Println(`=========当前压测类型t为2:压测接收消息 阻塞接收 =====================`)
 		log.Println(`===============================================================`)
-		TestReceiveMessage()
+		TestReceiveMessageBlock()
+	case 3:
+		log.Println(`=====================开始压测!!!=====================================`)
+		log.Println(`=========当前压测类型t为3:压测接收消息 **** 不 ** 阻塞接收,只为了测连接数上限****`)
+		log.Println(`====================================================================`)
+		TestReceiveMessageUnBlock()
 	}
 }

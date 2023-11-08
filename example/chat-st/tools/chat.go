@@ -19,7 +19,7 @@ import (
 func TestChat() {
 	TestSendMessage()
 	// 接收消息
-	TestReceiveMessage()
+	TestReceiveMessageBlock()
 }
 
 // TestPlayerSendMessage
@@ -57,16 +57,33 @@ func TestSendMessage() {
 	log.Printf("================压测发送消息完成!!! 用时:%v s================\n", latency)
 }
 
-// TestReceiveMessage
-// 压测接收消息
-func TestReceiveMessage() {
+// TestReceiveMessageUnBlock
+// 压测接收消息 建立连接后就返回
+// 只为测ws连接数量 玩家数量
+func TestReceiveMessageUnBlock() {
 	playerNums := len(PlayerTokens)
-	log.Printf("================开始压测接收消息!!! 玩家数量:%v================\n", playerNums)
+	log.Printf("================开始压测接收消息!!! 不阻塞接收 只为测ws连接数量 玩家数量:%v================\n", playerNums)
+
+	now := time.Now()
+	wg := new(sync.WaitGroup)
+	for _, v := range PlayerTokens {
+		wg.Add(1)
+		go receiveMsg(v, wg)
+	}
+	wg.Wait()
+	latency := time.Since(now).Seconds()
+	log.Printf("================结束压测接收消息!!! 玩家数量:%v 用时:%vs ================\n", playerNums, latency)
+}
+
+// TestReceiveMessageBlock
+// 压测接收消息 阻塞接收
+func TestReceiveMessageBlock() {
+	playerNums := len(PlayerTokens)
+	log.Printf("================开始压测接收消息!!! 阻塞接收 玩家数量:%v================\n", playerNums)
 
 	for _, v := range PlayerTokens {
-		go receiveMsg(v)
+		go receiveMsg(v, nil)
 	}
-
 }
 
 // 设置区服
@@ -168,7 +185,11 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 }
 
 // 接收消息
-func receiveMsg(info *pblogin.LoginRsp) {
+func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
+	if wg != nil {
+		defer wg.Done()
+	}
+
 	uri, err := url.Parse(ChatAddr)
 	if err != nil {
 		panic("receiveMsg parse url failed" + err.Error())
@@ -190,22 +211,28 @@ func receiveMsg(info *pblogin.LoginRsp) {
 		reqHeader.Add("Authorization", info.PlayerToken)
 	}
 
-	log.Printf("connect to chat %v", u.String())
+	//log.Printf("connect to chat %v", u.String())
 
 	c, _, err1 := websocket.DefaultDialer.Dial(u.String(), reqHeader)
 	if err1 != nil {
 		panic(err1)
 	}
 	defer c.Close()
-	for {
-		_, message, err := c.ReadMessage()
-		if err != nil {
-			log.Println("read websocket err: ", err)
-			break
-		}
-		flag := message[0]
-		if flag == 0 {
-			distribute(message[1:])
+
+	if wg != nil {
+		return // 这里只测试ws连接数， 不做其他处理
+	} else {
+		// 这里阻塞接口 收到的消息
+		for {
+			_, message, err := c.ReadMessage()
+			if err != nil {
+				log.Println("read websocket err: ", err)
+				break
+			}
+			flag := message[0]
+			if flag == 0 {
+				distribute(message[1:])
+			}
 		}
 	}
 }
