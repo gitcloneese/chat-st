@@ -95,6 +95,8 @@ var (
 	apiSetZoneServerPath   = setZoneServerPath
 	apiConnectChatPath     = wsPath
 	apiSendMessagePath     = sendMessagePath
+
+	T int // 压测类型 默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4
 )
 
 // 每个玩家默认1s发送一个聊天
@@ -110,7 +112,8 @@ func addFlag(fs *flag.FlagSet) {
 	fs.IntVar(&Local, "local", 0, "是否是本地测试 本地测试 path地址不加 xy3-xxx前缀(不访问nginx)")
 	fs.StringVar(&WsPath, "wsPath", wsPath, "wsPath to connect to server")
 	fs.IntVar(&PlayerNum, "playerNum", 1000, fmt.Sprintf("玩家数量默认:%v", 1000))
-	fs.IntVar(&ChatCount, "chatNum", 1000, fmt.Sprintf("玩家发言次数默认:%v", 1000))
+	fs.IntVar(&ChatCount, "chatCount", 1000, fmt.Sprintf("玩家发言次数默认:%v", 1000))
+	fs.IntVar(&T, "t", 0, "压测类型 不设置默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4")
 
 	flag.Parse()
 
@@ -140,7 +143,7 @@ func addFlag(fs *flag.FlagSet) {
 // 准备所有玩家token信息
 func PreparePlayers() {
 	now := time.Now()
-	log.Println("准备玩家信息!!!")
+	log.Println("===============开始准备玩家信息!!!====================")
 	if PlayerTokens == nil {
 		PlayerTokens = make(map[string]*pblogin.LoginRsp)
 	}
@@ -155,12 +158,35 @@ func PreparePlayers() {
 		time.Sleep(time.Millisecond * 10)
 		PlayerTokens[account] = info
 	}
-	ts := time.Since(now).Seconds()
+	latency := time.Since(now).Seconds()
 	n := len(PlayerTokens)
 	if n > 0 {
-		log.Printf("%v个玩家信息准备完成!!! latency:%v", n, ts)
+		log.Printf("==============%v个玩家信息准备完成!!! 用时:%v s==============\n", n, latency)
 	} else {
-		log.Printf("%v个玩家信息准备失败!!! latency:%v", n, ts)
+		log.Printf("玩家信息准备失败!!! 用时:%v s\n", latency)
+		panic("玩家信息准备失败!!!")
+	}
+
+	time.Sleep(time.Second * 2)
+	log.Printf("=================开始设置区服信息!!!=====================")
+
+	//设置区服
+	now1 := time.Now()
+	for k, v := range PlayerTokens {
+		err1 := setZoneServer(v)
+		if err1 != nil {
+			log.Printf("玩家:%v设置区服失败 error:%v\n", v.PlayerID, err1)
+			delete(PlayerTokens, k)
+			continue
+		}
+	}
+
+	latency = time.Since(now1).Seconds()
+	n = len(PlayerTokens)
+	if n > 0 {
+		log.Printf("==============%v个玩家设置区服完成!!! 用时:%v================\n", n, latency)
+	} else {
+		log.Printf("玩家设置区服失败!!! 用时:%v\n", latency)
 		panic("玩家信息准备失败!!!")
 	}
 }
@@ -168,11 +194,22 @@ func PreparePlayers() {
 // PrepareChat
 // 开始聊天
 func PrepareChat() {
-	log.Println("准备聊天!!!")
-	if PlayerTokens == nil {
-		panic("玩家信息未准备完成!!!")
-	}
-	for _, v := range PlayerTokens {
-		go chat(v)
+	time.Sleep(2 * time.Second)
+	switch T {
+	case 0:
+		log.Println(`=====================开始压测!!!================================`)
+		log.Println(`=========当前压测类型t为0:压测全部(发送消息/接收消息)=================`)
+		log.Println(`===============================================================`)
+		TestChat()
+	case 1:
+		log.Println(`=====================开始压测!!!================================`)
+		log.Println(`=========当前压测类型t为1:压测发送消息==============================`)
+		log.Println(`===============================================================`)
+		TestSendMessage()
+	case 2:
+		log.Println(`=====================开始压测!!!================================`)
+		log.Println(`=========当前压测类型t为2:压测接收消息==============================`)
+		log.Println(`===============================================================`)
+		TestReceiveMessage()
 	}
 }

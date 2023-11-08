@@ -10,39 +10,63 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
 )
 
-func chat(info *pblogin.LoginRsp) {
-	// TODO: 可以分别设置不同的flag, 来测试压什么任务
-	// 设置区服
-	err := setZoneServer(info)
-	if err != nil {
-		log.Printf("开始聊天,玩家:%v 设置区服失败 error:%v\n", info.PlayerID, err)
-		return
+func TestChat() {
+	TestSendMessage()
+	// 接收消息
+	TestReceiveMessage()
+}
+
+// TestPlayerSendMessage
+// 单个玩家发送消息
+func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
+	defer wg.Done()
+	// 发送消息
+	var count int32
+	for count < int32(ChatCount) {
+		count++
+		err := sendMessage(info, count)
+		if err != nil {
+			log.Printf("玩家:%v 发送聊天失败:%v\n", info.PlayerID, err)
+		}
+		time.Sleep(time.Millisecond * 10)
+	}
+}
+
+// TestSendMessage
+// 压测发送消息
+func TestSendMessage() {
+	playerNums := len(PlayerTokens)
+	log.Printf("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================\n", playerNums, ChatCount)
+
+	now := time.Now()
+
+	wg := &sync.WaitGroup{}
+	wg.Add(playerNums)
+	for _, v := range PlayerTokens {
+		go TestPlayerSendMessage(v, wg)
+	}
+	wg.Wait()
+
+	latency := time.Since(now).Seconds()
+	log.Printf("================压测发送消息完成!!! 用时:%v s================\n", latency)
+}
+
+// TestReceiveMessage
+// 压测接收消息
+func TestReceiveMessage() {
+	playerNums := len(PlayerTokens)
+	log.Printf("================开始压测接收消息!!! 玩家数量:%v================\n", playerNums)
+
+	for _, v := range PlayerTokens {
+		go receiveMsg(v)
 	}
 
-	// 发送消息
-	go func() {
-		now := time.Now()
-		var count int32
-		for count < int32(ChatCount) {
-			count++
-			err := sendMessage(info, count)
-			if err != nil {
-				log.Println(err)
-			}
-			time.Sleep(time.Millisecond * 10)
-		}
-		latency := time.Since(now).Seconds()
-
-		log.Printf("发送聊天 玩家:%v 发送消息结束 latency:%v", info.PlayerID, latency)
-	}()
-
-	// 接收消息
-	receiveMsg(info)
 }
 
 // 设置区服
@@ -88,7 +112,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 		return err
 	}
 
-	log.Printf("设置zoneServer信息成功: player:%v", info.PlayerID)
+	//log.Printf("设置zoneServer信息成功: player:%v", info.PlayerID)
 	return nil
 }
 
@@ -139,7 +163,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 		return err
 	}
 
-	log.Printf("发送信息成功: player:%v :Msg:%v", info.PlayerID, msg)
+	//log.Printf("发送信息成功: player:%v :Msg:%v", info.PlayerID, msg)
 	return nil
 }
 
