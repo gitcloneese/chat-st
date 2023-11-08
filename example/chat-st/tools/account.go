@@ -65,6 +65,12 @@ func getChatToken(account ...string) (token *pblogin.LoginRsp, err error) {
 	} else {
 		accountId = generateAccount()
 	}
+	// 本地环境 跳过account和login
+	if isLocal {
+		return &pblogin.LoginRsp{
+			PlayerID: atomic.AddInt64(&localPlayerIdAcc, 1),
+		}, nil
+	}
 
 	roleListRsp, err1 := accountRoleList(accountId)
 	if err1 != nil {

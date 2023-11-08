@@ -24,6 +24,7 @@ func chat(info *pblogin.LoginRsp) {
 	}
 	// 发送消息
 	go func() {
+		now := time.Now()
 		var count int32
 		for count < int32(ChatCount) {
 			count++
@@ -33,6 +34,9 @@ func chat(info *pblogin.LoginRsp) {
 			}
 			time.Sleep(time.Millisecond * 10)
 		}
+		latency := time.Since(now).Seconds()
+
+		log.Printf("发送聊天 玩家:%v 发送消息结束 latency:%v", info.PlayerID, latency)
 	}()
 	// 接收消息
 	receiveMsg(info)
@@ -57,7 +61,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 	req.Header.Set("Authorization", info.PlayerToken)
 
 	// 本地test
-	if Local != 0 {
+	if isLocal {
 		req.Header.Set("userid", fmt.Sprintf("%v", info.PlayerID))
 	}
 
@@ -100,7 +104,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath), bytes.NewReader(reqB))
+	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSendMessagePath), bytes.NewReader(reqB))
 	if err != nil {
 		return err
 	}
@@ -108,7 +112,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 	req.Header.Set("Authorization", info.PlayerToken)
 
 	// 本地test
-	if Local != 0 {
+	if isLocal {
 		req.Header.Set("userid", fmt.Sprintf("%v", info.PlayerID))
 	}
 
@@ -148,12 +152,12 @@ func receiveMsg(info *pblogin.LoginRsp) {
 	}
 	u := url.URL{
 		Scheme: scheme,
-		Host:   ChatAddr,
+		Host:   uri.Host,
 		Path:   apiConnectChatPath,
 	}
 
 	reqHeader := http.Header{}
-	if Local != 0 {
+	if isLocal {
 		u.RawQuery = fmt.Sprintf("userid=%v", info.PlayerID)
 	} else {
 		reqHeader.Add("Authorization", info.PlayerToken)

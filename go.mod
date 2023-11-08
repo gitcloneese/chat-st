@@ -5,6 +5,7 @@ go 1.20
 replace google.golang.org/grpc => google.golang.org/grpc v1.46.2
 
 require (
+	github.com/go-kratos/kratos/v2 v2.6.3
 	github.com/gorilla/websocket v1.5.0
 	google.golang.org/protobuf v1.31.0
 	xy3-proto v0.0.0-00010101000000-000000000000
@@ -17,7 +18,6 @@ require (
 	github.com/emicklei/go-restful/v3 v3.10.2 // indirect
 	github.com/go-kratos/aegis v0.2.0 // indirect
 	github.com/go-kratos/kratos/contrib/registry/discovery/v2 v2.0.0-20230515030202-6d741828c2d4 // indirect
-	github.com/go-kratos/kratos/v2 v2.6.3 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.2 // indirect

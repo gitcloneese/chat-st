@@ -66,7 +66,9 @@ var (
 	PlayerNum   int
 	ChatCount   int
 
-	Local int //本地环境测试
+	Local            int //本地环境测试
+	isLocal          bool
+	localPlayerIdAcc int64 = 100000000
 
 	PlayerTokens map[string]*pblogin.LoginRsp
 
@@ -80,9 +82,7 @@ var (
 // 每个玩家默认1s发送一个聊天
 func init() {
 	addFlag(flag.CommandLine)
-	preparePlayers()
-	// 开始聊天测试
-	prepareChat()
+
 }
 func addFlag(fs *flag.FlagSet) {
 	fs.StringVar(&Addr, "addr", addr, fmt.Sprintf("服务器地址默认:%s", addr))
@@ -112,13 +112,15 @@ func addFlag(fs *flag.FlagSet) {
 		apiSetZoneServerPath = setZoneServerPathLocal
 		apiConnectChatPath = wsPathLocal
 		apiSendMessagePath = sendMessagePathLocal
+		isLocal = true
 	}
 
 	log.Printf("addr:%v wsPath:%v playerNum:%v", Addr, apiConnectChatPath, PlayerNum)
 }
 
+// PreparePlayers
 // 准备所有玩家token信息
-func preparePlayers() {
+func PreparePlayers() {
 	now := time.Now()
 	log.Println("准备玩家信息!!!")
 	if PlayerTokens == nil {
@@ -145,8 +147,9 @@ func preparePlayers() {
 	}
 }
 
+// PrepareChat
 // 开始聊天
-func prepareChat() {
+func PrepareChat() {
 	log.Println("准备聊天!!!")
 	if PlayerTokens == nil {
 		panic("玩家信息未准备完成!!!")

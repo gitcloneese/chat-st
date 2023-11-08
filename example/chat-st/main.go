@@ -7,6 +7,8 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
+	"x-server/example/chat-st/tools"
 )
 
 func ping(c *websocket.Conn) {
@@ -21,8 +23,13 @@ func ping(c *websocket.Conn) {
 
 // -addr = http: //127.0.0.1:8200 -playerNum=100 -local=1 -loginAdd=http://127.0.0.1:8000
 func main() {
+	now := time.Now()
+	tools.PreparePlayers()
+	// 开始聊天测试
+	tools.PrepareChat()
 	ch := make(chan os.Signal)
 	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
 	<-ch
-	log.Println("exit")
+	latency := time.Since(now).Seconds()
+	log.Printf("exit 总耗时:%v\n", latency)
 }

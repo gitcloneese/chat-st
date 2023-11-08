@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="TaskSys">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/scene/internal/logic/system/task/task.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="scannedPathMapping">
       <map>
         <entry key="file://$PROJECT_DIR$/cmds.go">
@@ -34,35 +45,56 @@
         <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699344989590" />
+              <option name="lastModified" value="1699413834272" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/account.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699349490869" />
+              <option name="lastModified" value="1699407548807" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699414162571" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/cmds.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699355805004" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/distribute.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699355804953" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699349380879" />
+              <option name="lastModified" value="1699413724345" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/login.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699346278970" />
+              <option name="lastModified" value="1699350982874" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/platform.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699346277250" />
+              <option name="lastModified" value="1699407730485" />
             </ScannedPath>
           </value>
         </entry>
@@ -101,6 +133,31 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/scene/internal/logic/system/task/task.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699413326196" />
+              <option name="schema">
+                <list>
+                  <option value="TaskSys" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/scene/internal/model/eventtype.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699413121846" />
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="task_sys" value="TaskSys" />
+        <entry key="task_syses" value="TaskSys" />
       </map>
     </option>
     <option name="lastTimeChecked" value="1699343072045" />
