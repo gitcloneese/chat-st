@@ -3,17 +3,45 @@
   <component name="GoORMHelperCache">
     <option name="scannedPathMapping">
       <map>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699495218701" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699497193932" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699439017490" />
+              <option name="lastModified" value="1699495897722" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699438573316" />
+              <option name="lastModified" value="1699497298735" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699495386929" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/room.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699495484633" />
             </ScannedPath>
           </value>
         </entry>

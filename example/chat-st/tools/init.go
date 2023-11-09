@@ -177,29 +177,6 @@ func PreparePlayers() {
 		log.Printf("玩家信息准备失败!!! 用时:%v s\n", latency)
 		panic("玩家信息准备失败!!!")
 	}
-
-	time.Sleep(time.Second * 2)
-	log.Printf("=================开始设置区服信息!!!=====================")
-
-	//设置区服
-	now1 := time.Now()
-	for k, v := range PlayerTokens {
-		err1 := setZoneServer(v)
-		if err1 != nil {
-			log.Printf("玩家:%v设置区服失败 error:%v\n", v.PlayerID, err1)
-			delete(PlayerTokens, k)
-			continue
-		}
-	}
-
-	latency = time.Since(now1).Seconds()
-	n = len(PlayerTokens)
-	if n > 0 {
-		log.Printf("==============%v个玩家设置区服完成!!! 用时:%v================\n", n, latency)
-	} else {
-		log.Printf("玩家设置区服失败!!! 用时:%v\n", latency)
-		panic("玩家信息准备失败!!!")
-	}
 }
 
 // PrepareChat

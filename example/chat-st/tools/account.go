@@ -23,7 +23,7 @@ func generateAccount() string {
 // accountRoleList
 // 获取Account认证
 func accountRoleList(accountId string) (*pbAccount.AccountRoleListRsp, error) {
-	log.Printf("正在获取Account认证 accountID:%v", accountId)
+	//log.Printf("正在获取Account认证 accountID:%v", accountId)
 	reqB, err := json.Marshal(pbAccount.AccountRoleListReq{
 		PlatformID:   -1, // 内部测试
 		SDKAccountId: accountId,
@@ -67,21 +67,28 @@ func getChatToken(account ...string) (token *pblogin.LoginRsp, err error) {
 	}
 	// 本地环境 跳过account和login
 	if isLocal {
-		return &pblogin.LoginRsp{
+		token = &pblogin.LoginRsp{
 			PlayerID: atomic.AddInt64(&localPlayerIdAcc, 1),
-		}, nil
+		}
+	} else {
+		roleListRsp, err1 := accountRoleList(accountId)
+		if err1 != nil {
+			log.Printf("1. connectChat getAccountToken failed, accountId:%v, err:%v", accountId, err1)
+			return nil, err1
+		}
+
+		loginRsp, err2 := login(accountId, roleListRsp)
+		if err2 != nil {
+			log.Printf("2. connectChat getLoginToken failed, accountId:%v, err:%v", accountId, err2)
+			return nil, err2
+		}
+		token = loginRsp
 	}
 
-	roleListRsp, err1 := accountRoleList(accountId)
-	if err1 != nil {
-		log.Printf("1. connectChat getAccountToken failed, accountId:%v, err:%v", accountId, err1)
-		return nil, err1
+	if err := setZoneServer(token); err != nil {
+		log.Printf("getChatToken setZoneServer failed, accountId:%v player:%v, err:%v", accountId, token.PlayerID, err)
+		return nil, err
 	}
 
-	loginRsp, err2 := login(accountId, roleListRsp)
-	if err2 != nil {
-		log.Printf("2. connectChat getLoginToken failed, accountId:%v, err:%v", accountId, err2)
-		return nil, err2
-	}
-	return loginRsp, err
+	return token, nil
 }
