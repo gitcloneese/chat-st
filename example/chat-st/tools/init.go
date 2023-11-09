@@ -4,9 +4,10 @@ import (
 	"crypto/tls"
 	"flag"
 	"fmt"
+	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
+	"github.com/rifflock/lfshook"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/proto"
-	"io"
 	"net/http"
 	"os"
 	"sync"
@@ -109,15 +110,38 @@ var (
 
 // 配置日志输出
 func logInit() {
-	logFile, err := os.OpenFile("./test.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
-	if err != nil {
-		fmt.Println("open log file failed, err:", err)
-		return
-	}
-	log.SetFormatter(&log.TextFormatter{})
+	// 设置日志切割 rotatelogs
+	filePath := "logs/"
+	fileName := ""
+	file := filePath + fileName
+	log.SetOutput(os.Stdout)
+
+	// 设置日志级别。低于 Debug 级别的 Trace 将不会被打印
 	log.SetLevel(log.DebugLevel)
-	multiWriter := io.MultiWriter(os.Stdout, logFile)
-	log.SetOutput(multiWriter)
+
+	writer, _ := rotatelogs.New(
+		file+"%Y%m%d.log",
+		//日志最大保存时间
+		rotatelogs.WithMaxAge(7*24*time.Hour),
+		rotatelogs.WithRotationTime(24*time.Hour),
+		rotatelogs.WithRotationSize(3*1024*1024),
+		rotatelogs.WithLinkName("log.txt"),
+	)
+	writeMap := lfshook.WriterMap{
+		log.PanicLevel: writer,
+		log.FatalLevel: writer,
+		log.ErrorLevel: writer,
+		log.WarnLevel:  writer,
+		log.InfoLevel:  writer,
+		log.DebugLevel: writer,
+	}
+	// 配置 lfshook
+	hook := lfshook.NewHook(writeMap, &log.TextFormatter{
+		// 设置日期格式
+		TimestampFormat: "2006-01-02 15:04:05",
+	})
+	log.AddHook(hook)
+
 }
 
 // 每个玩家默认1s发送一个聊天
@@ -197,9 +221,9 @@ func PreparePlayers() {
 		//总共发出的请求数
 		temp2 := atomic.LoadInt64(&QAcc)
 		qs := temp2 - temp1
-		log.Info("==============%v个玩家信息准备完成!!! 用时:%vs 请求总数:%v QPS:%v ==============\n", n, latency, qs, qs/int64(latency))
+		log.Infof("==============%v个玩家信息准备完成!!! 用时:%vs 请求总数:%v QPS:%v ============== ", n, latency, qs, float64(qs)/latency)
 	} else {
-		log.Infof("玩家信息准备失败!!! 用时:%v s\n", latency)
+		log.Infof("玩家信息准备失败!!! 用时:%v s ", latency)
 		panic("玩家信息准备失败!!!")
 	}
 }

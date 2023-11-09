@@ -34,7 +34,7 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		count++
 		err := sendMessage(info, count)
 		if err != nil {
-			log.Infof("玩家:%v 发送聊天失败:%v\n", info.PlayerID, err)
+			log.Infof("玩家:%v 发送聊天失败:%v ", info.PlayerID, err)
 		}
 		time.Sleep(time.Millisecond * 10)
 	}
@@ -44,13 +44,13 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 // 压测发送消息
 func TestSendMessage() {
 	playerNums := len(PlayerTokens)
-	log.Infof("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================\n", playerNums, ChatCount)
+	chatNum := int32(float64(playerNums) * percentChatPlayers)
+	log.Infof("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================ ", chatNum, ChatCount)
 
 	now := time.Now()
 	temp1 := atomic.LoadInt64(&QAcc)
 
 	wg := &sync.WaitGroup{}
-	chatNum := int32(float64(playerNums) * percentChatPlayers)
 	var nowCount int32
 	wg.Add(playerNums)
 	for _, v := range PlayerTokens {
@@ -66,7 +66,7 @@ func TestSendMessage() {
 	qs := temp2 - temp1
 
 	latency := time.Since(now).Seconds()
-	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================\n", latency, qs, qs/int64(latency))
+	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================ ", latency, qs, float64(qs)/latency)
 }
 
 // TestReceiveMessageUnBlock
@@ -74,7 +74,7 @@ func TestSendMessage() {
 // 只为测ws连接数量 玩家数量
 func TestReceiveMessageUnBlock() {
 	playerNums := len(PlayerTokens)
-	log.Infof("================开始压测接收消息!!! 不阻塞接收 只为测ws连接数量 玩家数量:%v================\n", playerNums)
+	log.Infof("================开始压测接收消息!!! 不阻塞接收 只为测ws连接数量 玩家数量:%v================ ", playerNums)
 
 	now := time.Now()
 	wg := new(sync.WaitGroup)
@@ -84,14 +84,14 @@ func TestReceiveMessageUnBlock() {
 	}
 	wg.Wait()
 	latency := time.Since(now).Seconds()
-	log.Infof("================结束压测接收消息!!! 玩家数量:%v 用时:%vs ================\n", playerNums, latency)
+	log.Infof("================结束压测接收消息!!! 玩家数量:%v 用时:%vs ================ ", playerNums, latency)
 }
 
 // TestReceiveMessageBlock
 // 压测接收消息 阻塞接收
 func TestReceiveMessageBlock() {
 	playerNums := len(PlayerTokens)
-	log.Infof("================开始压测接收消息!!! 阻塞接收 玩家数量:%v================\n", playerNums)
+	log.Infof("================开始压测接收消息!!! 阻塞接收 玩家数量:%v================ ", playerNums)
 
 	for _, v := range PlayerTokens {
 		go receiveMsg(v, nil)

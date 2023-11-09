@@ -35,5 +35,5 @@ func main() {
 	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
 	<-ch
 	latency := time.Since(now).Seconds()
-	log.Infof("exit 总耗时:%v\n", latency)
+	log.Infof("exit 总耗时:%v ", latency)
 }

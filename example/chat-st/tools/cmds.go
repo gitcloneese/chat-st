@@ -25,5 +25,5 @@ func cmdLogic(ops newChat.Operation, data []byte) {
 		return
 	}
 
-	log.Infof("ops %v message \n\t%v", ops, string(buf))
+	log.Infof("ops %v message  %v", ops, string(buf))
 }
