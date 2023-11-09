@@ -22,6 +22,7 @@ func generateImei() string {
 }
 
 // 获取平台token
+// 目前不需要获取平台token
 func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 	if imei == "" {
 		imei = generateImei()
