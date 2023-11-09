@@ -6,7 +6,7 @@
         <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699495218701" />
+              <option name="lastModified" value="1699500309487" />
             </ScannedPath>
           </value>
         </entry>
@@ -20,7 +20,7 @@
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699495897722" />
+              <option name="lastModified" value="1699500622910" />
             </ScannedPath>
           </value>
         </entry>
@@ -42,6 +42,20 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1699499266076" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/example/chat-st/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699500846619" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/example/chat-st/tools/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699500886138" />
             </ScannedPath>
           </value>
         </entry>

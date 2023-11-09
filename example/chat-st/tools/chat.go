@@ -220,7 +220,8 @@ func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 
 	c, _, err1 := websocket.DefaultDialer.Dial(u.String(), reqHeader)
 	if err1 != nil {
-		panic(err1)
+		log.Printf("receiveMsg websocket Dail err:%v", err1)
+		return
 	}
 	defer c.Close()
 
