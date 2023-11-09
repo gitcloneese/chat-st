@@ -20,7 +20,7 @@ func ping(c *websocket.Conn) {
 }
 
 // 测试本地
-// -addr = http://127.0.0.1:8200 -playerNum=100 -chatCount=100 -local=1 -loginAdd=http://127.0.0.1:8000  -t=1
+// -addr=http://127.0.0.1:8200 -playerNum=100 -chatCount=100 -local=1 -loginAdd=http://127.0.0.1:8000  -t=1
 // 测试远端
 // -t=0 -addr=http://8.219.160.79:81 -playerNum=30 -chatCount=50 -local=0
 // 正式环境
