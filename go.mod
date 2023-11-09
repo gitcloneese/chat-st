@@ -7,6 +7,7 @@ replace google.golang.org/grpc => google.golang.org/grpc v1.46.2
 require (
 	github.com/go-kratos/kratos/v2 v2.6.3
 	github.com/gorilla/websocket v1.5.0
+	github.com/sirupsen/logrus v1.9.3
 	google.golang.org/protobuf v1.31.0
 	xy3-proto v0.0.0-00010101000000-000000000000
 )
@@ -46,7 +47,6 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.9.0 // indirect
-	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.11.0 // indirect

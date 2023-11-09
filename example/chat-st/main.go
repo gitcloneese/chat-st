@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"github.com/gorilla/websocket"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"os/signal"
 	"syscall"
@@ -15,7 +15,7 @@ func ping(c *websocket.Conn) {
 	buf := new(bytes.Buffer)
 	buf.WriteByte(byte(3))
 	if err := c.WriteMessage(websocket.BinaryMessage, buf.Bytes()); err != nil {
-		log.Printf("websocket send ping err:%v", err)
+		log.Infof("websocket send ping err:%v", err)
 	}
 }
 
@@ -30,10 +30,10 @@ func main() {
 	now := time.Now()
 	tools.PreparePlayers()
 	// 开始聊天测试
-	tools.PrepareChat()
+	tools.PrepareChat0()
 	ch := make(chan os.Signal)
 	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
 	<-ch
 	latency := time.Since(now).Seconds()
-	log.Printf("exit 总耗时:%v\n", latency)
+	log.Infof("exit 总耗时:%v\n", latency)
 }

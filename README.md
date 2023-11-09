@@ -3,10 +3,13 @@
 ## 压测程序使用手册
 
 #### 1. 启动压测程序
+
 ```
 ./start_test.sh
 ```
+
 #### 2.参数详解
+
 ```
 -t=3 -addr=http://127.0.0.1:8200 -playerNum=30000 -chatCount=50 -local=1 -loginAddr=http://127.0.0.1:8000
 
@@ -20,10 +23,8 @@
 -chatCount: 聊天数量(每个玩家发送的消息数量)
 -loginAddr=http://127.0.0.1:8000    :登录服务器地址
 -accountAddr=http://127.0.0.1:8001  :账号服务器地址
+-percentChatPlayers=0.1             :聊天玩家占所有玩家数量的百分比
 ```
-
-
-
 
 ````
  1. ws连接数量指标

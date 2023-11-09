@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
+	log "github.com/sirupsen/logrus"
 	"io"
-	"log"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -23,7 +23,8 @@ func generateAccount() string {
 // accountRoleList
 // 获取Account认证
 func accountRoleList(accountId string) (*pbAccount.AccountRoleListRsp, error) {
-	//log.Printf("正在获取Account认证 accountID:%v", accountId)
+	// 统计qps
+	//log.Infof("正在获取Account认证 accountID:%v", accountId)
 	reqB, err := json.Marshal(pbAccount.AccountRoleListReq{
 		PlatformID:   -1, // 内部测试
 		SDKAccountId: accountId,
@@ -32,6 +33,7 @@ func accountRoleList(accountId string) (*pbAccount.AccountRoleListRsp, error) {
 		return nil, err
 	}
 
+	defer atomic.AddInt64(&QAcc, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
 		return nil, err
@@ -52,7 +54,7 @@ func accountRoleList(accountId string) (*pbAccount.AccountRoleListRsp, error) {
 		return nil, err
 	}
 
-	//log.Printf("请求account信息成功: account:%v", accountId)
+	//log.Infof("请求account信息成功: account:%v", accountId)
 	return accountRsp, nil
 }
 
@@ -73,20 +75,20 @@ func getChatToken(account ...string) (token *pblogin.LoginRsp, err error) {
 	} else {
 		roleListRsp, err1 := accountRoleList(accountId)
 		if err1 != nil {
-			log.Printf("1. connectChat getAccountToken failed, accountId:%v, err:%v", accountId, err1)
+			log.Errorf("1. connectChat getAccountToken failed, accountId:%v, err:%v", accountId, err1)
 			return nil, err1
 		}
 
 		loginRsp, err2 := login(accountId, roleListRsp)
 		if err2 != nil {
-			log.Printf("2. connectChat getLoginToken failed, accountId:%v, err:%v", accountId, err2)
+			log.Errorf("2. connectChat getLoginToken failed, accountId:%v, err:%v", accountId, err2)
 			return nil, err2
 		}
 		token = loginRsp
 	}
 
 	if err := setZoneServer(token); err != nil {
-		log.Printf("getChatToken setZoneServer failed, accountId:%v player:%v, err:%v", accountId, token.PlayerID, err)
+		log.Errorf("getChatToken setZoneServer failed, accountId:%v player:%v, err:%v", accountId, token.PlayerID, err)
 		return nil, err
 	}
 

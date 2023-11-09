@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
 	"net/http"
+	"sync/atomic"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
 )
@@ -13,7 +14,7 @@ import (
 // login
 // 获取登录token
 func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogin.LoginRsp, error) {
-	//log.Printf("正在获取登录token... account:%v", accountId)
+	//log.Infof("正在获取登录token... account:%v", accountId)
 	reqB, err := json.Marshal(pbLogin.LoginReq{
 		AccountToken: accountResp.AccountToken,
 		SDKAccountId: accountId,
@@ -21,6 +22,7 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 	if err != nil {
 		return nil, err
 	}
+	defer atomic.AddInt64(&QAcc, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", LoginAddr, apiLoginPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
 		return nil, err
@@ -41,6 +43,6 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 	if err := encoding.GetCodec("json").Unmarshal(buff.Bytes(), loginRsp); err != nil {
 		return nil, err
 	}
-	//log.Printf("请求登录成功！accountId: %v player:%v", accountId, loginRsp.PlayerID)
+	//log.Infof("请求登录成功！accountId: %v player:%v", accountId, loginRsp.PlayerID)
 	return loginRsp, nil
 }

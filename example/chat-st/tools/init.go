@@ -4,10 +4,13 @@ import (
 	"crypto/tls"
 	"flag"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"google.golang.org/protobuf/proto"
-	"log"
+	"io"
 	"net/http"
+	"os"
 	"sync"
+	"sync/atomic"
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
@@ -99,10 +102,27 @@ var (
 	apiSendMessagePath     = sendMessagePath
 
 	T int // 压测类型 默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4
+
+	QAcc               int64 // 用于做qps统计
+	percentChatPlayers float64
 )
+
+// 配置日志输出
+func logInit() {
+	logFile, err := os.OpenFile("./test.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		fmt.Println("open log file failed, err:", err)
+		return
+	}
+	log.SetFormatter(&log.TextFormatter{})
+	log.SetLevel(log.DebugLevel)
+	multiWriter := io.MultiWriter(os.Stdout, logFile)
+	log.SetOutput(multiWriter)
+}
 
 // 每个玩家默认1s发送一个聊天
 func init() {
+	logInit()
 	addFlag(flag.CommandLine)
 
 }
@@ -116,6 +136,7 @@ func addFlag(fs *flag.FlagSet) {
 	fs.IntVar(&PlayerNum, "playerNum", 1000, fmt.Sprintf("玩家数量默认:%v", 1000))
 	fs.IntVar(&ChatCount, "chatCount", 1000, fmt.Sprintf("玩家发言次数默认:%v", 1000))
 	fs.IntVar(&T, "t", 0, "压测类型 不设置默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4")
+	fs.Float64Var(&percentChatPlayers, "percentChatPlayers", 1, "聊天玩家百分比")
 
 	flag.Parse()
 
@@ -138,7 +159,7 @@ func addFlag(fs *flag.FlagSet) {
 		isLocal = true
 	}
 
-	log.Printf("addr:%v wsPath:%v playerNum:%v", Addr, apiConnectChatPath, PlayerNum)
+	log.Infof("addr:%v wsPath:%v playerNum:%v", Addr, apiConnectChatPath, PlayerNum)
 }
 
 func generatePlayerToken(ws *sync.WaitGroup) {
@@ -157,7 +178,8 @@ func generatePlayerToken(ws *sync.WaitGroup) {
 // 准备所有玩家token信息
 func PreparePlayers() {
 	now := time.Now()
-	log.Println("===============开始准备玩家信息!!!====================")
+	log.Info("===============开始准备玩家信息!!!====================")
+	temp1 := atomic.LoadInt64(&QAcc)
 	if PlayerTokens == nil {
 		PlayerTokens = make(map[string]*pblogin.LoginRsp)
 	}
@@ -172,37 +194,40 @@ func PreparePlayers() {
 	latency := time.Since(now).Seconds()
 	n := len(PlayerTokens)
 	if n > 0 {
-		log.Printf("==============%v个玩家信息准备完成!!! 用时:%v s==============\n", n, latency)
+		//总共发出的请求数
+		temp2 := atomic.LoadInt64(&QAcc)
+		qs := temp2 - temp1
+		log.Info("==============%v个玩家信息准备完成!!! 用时:%vs 请求总数:%v QPS:%v ==============\n", n, latency, qs, qs/int64(latency))
 	} else {
-		log.Printf("玩家信息准备失败!!! 用时:%v s\n", latency)
+		log.Infof("玩家信息准备失败!!! 用时:%v s\n", latency)
 		panic("玩家信息准备失败!!!")
 	}
 }
 
 // PrepareChat
 // 开始聊天
-func PrepareChat() {
+func PrepareChat0() {
 	time.Sleep(2 * time.Second)
 	switch T {
 	case 0:
-		log.Println(`=====================开始压测!!!================================`)
-		log.Println(`=========当前压测类型t为0:压测全部(发送消息/阻塞接收消息)=================`)
-		log.Println(`===============================================================`)
+		log.Info(`=====================开始压测!!!================================`)
+		log.Info(`=========当前压测类型t为0:压测全部(发送消息/阻塞接收消息)=================`)
+		log.Info(`===============================================================`)
 		TestChat()
 	case 1:
-		log.Println(`=====================开始压测!!!================================`)
-		log.Println(`=========当前压测类型t为1:压测发送消息==============================`)
-		log.Println(`===============================================================`)
+		log.Info(`=====================开始压测!!!================================`)
+		log.Info(`=========当前压测类型t为1:压测发送消息==============================`)
+		log.Info(`===============================================================`)
 		TestSendMessage()
 	case 2:
-		log.Println(`=====================开始压测!!!================================`)
-		log.Println(`=========当前压测类型t为2:压测接收消息 阻塞接收 =====================`)
-		log.Println(`===============================================================`)
+		log.Info(`=====================开始压测!!!================================`)
+		log.Info(`=========当前压测类型t为2:压测接收消息 阻塞接收 =====================`)
+		log.Info(`===============================================================`)
 		TestReceiveMessageBlock()
 	case 3:
-		log.Println(`=====================开始压测!!!=====================================`)
-		log.Println(`=========当前压测类型t为3:压测接收消息 **** 不 ** 阻塞接收,只为了测连接数上限****`)
-		log.Println(`====================================================================`)
+		log.Info(`=====================开始压测!!!=====================================`)
+		log.Info(`=========当前压测类型t为3:压测接收消息 **** 不 ** 阻塞接收,只为了测连接数上限****`)
+		log.Info(`====================================================================`)
 		TestReceiveMessageUnBlock()
 	}
 }

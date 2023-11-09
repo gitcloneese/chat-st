@@ -34,6 +34,7 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer atomic.AddInt64(&QAcc, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", Addr, platformPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
 		return nil, err

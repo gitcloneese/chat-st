@@ -6,11 +6,12 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
 	"github.com/gorilla/websocket"
+	log "github.com/sirupsen/logrus"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"sync"
+	"sync/atomic"
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
@@ -33,7 +34,7 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		count++
 		err := sendMessage(info, count)
 		if err != nil {
-			log.Printf("玩家:%v 发送聊天失败:%v\n", info.PlayerID, err)
+			log.Infof("玩家:%v 发送聊天失败:%v\n", info.PlayerID, err)
 		}
 		time.Sleep(time.Millisecond * 10)
 	}
@@ -43,19 +44,29 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 // 压测发送消息
 func TestSendMessage() {
 	playerNums := len(PlayerTokens)
-	log.Printf("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================\n", playerNums, ChatCount)
+	log.Infof("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================\n", playerNums, ChatCount)
 
 	now := time.Now()
+	temp1 := atomic.LoadInt64(&QAcc)
 
 	wg := &sync.WaitGroup{}
+	chatNum := int32(float64(playerNums) * percentChatPlayers)
+	var nowCount int32
 	wg.Add(playerNums)
 	for _, v := range PlayerTokens {
 		go TestPlayerSendMessage(v, wg)
+		nowCount++
+		// 聊天玩家百分比
+		if nowCount >= chatNum {
+			break
+		}
 	}
 	wg.Wait()
+	temp2 := atomic.LoadInt64(&QAcc)
+	qs := temp2 - temp1
 
 	latency := time.Since(now).Seconds()
-	log.Printf("================压测发送消息完成!!! 用时:%v s================\n", latency)
+	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================\n", latency, qs, qs/int64(latency))
 }
 
 // TestReceiveMessageUnBlock
@@ -63,7 +74,7 @@ func TestSendMessage() {
 // 只为测ws连接数量 玩家数量
 func TestReceiveMessageUnBlock() {
 	playerNums := len(PlayerTokens)
-	log.Printf("================开始压测接收消息!!! 不阻塞接收 只为测ws连接数量 玩家数量:%v================\n", playerNums)
+	log.Infof("================开始压测接收消息!!! 不阻塞接收 只为测ws连接数量 玩家数量:%v================\n", playerNums)
 
 	now := time.Now()
 	wg := new(sync.WaitGroup)
@@ -73,14 +84,14 @@ func TestReceiveMessageUnBlock() {
 	}
 	wg.Wait()
 	latency := time.Since(now).Seconds()
-	log.Printf("================结束压测接收消息!!! 玩家数量:%v 用时:%vs ================\n", playerNums, latency)
+	log.Infof("================结束压测接收消息!!! 玩家数量:%v 用时:%vs ================\n", playerNums, latency)
 }
 
 // TestReceiveMessageBlock
 // 压测接收消息 阻塞接收
 func TestReceiveMessageBlock() {
 	playerNums := len(PlayerTokens)
-	log.Printf("================开始压测接收消息!!! 阻塞接收 玩家数量:%v================\n", playerNums)
+	log.Infof("================开始压测接收消息!!! 阻塞接收 玩家数量:%v================\n", playerNums)
 
 	for _, v := range PlayerTokens {
 		go receiveMsg(v, nil)
@@ -101,7 +112,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 	if err != nil {
 		return err
 	}
-
+	defer atomic.AddInt64(&QAcc, 1)
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath), bytes.NewReader(reqB))
 	if err != nil {
 		return err
@@ -134,7 +145,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 		return err
 	}
 
-	//log.Printf("设置zoneServer信息成功: player:%v", info.PlayerID)
+	//log.Infof("设置zoneServer信息成功: player:%v", info.PlayerID)
 	return nil
 }
 
@@ -153,6 +164,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 	if err != nil {
 		return err
 	}
+	defer atomic.AddInt64(&QAcc, 1)
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSendMessagePath), bytes.NewReader(reqB))
 	if err != nil {
 		return err
@@ -185,7 +197,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 		return err
 	}
 
-	//log.Printf("发送信息成功: player:%v :Msg:%v", info.PlayerID, msg)
+	//log.Infof("发送信息成功: player:%v :Msg:%v", info.PlayerID, msg)
 	return nil
 }
 
@@ -216,11 +228,11 @@ func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		reqHeader.Add("Authorization", bearToken(info.PlayerToken))
 	}
 
-	//log.Printf("connect to chat %v", u.String())
+	//log.Infof("connect to chat %v", u.String())
 
 	c, _, err1 := websocket.DefaultDialer.Dial(u.String(), reqHeader)
 	if err1 != nil {
-		log.Printf("receiveMsg websocket Dail err:%v", err1)
+		log.Errorf("receiveMsg websocket Dail err:%v", err1)
 		return
 	}
 	defer c.Close()
@@ -232,7 +244,7 @@ func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		for {
 			_, message, err := c.ReadMessage()
 			if err != nil {
-				log.Println("read websocket err: ", err)
+				log.Errorf("read websocket err: %v", err)
 				break
 			}
 			flag := message[0]
