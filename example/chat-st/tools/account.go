@@ -52,7 +52,7 @@ func accountRoleList(accountId string) (*pbAccount.AccountRoleListRsp, error) {
 		return nil, err
 	}
 
-	log.Printf("请求account信息成功: account:%v", accountId)
+	//log.Printf("请求account信息成功: account:%v", accountId)
 	return accountRsp, nil
 }
 

@@ -17,7 +17,8 @@ import (
 )
 
 func TestChat() {
-	TestSendMessage()
+	// 异步发送消息
+	go TestSendMessage()
 	// 接收消息
 	TestReceiveMessageBlock()
 }
@@ -86,6 +87,10 @@ func TestReceiveMessageBlock() {
 	}
 }
 
+func bearToken(token string) string {
+	return fmt.Sprintf("Bearer %v", token)
+}
+
 // 设置区服
 func setZoneServer(info *pblogin.LoginRsp) error {
 	reqB, err := json.Marshal(pbchat.SetZoneServerReq{
@@ -102,7 +107,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", info.PlayerToken)
+	req.Header.Set("Authorization", bearToken(info.PlayerToken))
 
 	// 本地test
 	if isLocal {
@@ -114,7 +119,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 		return err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("accountRoleList failed, status code: %v", resp.StatusCode)
+		return fmt.Errorf("setZoneServer failed, status code: %v", resp.StatusCode)
 	}
 
 	bodyByte, err := io.ReadAll(resp.Body)
@@ -153,7 +158,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 		return err
 	}
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", info.PlayerToken)
+	req.Header.Set("Authorization", bearToken(info.PlayerToken))
 
 	// 本地test
 	if isLocal {
@@ -208,7 +213,7 @@ func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 	if isLocal {
 		u.RawQuery = fmt.Sprintf("userid=%v", info.PlayerID)
 	} else {
-		reqHeader.Add("Authorization", info.PlayerToken)
+		reqHeader.Add("Authorization", bearToken(info.PlayerToken))
 	}
 
 	//log.Printf("connect to chat %v", u.String())
