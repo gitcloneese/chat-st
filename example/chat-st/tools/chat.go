@@ -34,7 +34,7 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		count++
 		err := sendMessage(info, count)
 		if err != nil {
-			log.Infof("玩家:%v 发送聊天失败:%v ", info.PlayerID, err)
+			log.Errorf("玩家:%v 发送聊天失败:%v ", info.PlayerID, err)
 		}
 		time.Sleep(time.Millisecond * 10)
 	}

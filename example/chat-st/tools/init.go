@@ -75,8 +75,13 @@ func operationMsg(op pbchat.Operation) proto.Message {
 
 var (
 	HttpClient = http.Client{
-		Timeout:   time.Second * 10,
-		Transport: &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}},
+		Timeout: time.Second * 10,
+		Transport: &http.Transport{
+			TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
+			MaxIdleConnsPerHost: 50000,
+			MaxIdleConns:        50000,
+			IdleConnTimeout:     time.Second * 10,
+		},
 	}
 )
 

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
+	"io"
 	"net/http"
 	"sync/atomic"
 	pbAccount "xy3-proto/account"
@@ -28,7 +29,8 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("login failed, status code: %v", resp.StatusCode)
+		b, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("login failed, status code: %v body:%v", resp.StatusCode, string(b))
 	}
 
 	loginRsp := new(pbLogin.LoginRsp)
