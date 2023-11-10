@@ -3,71 +3,29 @@
   <component name="GoORMHelperCache">
     <option name="scannedPathMapping">
       <map>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
+        <entry key="file://$PROJECT_DIR$/example/redis-st/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699501722505" />
+              <option name="lastModified" value="1699610733203" />
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/account.go">
+        <entry key="file://$PROJECT_DIR$/example/redis-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699502979130" />
+              <option name="lastModified" value="1699613903185" />
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
+        <entry key="file://$PROJECT_DIR$/../xy3-server/example/redis-st/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699510671234" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699511181973" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/login.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699502997051" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/platform.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699503086498" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/example/chat-st/main.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699501733281" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/example/chat-st/tools/chat.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699500886138" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/room.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699495484633" />
+              <option name="lastModified" value="1699609898979" />
             </ScannedPath>
           </value>
         </entry>
       </map>
     </option>
-    <option name="lastTimeChecked" value="1699436880347" />
+    <option name="lastTimeChecked" value="1699608863011" />
   </component>
 </project>
