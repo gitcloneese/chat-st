@@ -53,7 +53,6 @@ const (
 )
 
 func test(wg *sync.WaitGroup, client *v9.Client) {
-	defer wg.Done()
 	key := Key()
 	var err error
 	switch T {
@@ -64,7 +63,13 @@ func test(wg *sync.WaitGroup, client *v9.Client) {
 	case HSet:
 		err = hSet(wg, client, key)
 	case HGet:
-		err = hGet(wg, client)
+		key = "hGet"
+		filed := "1"
+		once := new(sync.Once)
+		once.Do(func() {
+			hSet(nil, client, key, filed)
+		})
+		err = hGet(wg, client, key, filed)
 	}
 	if err != nil {
 		log.Print(err)
@@ -72,14 +77,18 @@ func test(wg *sync.WaitGroup, client *v9.Client) {
 }
 
 func set(wg *sync.WaitGroup, client *v9.Client) error {
-	defer wg.Done()
+	if wg != nil {
+		defer wg.Done()
+	}
 	err := client.Set(context.TODO(), Key(), 1, time.Second*500).Err()
 	atomic.AddInt64(&Qs, 1)
 	return err
 }
 
 func incr(wg *sync.WaitGroup, client *v9.Client) error {
-	defer wg.Done()
+	if wg != nil {
+		defer wg.Done()
+	}
 	key := "incr"
 	n := int64(rand.Int31n(5) + 1)
 	err := client.IncrBy(context.TODO(), key, n).Err()
@@ -88,27 +97,42 @@ func incr(wg *sync.WaitGroup, client *v9.Client) error {
 }
 
 func hSet(wg *sync.WaitGroup, client *v9.Client, keys ...string) error {
-	var key string
-	if len(key) == 0 {
+	if wg != nil {
+		defer wg.Done()
+	}
+	var key, field string
+	if len(keys) > 0 {
 		key = keys[0]
 	} else {
 		key = Key()
 	}
-	defer wg.Done()
-	err := client.HSet(context.TODO(), key, Key(), 1).Err()
+
+	if len(keys) > 1 {
+		field = keys[1]
+	} else {
+		field = Key()
+	}
+	err := client.HSet(context.TODO(), key, field, 1).Err()
 	atomic.AddInt64(&Qs, 1)
 	return err
 }
 
 func hGet(wg *sync.WaitGroup, client *v9.Client, keys ...string) error {
-	var key string
-	if len(key) == 0 {
+	if wg != nil {
+		defer wg.Done()
+	}
+	var key, filed string
+	if len(keys) > 0 {
 		key = keys[0]
 	} else {
 		key = Key()
 	}
-	defer wg.Done()
-	_, err := client.HGet(context.TODO(), key, "incr").Result()
+	if len(keys) > 1 {
+		filed = keys[1]
+	} else {
+		filed = Key()
+	}
+	_, err := client.HGet(context.TODO(), key, filed).Result()
 	atomic.AddInt64(&Qs, 1)
 	return err
 }
