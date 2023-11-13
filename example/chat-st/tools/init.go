@@ -111,6 +111,7 @@ var (
 
 	QAcc               int64 // 用于做qps统计
 	percentChatPlayers float64
+	c                  int // 并发写成数
 )
 
 // 配置日志输出
@@ -166,6 +167,7 @@ func addFlag(fs *flag.FlagSet) {
 	fs.IntVar(&ChatCount, "chatCount", 1000, fmt.Sprintf("玩家发言次数默认:%v", 1000))
 	fs.IntVar(&T, "t", 0, "压测类型 不设置默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4")
 	fs.Float64Var(&percentChatPlayers, "percentChatPlayers", 1, "聊天玩家百分比")
+	fs.IntVar(&c, "c", 1, "并发携程书")
 
 	flag.Parse()
 
@@ -249,6 +251,7 @@ func PrepareChat0() {
 		log.Info(`===============================================================`)
 		TestSendMessage()
 	case 2:
+		time.Sleep(time.Second * 10)
 		log.Info(`=====================开始压测!!!================================`)
 		log.Info(`=========当前压测类型t为2:压测接收消息 阻塞接收 =====================`)
 		log.Info(`===============================================================`)
@@ -258,5 +261,11 @@ func PrepareChat0() {
 		log.Info(`=========当前压测类型t为3:压测接收消息 **** 不 ** 阻塞接收,只为了测连接数上限****`)
 		log.Info(`====================================================================`)
 		TestReceiveMessageUnBlock()
+	case 4:
+		// 一个玩家发送消息 求成功率， 平均耗时
+		log.Info(`=====================开始压测!!!=====================================`)
+		log.Info(`=========当前压测类型t为4:压测一个玩家发送消息  成功率， 耗时`)
+		log.Info(`====================================================================`)
+		TestOneSendMessage()
 	}
 }

@@ -26,8 +26,10 @@ func TestChat() {
 
 // TestPlayerSendMessage
 // 单个玩家发送消息
-func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
-	defer wg.Done()
+func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup, delayMillSecond ...int) {
+	if wg != nil {
+		defer wg.Done()
+	}
 	// 发送消息
 	var count int32
 	for count < int32(ChatCount) {
@@ -36,7 +38,9 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		if err != nil {
 			log.Errorf("玩家:%v 发送聊天失败:%v ", info.PlayerID, err)
 		}
-		time.Sleep(time.Millisecond * 10)
+		if len(delayMillSecond) > 0 {
+			time.Sleep(time.Millisecond * time.Duration(delayMillSecond[0]))
+		}
 	}
 }
 
@@ -67,6 +71,49 @@ func TestSendMessage() {
 
 	latency := time.Since(now).Seconds()
 	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================ ", latency, qs, float64(qs)/latency)
+}
+
+// TestOneSendMessage
+// 一个玩家发送消息
+func TestOneSendMessage() {
+	playerNums := len(PlayerTokens)
+	chatNum := int32(float64(playerNums) * percentChatPlayers)
+	log.Infof("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================ ", chatNum, ChatCount)
+
+	now := time.Now()
+	temp1 := atomic.LoadInt64(&QAcc)
+
+	var one *pblogin.LoginRsp
+	for k := range PlayerTokens {
+		one = PlayerTokens[k]
+		break
+	}
+	count := 0
+	wg := &sync.WaitGroup{}
+	wg.Add(c)
+	perNum := ChatCount / c
+	for count < c {
+		TestGoroutineSendMessage(one, wg, perNum)
+		count++
+	}
+	wg.Wait()
+	temp2 := atomic.LoadInt64(&QAcc)
+	qs := temp2 - temp1
+
+	latency := time.Since(now).Seconds()
+	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================ ", latency, qs, float64(qs)/latency)
+}
+
+// TestGoroutineSendMessage 单个携程发送
+func TestGoroutineSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup, n int) {
+	if wg != nil {
+		defer wg.Done()
+	}
+	var i int
+	for i < n {
+		TestPlayerSendMessage(info, nil, 2)
+		i++
+	}
 }
 
 // TestReceiveMessageUnBlock

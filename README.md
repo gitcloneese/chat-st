@@ -24,7 +24,17 @@
 -loginAddr=http://127.0.0.1:8000    :登录服务器地址
 -accountAddr=http://127.0.0.1:8001  :账号服务器地址
 -percentChatPlayers=0.1             :聊天玩家占所有玩家数量的百分比
+-c  --------------------------------:线程数
 ```
+
+## go-stress-testing压测工具
+
+````
+Go-stress-testing 测试工具   这个牛逼
+https://blog.csdn.net/GoNewWay/article/details/130887182
+./go-stress-testing-win.exe -n 100 -c 10 -H 'content-type:application/json' -H 'Authorization: Bearer eyJ1c2VyaWQiOjEwMjQwNDE1fQ==.e25d5b8e9e84da6029ea550070ee8f28' -u http://8.219.160.79:81/xy3-cross/new-chat/SendMessage -data '{"RoomType":1,"Msg":"我是xxx"}'
+
+````
 
 ````
  1. ws连接数量指标

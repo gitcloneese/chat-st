@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="ChatService">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/chat.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="scannedPathMapping">
       <map>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699848285070" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699847865296" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/example/redis-st/init.go">
           <value>
             <ScannedPath>
@@ -13,7 +38,7 @@
         <entry key="file://$PROJECT_DIR$/example/redis-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699614786153" />
+              <option name="lastModified" value="1699615212475" />
             </ScannedPath>
           </value>
         </entry>
@@ -24,6 +49,24 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699840468220" />
+              <option name="schema">
+                <list>
+                  <option value="ChatService" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="chat_service" value="ChatService" />
+        <entry key="chat_services" value="ChatService" />
       </map>
     </option>
     <option name="lastTimeChecked" value="1699608863011" />
