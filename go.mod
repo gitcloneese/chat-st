@@ -5,7 +5,7 @@ go 1.20
 replace google.golang.org/grpc => google.golang.org/grpc v1.46.2
 
 require (
-	github.com/go-kratos/kratos/v2 v2.6.3
+	github.com/go-kratos/kratos/v2 v2.7.1
 	github.com/gorilla/websocket v1.5.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/redis/go-redis/v9 v9.3.0
@@ -38,7 +38,7 @@ require (
 	github.com/google/pprof v0.0.0-20211214055906-6f57359322fd // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
-	github.com/imdario/mergo v0.3.15 // indirect
+	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/jonboulle/clockwork v0.4.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -62,9 +62,9 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.11.1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20231030173426-d783a09b4405 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20231030173426-d783a09b4405 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20231016165738-49dd2c1f3d0b // indirect
+	google.golang.org/genproto v0.0.0-20231106174013-bbf56f31fb17 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20231030173426-d783a09b4405 // indirect
 	google.golang.org/grpc v1.59.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -80,4 +80,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace xy3-proto => gitlab.com/firerocksg/xy3-proto/xy3-proto v0.0.0-20231101113143-26e2ca3cafc5
+replace xy3-proto => gitlab.com/firerocksg/xy3-proto/xy3-proto v0.0.0-20231114024642-6f4e42f60b5c
