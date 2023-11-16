@@ -96,7 +96,7 @@ var (
 
 	Local            int //本地环境测试
 	isLocal          bool
-	localPlayerIdAcc int64 = 100000000
+	localPlayerIdAcc int64 = 500000000
 
 	PlayerTokens     map[string]*pblogin.LoginRsp
 	PlayerTokensLock = new(sync.RWMutex)
@@ -237,7 +237,7 @@ func PreparePlayers() {
 
 // PrepareChat
 // 开始聊天
-func PrepareChat0() {
+func PrepareChat() {
 	time.Sleep(2 * time.Second)
 	switch T {
 	case 0:

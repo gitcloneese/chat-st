@@ -3,10 +3,94 @@
   <component name="GoORMHelperCache">
     <option name="schemaMapping">
       <map>
-        <entry key="ChatService">
+        <entry key="Broadcast">
           <value>
             <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/chat.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Chat">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChatSettings">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/online.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ChatUsecase">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/chat.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Message">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Mute">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MutePlayer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Notice">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Player">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/online.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RoomDetail">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="chatRepo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/data/chat.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="kafkaReceiver">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="kafkaSender">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
             </set>
           </value>
         </entry>
@@ -17,45 +101,115 @@
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699848285070" />
+              <option name="lastModified" value="1700049261473" />
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1699847865296" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/example/redis-st/init.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699610733203" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/example/redis-st/main.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699615212475" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/example/redis-st/init.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699609898979" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/chat.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1699840468220" />
+              <option name="lastModified" value="1700054387037" />
               <option name="schema">
                 <list>
-                  <option value="ChatService" />
+                  <option value="ChatUsecase" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700053923355" />
+              <option name="schema">
+                <list>
+                  <option value="RoomDetail" />
+                  <option value="Broadcast" />
+                  <option value="Notice" />
+                  <option value="Mute" />
+                  <option value="Chat" />
+                  <option value="MutePlayer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/handler.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700106957621" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700054450465" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/online.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700054504877" />
+              <option name="schema">
+                <list>
+                  <option value="Player" />
+                  <option value="ChatSettings" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/data/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700054176725" />
+              <option name="schema">
+                <list>
+                  <option value="chatRepo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/data/redis.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700107916362" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/chat_history.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700050602943" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/connect.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700054504860" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/send_chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700054386852" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700108024987" />
+              <option name="schema">
+                <list>
+                  <option value="Message" />
+                  <option value="kafkaSender" />
+                  <option value="kafkaReceiver" />
                 </list>
               </option>
             </ScannedPath>
@@ -65,10 +219,34 @@
     </option>
     <option name="tableStructMapping">
       <map>
-        <entry key="chat_service" value="ChatService" />
-        <entry key="chat_services" value="ChatService" />
+        <entry key="broadcast" value="Broadcast" />
+        <entry key="broadcasts" value="Broadcast" />
+        <entry key="chat" value="Chat" />
+        <entry key="chat_repo" value="chatRepo" />
+        <entry key="chat_repoes" value="chatRepo" />
+        <entry key="chat_settings" value="ChatSettings" />
+        <entry key="chat_settingses" value="ChatSettings" />
+        <entry key="chat_usecase" value="ChatUsecase" />
+        <entry key="chat_usecases" value="ChatUsecase" />
+        <entry key="chats" value="Chat" />
+        <entry key="kafka_receiver" value="kafkaReceiver" />
+        <entry key="kafka_receivers" value="kafkaReceiver" />
+        <entry key="kafka_sender" value="kafkaSender" />
+        <entry key="kafka_senders" value="kafkaSender" />
+        <entry key="message" value="Message" />
+        <entry key="messages" value="Message" />
+        <entry key="mute" value="Mute" />
+        <entry key="mute_player" value="MutePlayer" />
+        <entry key="mute_players" value="MutePlayer" />
+        <entry key="mutes" value="Mute" />
+        <entry key="notice" value="Notice" />
+        <entry key="notices" value="Notice" />
+        <entry key="player" value="Player" />
+        <entry key="players" value="Player" />
+        <entry key="room_detail" value="RoomDetail" />
+        <entry key="room_details" value="RoomDetail" />
       </map>
     </option>
-    <option name="lastTimeChecked" value="1699608863011" />
+    <option name="lastTimeChecked" value="1700049235358" />
   </component>
 </project>

@@ -152,8 +152,8 @@ func bearToken(token string) string {
 // 设置区服
 func setZoneServer(info *pblogin.LoginRsp) error {
 	reqB, err := json.Marshal(pbchat.SetZoneServerReq{
-		ZoneId:   "test-st", // 压力测试
-		ServerId: "100",
+		ZoneId:   "1", // 压力测试
+		ServerId: "2",
 		PlayerId: info.PlayerID,
 	})
 	if err != nil {

@@ -30,7 +30,7 @@ func main() {
 	now := time.Now()
 	tools.PreparePlayers()
 	// 开始聊天测试
-	tools.PrepareChat0()
+	tools.PrepareChat()
 	ch := make(chan os.Signal)
 	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
 	<-ch
