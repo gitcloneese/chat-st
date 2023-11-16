@@ -1,0 +1,14 @@
+[mysql]
+	addr = "172.13.6.184:3306"
+	user = "root"
+	password = "123456"
+	dbname = ""
+	maxidle = 1000
+	maxopen = 1000
+[Mssql]
+    addr = "8.219.125.50:39000"
+    user = "gameuser"
+    password = "Royal@uPK2HG"
+    dbname = "XY_Log"
+    maxidle = 1000
+    maxopen = 10000

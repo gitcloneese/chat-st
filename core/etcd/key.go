@@ -1,0 +1,27 @@
+package etcd
+
+const (
+	GoldJadeCfg          = "activity_gold_jade_prob.json"
+	GoldJadeBoxCfg       = "activity_gold_jade_box.json"
+	OpenCfg              = "activity_open.json"
+	DailyGiftCfg         = "activity_daily_gift.json"
+	PeentoPartyCfg       = "activity_peento_party.json"
+	GradeGiftCfg         = "activity_grade_gift.json"
+	KrissSwordStageCfg   = "activity_kriss_sword_stage.json"
+	KrissSwordWelfareCfg = "activity_kriss_sword_wel.json"
+	KrissSwordCfg        = "activity_kriss_sword.json"
+	LoginGiftCfg         = "activity_login_gift.json"
+	MonthCardCfg         = "activity_month_card.json"
+	GoalsCfg             = "activity_goals.json"
+	GoalsGiftCfg         = "activity_goals_gift.json"
+	GoalsOpenCfg         = "activity_goals_open.json"
+	GoalsValCfg          = "activity_goals_val.json"
+	TrialGiftCfg         = "activity_trial_gift.json"
+	TrialGiftOpenCfg     = "activity_trial_gift_open.json"
+	TrialGiftTagCfg      = "activity_trial_gift_tag.json"
+	TrialGiftValCfg      = "activity_trial_gift_val.json"
+	DayOneGiftCfg        = "activity_day_one_gift.json"
+	FirstPayCfg          = "activity_first_pay.json"
+	// GroceryCfg           = "shop_grocery.json"
+	// PackageCfg           = "shop.json"
+)

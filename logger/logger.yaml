@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger
+  namespace: xy3-cross
+spec:
+  selector:
+    matchLabels:
+      app: logger
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+      labels:
+        app: logger
+    spec:
+      containers:
+        - name: logger
+          image: repo.qianz.com/xy3/logger:{IMAGE_VERSION}
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8000
+              name: http
+            - containerPort: 9000
+              name: grpc
+          command:
+            - /bin/sh
+            - -c
+            - |
+              export LOG_DIR=/opt/service/log/$K8S_CROSS_NAMESPACE/$HOSTNAME
+              export ZAP_PATH=/opt/service/log/$K8S_CROSS_NAMESPACE/$HOSTNAME
+              exec ./bin/cmd -conf /opt/service/configs/args,/opt/service/configs/base
+          env:
+            - name: APP_ID
+              value: logger
+            - name: K8S_CROSS_NAMESPACE
+              value: xy3-cross
+          volumeMounts:
+            - mountPath: /opt/service/configs
+              name: xyconfig
+      imagePullSecrets:
+        - name: qianzx
+      volumes:
+        - name: xyconfig
+          persistentVolumeClaim:
+            claimName: xy3-cfg-server-cross
+        - name: log-path
+          persistentVolumeClaim:
+            claimName: xy3-log-all-cross
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logger
+  namespace: xy3-cross
+spec:
+  selector:
+    app: logger
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+    name: http
+  - protocol: TCP
+    port: 9000
+    targetPort: 9000
+    name: grpc

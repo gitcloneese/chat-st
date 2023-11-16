@@ -1,0 +1,18 @@
+.idea
+*.bak
+*.log
+# windows executable
+*.exe
+**.exe
+/cmd/cmd.exe
+
+st.exe
+# linux binary
+/cmd/__debug_bin
+/cmd/log
+
+**.sum
+/test/debug.test
+
+/internal/config/debug.test
+/go.sum

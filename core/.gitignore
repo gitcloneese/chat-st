@@ -1,0 +1,13 @@
+/.git
+/.idea
+*.bak
+
+# windows executable
+/cmd/cmd.exe
+
+# linux binary
+/cmd/cmd
+
+
+go.sum
+/test/*

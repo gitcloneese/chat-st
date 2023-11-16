@@ -1,0 +1,11 @@
+[Client]
+    URI = "mongodb://127.0.0.1:27017/"
+    connectTimeout="5000ms"
+    queryTimeout = "10000ms"
+    execTimeout = "10000ms"
+    [Client.breaker]
+    window = "3s"
+    sleep = "100ms"
+    bucket = 10
+    ratio = 0.5
+    request = 100

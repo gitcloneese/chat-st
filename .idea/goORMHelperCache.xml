@@ -3,6 +3,34 @@
   <component name="GoORMHelperCache">
     <option name="schemaMapping">
       <map>
+        <entry key="AntsLogger">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/antspool/log.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Arena">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/arena/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Article">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/logger/internal/model/model.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="AttributeSet">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/attribute.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="Broadcast">
           <value>
             <set>
@@ -10,9 +38,108 @@
             </set>
           </value>
         </entry>
+        <entry key="CacheAuctionBider">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheAuctionGoods">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheBannerInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheBannerInfoAll">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheConstellation">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheDCAgentInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheExclusiveWeapon">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheLingbao">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CachePenglai">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CachePenglaiHero">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CachePenglaiOne">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheRedPacket">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheRole">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="CacheScenePrime">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="Chat">
           <value>
             <set>
+              <option value="file://$PROJECT_DIR$/core/dao/chat/chat.go" />
               <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
             </set>
           </value>
@@ -31,10 +158,282 @@
             </set>
           </value>
         </entry>
+        <entry key="Client">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/apollo/default.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Config">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/database/mongdb/mongodb.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="DB">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/database/mongdb/nosql.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FreeCache">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redlock/kvcache.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Friend">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/friend/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FriendInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FriendPoint">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="FriendRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GTimer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/gtimer/gtimer.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Guild">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/guild/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GuildInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GuildUser">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/guild.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Hero">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/hero/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="KafkaConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/util/kafka.go" />
+              <option value="file://$PROJECT_DIR$/kafkaSend/util/kafka.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/core/pkg/util/kafka.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="KafkaSender">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/mq/kafka/kafka.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Kratos">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/logger/internal/model/model.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LeaseExclusiveWeaponBarObj">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LeaseExclusiveWeaponObj">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LeaseHero">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LeaseHeroObj">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LeaseRequest">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LeaseTask">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/friend.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LockElem">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redlock/kvcache.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LogEmbed">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logcommon.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="LogItem">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logcommon.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Logic">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/logger/internal/logic/logic.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/logger/internal/logic/logic.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Login">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/login/login.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogBattle">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logBattle.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogBattleInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logBattle.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogBattleParam">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logBattle.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogBattleResult">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logBattle.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogOnlineTime">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logOnlineTime.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogRanking">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logRanking.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogTask">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logtask.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogTransfer">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logresource.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MLogTutorialProgress">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/log_tutorial_progress.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="Message">
           <value>
             <set>
+              <option value="file://$PROJECT_DIR$/core/mq/kafka/kafka.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go" />
               <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MonsterHero">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/monsterskill/model.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MssqlConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/logger/internal/dao/db.go" />
             </set>
           </value>
         </entry>
@@ -52,10 +451,38 @@
             </set>
           </value>
         </entry>
+        <entry key="Mutex">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redsync/mutex.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="MysqlConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/logger/internal/dao/db.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="Notice">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="OutBattleEffect">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/hero/outbattleeffect.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PassiveSkill">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/hero/passiveskillconfig.go" />
             </set>
           </value>
         </entry>
@@ -66,10 +493,228 @@
             </set>
           </value>
         </entry>
+        <entry key="Push">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/push/push.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PvpFightingReport">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="PvpFightingRobot">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RedClient">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redlock/redlock.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="RedLock">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redlock/redlock.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Redsync">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redsync/redsync.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="RoomDetail">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Scene">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/scene/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Script">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redsync/redis.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ServerNumStruct">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/server.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Service">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/logger/internal/service/logger.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/logger/internal/service/logger.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="SimpleCache">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redlock/kvcache.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="State">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/state/state.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TLogFields">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/loglogin.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TLogLogin">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/loglogin.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TLogMail">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logmail.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TLogOnline">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logonlinenum.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TLogRegister">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/loglogin.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TLogResource">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/model/logresource.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TTPvpHistory">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TTPvpHistoryRank">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TTPvpPlayerDailyTaskInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TTPvpPlayerInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TTPvpPlayerLevelTaskInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TTPvpReport">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="TaskPool">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/antspool/ants.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="UserInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/scene.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ZTPvpPlayerDailyTaskInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ZTPvpPlayerInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ZTPvpPlayerLevelTaskInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ZTPvpReport">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/model/arena.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="_Apollo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/apollo/default.go" />
             </set>
           </value>
         </entry>
@@ -80,9 +725,83 @@
             </set>
           </value>
         </entry>
+        <entry key="conn">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redsync/goredis.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="countResp">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redlock/redlock_test.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="dao">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/dao.go" />
+              <option value="file://$PROJECT_DIR$/logger/internal/dao/dao.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/logger/internal/dao/dao.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="dingAt">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/alert/ding.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="dingMsg">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/alert/ding.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="dingText">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/alert/ding.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="distLockOpt">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/util/simpledistlock.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="eventDispatcher">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/event/event.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="heroConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/hero/config.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="ipKey">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/util/context.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="kafkaReceiver">
           <value>
             <set>
+              <option value="file://$PROJECT_DIR$/core/mq/kafka/kafka.go" />
+              <option value="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go" />
               <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
             </set>
           </value>
@@ -94,14 +813,1485 @@
             </set>
           </value>
         </entry>
+        <entry key="outbattleeffectconfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/hero/outbattleeffect.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="passiveSkillConfig">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/config/hero/passiveskillconfig.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="pathKey">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/util/context.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="playerKey">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/util/context.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="pool">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/redsync/goredis.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="redisDistLock">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/util/simpledistlock.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="systemA">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/event/event_test.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="systemB">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/event/event_test.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="tokenUser">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/dao/login/token.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="wrapCfg">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/xcfg/xcfg_windows.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="wrapError">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/core/pkg/xcfg/xcfg_windows.go" />
+            </set>
+          </value>
+        </entry>
       </map>
     </option>
     <option name="scannedPathMapping">
       <map>
+        <entry key="file://$PROJECT_DIR$/core/apollo/default.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670595679" />
+              <option name="schema">
+                <list>
+                  <option value="_Apollo" />
+                  <option value="Client" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/component/mongodb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670595690" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/component/redis.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1690970045140" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/hero/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692865102297" />
+              <option name="schema">
+                <list>
+                  <option value="heroConfig" />
+                  <option value="Hero" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/hero/init.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1690970045248" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/hero/outbattleeffect.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="outbattleeffectconfig" />
+                  <option value="OutBattleEffect" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/hero/passiveskillconfig.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="passiveSkillConfig" />
+                  <option value="PassiveSkill" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/monsterskill/model.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="MonsterHero" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/config/monsterskill/monster_hero_skill.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/arena.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="Arena" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/pvp.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1695096351639" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/pvp_rank.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1698911049683" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/ttpvp.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/ttpvp_rank.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1695289442373" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/ztpvp.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/arena/ztpvp_rank.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1695289442378" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/chat/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="Chat" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/dao.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="dao" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1694401344939" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/friend/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="Friend" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/friend/leasehero.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/guild/guild.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1695346598907" />
+              <option name="schema">
+                <list>
+                  <option value="Guild" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700058143161" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/lineup.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1694073944889" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/login/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/login/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697711089757" />
+              <option name="schema">
+                <list>
+                  <option value="Login" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/login/token.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697196262226" />
+              <option name="schema">
+                <list>
+                  <option value="tokenUser" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/arena.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692865399925" />
+              <option name="schema">
+                <list>
+                  <option value="PvpFightingReport" />
+                  <option value="PvpFightingRobot" />
+                  <option value="TTPvpPlayerInfo" />
+                  <option value="TTPvpPlayerDailyTaskInfo" />
+                  <option value="TTPvpPlayerLevelTaskInfo" />
+                  <option value="TTPvpReport" />
+                  <option value="TTPvpHistoryRank" />
+                  <option value="TTPvpHistory" />
+                  <option value="ZTPvpPlayerInfo" />
+                  <option value="ZTPvpPlayerDailyTaskInfo" />
+                  <option value="ZTPvpPlayerLevelTaskInfo" />
+                  <option value="ZTPvpReport" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692865102298" />
+              <option name="schema">
+                <list>
+                  <option value="FriendInfo" />
+                  <option value="FriendPoint" />
+                  <option value="FriendRequest" />
+                  <option value="LeaseHero" />
+                  <option value="LeaseHeroObj" />
+                  <option value="LeaseExclusiveWeaponObj" />
+                  <option value="LeaseExclusiveWeaponBarObj" />
+                  <option value="LeaseRequest" />
+                  <option value="LeaseTask" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/guild.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1690515276269" />
+              <option name="schema">
+                <list>
+                  <option value="GuildInfo" />
+                  <option value="GuildUser" />
+                  <option value="CacheRedPacket" />
+                  <option value="CacheAuctionGoods" />
+                  <option value="CacheAuctionBider" />
+                  <option value="CacheDCAgentInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/key.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1696642956951" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/scene.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697711089761" />
+              <option name="schema">
+                <list>
+                  <option value="CacheRole" />
+                  <option value="CacheScenePrime" />
+                  <option value="UserInfo" />
+                  <option value="CacheExclusiveWeapon" />
+                  <option value="CacheLingbao" />
+                  <option value="CachePenglaiHero" />
+                  <option value="CachePenglaiOne" />
+                  <option value="CachePenglai" />
+                  <option value="CacheBannerInfoAll" />
+                  <option value="CacheBannerInfo" />
+                  <option value="CacheConstellation" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/model/server.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692960459694" />
+              <option name="schema">
+                <list>
+                  <option value="ServerNumStruct" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/push/push.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1698911049684" />
+              <option name="schema">
+                <list>
+                  <option value="Push" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/role.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700058143170" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/scene/lineup.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/scene/player.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699243786504" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/scene/scene.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="Scene" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/scene/system_lock.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/scene/system_score.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697011216668" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/scene/token.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/state/server_heart_beat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/state/server_state.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1698306187236" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/state/state.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+              <option name="schema">
+                <list>
+                  <option value="State" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/state/user_online_state.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167338" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/dao/state/user_state.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167353" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/etcd/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167353" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/etcd/key.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670595740" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/attribute.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1696642956974" />
+              <option name="schema">
+                <list>
+                  <option value="AttributeSet" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/constants.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/guild.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logBattle.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697196262278" />
+              <option name="schema">
+                <list>
+                  <option value="MLogBattle" />
+                  <option value="MLogBattleParam" />
+                  <option value="MLogBattleResult" />
+                  <option value="MLogBattleInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logOnlineTime.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697538396350" />
+              <option name="schema">
+                <list>
+                  <option value="MLogOnlineTime" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logRanking.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1694509692433" />
+              <option name="schema">
+                <list>
+                  <option value="MLogRanking" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/log_tutorial_progress.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1694141702695" />
+              <option name="schema">
+                <list>
+                  <option value="MLogTutorialProgress" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logcommon.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="LogItem" />
+                  <option value="LogEmbed" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/loglogin.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1690355212155" />
+              <option name="schema">
+                <list>
+                  <option value="TLogFields" />
+                  <option value="TLogLogin" />
+                  <option value="TLogRegister" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logmail.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="TLogMail" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logonlinenum.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="TLogOnline" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logresource.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670595779" />
+              <option name="schema">
+                <list>
+                  <option value="TLogResource" />
+                  <option value="MLogTransfer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/model/logtask.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="MLogTask" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/mq/kafka/event.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700105607825" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/mq/kafka/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700123917214" />
+              <option name="schema">
+                <list>
+                  <option value="Message" />
+                  <option value="KafkaSender" />
+                  <option value="kafkaReceiver" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/mq/kafka/server.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167839" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/alert/ding.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="dingText" />
+                  <option value="dingAt" />
+                  <option value="dingMsg" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/antspool/ants.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1696642956975" />
+              <option name="schema">
+                <list>
+                  <option value="TaskPool" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/antspool/log.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="AntsLogger" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/context/context.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/database/mongdb/metrics.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/database/mongdb/mongo_test.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/database/mongdb/mongodb.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="Config" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/database/mongdb/nosql.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="DB" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/errorEncoder/default.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/event/event.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="eventDispatcher" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/event/event_test.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="systemA" />
+                  <option value="systemB" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/gtimer/gtimer.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="GTimer" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/gtimer/wrapper.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redlock/kvcache.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="LockElem" />
+                  <option value="SimpleCache" />
+                  <option value="FreeCache" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redlock/kvcache_test.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redlock/metrics.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redlock/redlock.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="RedLock" />
+                  <option value="RedClient" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redlock/redlock_test.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="countResp" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redsync/error.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redsync/goredis.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="pool" />
+                  <option value="conn" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redsync/mutex.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="Mutex" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redsync/redis.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="Script" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/redsync/redsync.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="Redsync" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/context.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1694155905728" />
+              <option name="schema">
+                <list>
+                  <option value="playerKey" />
+                  <option value="pathKey" />
+                  <option value="ipKey" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/conv.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1690515276270" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/discovery.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/encode.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/function.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1698911049684" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/function_test.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/iphelper.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700124068115" />
+              <option name="schema">
+                <list>
+                  <option value="KafkaConfig" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/rand.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1698911049685" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/recover.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1699954170707" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/simpledistlock.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1698911049686" />
+              <option name="schema">
+                <list>
+                  <option value="distLockOpt" />
+                  <option value="redisDistLock" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/time.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1695205350141" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/util/time_test.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/xcfg/xcfg.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/core/pkg/xcfg/xcfg_windows.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167354" />
+              <option name="schema">
+                <list>
+                  <option value="wrapError" />
+                  <option value="wrapCfg" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
           <value>
             <ScannedPath>
               <option name="lastModified" value="1700049261473" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kafkaSend/config/apolloConfig/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670595995" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kafkaSend/config/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700122608142" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kafkaSend/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700122585290" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/kafkaSend/util/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700118109480" />
+              <option name="schema">
+                <list>
+                  <option value="KafkaConfig" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/cmd/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1691639720373" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/cmd/wire.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167792" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/cmd/wire_gen.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121524606" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/generate.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167792" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/config/apolloConfig/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670595995" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/config/config.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670596002" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/dao/consumer.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700120670409" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/dao/dao.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121439739" />
+              <option name="schema">
+                <list>
+                  <option value="dao" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/dao/db.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700124664948" />
+              <option name="schema">
+                <list>
+                  <option value="MysqlConfig" />
+                  <option value="MssqlConfig" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/battle.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697771047078" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/createtable.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1696642957121" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/goods.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670596039" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167808" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/logic.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121348884" />
+              <option name="schema">
+                <list>
+                  <option value="Logic" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697711089778" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/mail.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167808" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/online.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700125420317" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/onlineTime.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697533736479" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/pvpRanking.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1693195188755" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/route.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1697534198008" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/task.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1691042786261" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/logic/tutorial_progress.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1694141702733" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/model/model.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167808" />
+              <option name="schema">
+                <list>
+                  <option value="Kratos" />
+                  <option value="Article" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/server/grpc.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670596046" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/server/http.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1692670596051" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/server/server.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167808" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/service/logger.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121348856" />
+              <option name="schema">
+                <list>
+                  <option value="Service" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/logger/internal/service/service.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1689564167808" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/core/kafka/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700115992527" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700118133693" />
+              <option name="schema">
+                <list>
+                  <option value="Message" />
+                  <option value="KafkaSender" />
+                  <option value="kafkaReceiver" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/core/pkg/util/kafka.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700123200996" />
+              <option name="schema">
+                <list>
+                  <option value="KafkaConfig" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/cmd/wire_gen.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121348957" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/dao/consumer.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700120670409" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/dao/dao.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121439739" />
+              <option name="schema">
+                <list>
+                  <option value="dao" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/logic/logic.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121348884" />
+              <option name="schema">
+                <list>
+                  <option value="Logic" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/service/logger.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1700121348856" />
+              <option name="schema">
+                <list>
+                  <option value="Service" />
+                </list>
+              </option>
             </ScannedPath>
           </value>
         </entry>
@@ -219,8 +2409,57 @@
     </option>
     <option name="tableStructMapping">
       <map>
+        <entry key="MLogBattle" value="MLogBattle" />
+        <entry key="MLogBattleParam" value="MLogBattleParam" />
+        <entry key="MLogBattleResult" value="MLogBattleResult" />
+        <entry key="MLogLogin" value="TLogLogin" />
+        <entry key="MLogOnline" value="TLogOnline" />
+        <entry key="MLogOnlineTime" value="MLogOnlineTime" />
+        <entry key="MLogRanking" value="MLogRanking" />
+        <entry key="MLogRegister" value="TLogRegister" />
+        <entry key="MLogTask" value="MLogTask" />
+        <entry key="MLogTransfer" value="MLogTransfer" />
+        <entry key="MLogTutorialProgress" value="MLogTutorialProgress" />
+        <entry key="__apollo" value="_Apollo" />
+        <entry key="__apolloes" value="_Apollo" />
+        <entry key="ants_logger" value="AntsLogger" />
+        <entry key="ants_loggers" value="AntsLogger" />
+        <entry key="arena" value="Arena" />
+        <entry key="arenas" value="Arena" />
+        <entry key="article" value="Article" />
+        <entry key="articles" value="Article" />
+        <entry key="attribute_set" value="AttributeSet" />
+        <entry key="attribute_sets" value="AttributeSet" />
         <entry key="broadcast" value="Broadcast" />
         <entry key="broadcasts" value="Broadcast" />
+        <entry key="cache_auction_bider" value="CacheAuctionBider" />
+        <entry key="cache_auction_biders" value="CacheAuctionBider" />
+        <entry key="cache_auction_goods" value="CacheAuctionGoods" />
+        <entry key="cache_auction_goodses" value="CacheAuctionGoods" />
+        <entry key="cache_banner_info" value="CacheBannerInfo" />
+        <entry key="cache_banner_info_all" value="CacheBannerInfoAll" />
+        <entry key="cache_banner_info_alls" value="CacheBannerInfoAll" />
+        <entry key="cache_banner_infoes" value="CacheBannerInfo" />
+        <entry key="cache_constellation" value="CacheConstellation" />
+        <entry key="cache_constellations" value="CacheConstellation" />
+        <entry key="cache_d_c_agent_info" value="CacheDCAgentInfo" />
+        <entry key="cache_d_c_agent_infoes" value="CacheDCAgentInfo" />
+        <entry key="cache_exclusive_weapon" value="CacheExclusiveWeapon" />
+        <entry key="cache_exclusive_weapons" value="CacheExclusiveWeapon" />
+        <entry key="cache_lingbao" value="CacheLingbao" />
+        <entry key="cache_lingbaos" value="CacheLingbao" />
+        <entry key="cache_penglai" value="CachePenglai" />
+        <entry key="cache_penglai_hero" value="CachePenglaiHero" />
+        <entry key="cache_penglai_heroes" value="CachePenglaiHero" />
+        <entry key="cache_penglai_one" value="CachePenglaiOne" />
+        <entry key="cache_penglai_ones" value="CachePenglaiOne" />
+        <entry key="cache_penglais" value="CachePenglai" />
+        <entry key="cache_red_packet" value="CacheRedPacket" />
+        <entry key="cache_red_packets" value="CacheRedPacket" />
+        <entry key="cache_role" value="CacheRole" />
+        <entry key="cache_roles" value="CacheRole" />
+        <entry key="cache_scene_prime" value="CacheScenePrime" />
+        <entry key="cache_scene_primes" value="CacheScenePrime" />
         <entry key="chat" value="Chat" />
         <entry key="chat_repo" value="chatRepo" />
         <entry key="chat_repoes" value="chatRepo" />
@@ -229,22 +2468,182 @@
         <entry key="chat_usecase" value="ChatUsecase" />
         <entry key="chat_usecases" value="ChatUsecase" />
         <entry key="chats" value="Chat" />
+        <entry key="client" value="Client" />
+        <entry key="clients" value="Client" />
+        <entry key="config" value="Config" />
+        <entry key="configs" value="Config" />
+        <entry key="conn" value="conn" />
+        <entry key="conns" value="conn" />
+        <entry key="count_resp" value="countResp" />
+        <entry key="count_resps" value="countResp" />
+        <entry key="d_b" value="DB" />
+        <entry key="d_bs" value="DB" />
+        <entry key="dao" value="dao" />
+        <entry key="daos" value="dao" />
+        <entry key="ding_at" value="dingAt" />
+        <entry key="ding_ats" value="dingAt" />
+        <entry key="ding_msg" value="dingMsg" />
+        <entry key="ding_msgs" value="dingMsg" />
+        <entry key="ding_text" value="dingText" />
+        <entry key="ding_texts" value="dingText" />
+        <entry key="dist_lock_opt" value="distLockOpt" />
+        <entry key="dist_lock_opts" value="distLockOpt" />
+        <entry key="event_dispatcher" value="eventDispatcher" />
+        <entry key="event_dispatchers" value="eventDispatcher" />
+        <entry key="free_cache" value="FreeCache" />
+        <entry key="free_caches" value="FreeCache" />
+        <entry key="friend" value="Friend" />
+        <entry key="friend_info" value="FriendInfo" />
+        <entry key="friend_infoes" value="FriendInfo" />
+        <entry key="friend_point" value="FriendPoint" />
+        <entry key="friend_points" value="FriendPoint" />
+        <entry key="friend_request" value="FriendRequest" />
+        <entry key="friend_requests" value="FriendRequest" />
+        <entry key="friends" value="Friend" />
+        <entry key="g_timer" value="GTimer" />
+        <entry key="g_timers" value="GTimer" />
+        <entry key="guild" value="Guild" />
+        <entry key="guild_info" value="GuildInfo" />
+        <entry key="guild_infoes" value="GuildInfo" />
+        <entry key="guild_user" value="GuildUser" />
+        <entry key="guild_users" value="GuildUser" />
+        <entry key="guilds" value="Guild" />
+        <entry key="hero" value="Hero" />
+        <entry key="hero_config" value="heroConfig" />
+        <entry key="hero_configs" value="heroConfig" />
+        <entry key="heroes" value="Hero" />
+        <entry key="ip_key" value="ipKey" />
+        <entry key="ip_keys" value="ipKey" />
+        <entry key="kafka_config" value="KafkaConfig" />
+        <entry key="kafka_configs" value="KafkaConfig" />
         <entry key="kafka_receiver" value="kafkaReceiver" />
         <entry key="kafka_receivers" value="kafkaReceiver" />
-        <entry key="kafka_sender" value="kafkaSender" />
-        <entry key="kafka_senders" value="kafkaSender" />
+        <entry key="kafka_sender" value="KafkaSender" />
+        <entry key="kafka_senders" value="KafkaSender" />
+        <entry key="kratos" value="Kratos" />
+        <entry key="kratoses" value="Kratos" />
+        <entry key="lease_exclusive_weapon_bar_obj" value="LeaseExclusiveWeaponBarObj" />
+        <entry key="lease_exclusive_weapon_bar_objs" value="LeaseExclusiveWeaponBarObj" />
+        <entry key="lease_exclusive_weapon_obj" value="LeaseExclusiveWeaponObj" />
+        <entry key="lease_exclusive_weapon_objs" value="LeaseExclusiveWeaponObj" />
+        <entry key="lease_hero" value="LeaseHero" />
+        <entry key="lease_hero_obj" value="LeaseHeroObj" />
+        <entry key="lease_hero_objs" value="LeaseHeroObj" />
+        <entry key="lease_heroes" value="LeaseHero" />
+        <entry key="lease_request" value="LeaseRequest" />
+        <entry key="lease_requests" value="LeaseRequest" />
+        <entry key="lease_task" value="LeaseTask" />
+        <entry key="lease_tasks" value="LeaseTask" />
+        <entry key="lock_elem" value="LockElem" />
+        <entry key="lock_elems" value="LockElem" />
+        <entry key="log_embed" value="LogEmbed" />
+        <entry key="log_embeds" value="LogEmbed" />
+        <entry key="log_item" value="LogItem" />
+        <entry key="log_items" value="LogItem" />
+        <entry key="logic" value="Logic" />
+        <entry key="logics" value="Logic" />
+        <entry key="login" value="Login" />
+        <entry key="logins" value="Login" />
+        <entry key="m_log_battle_info" value="MLogBattleInfo" />
+        <entry key="m_log_battle_infoes" value="MLogBattleInfo" />
         <entry key="message" value="Message" />
         <entry key="messages" value="Message" />
+        <entry key="monster_hero" value="MonsterHero" />
+        <entry key="monster_heroes" value="MonsterHero" />
+        <entry key="mssql_config" value="MssqlConfig" />
+        <entry key="mssql_configs" value="MssqlConfig" />
         <entry key="mute" value="Mute" />
         <entry key="mute_player" value="MutePlayer" />
         <entry key="mute_players" value="MutePlayer" />
         <entry key="mutes" value="Mute" />
+        <entry key="mutex" value="Mutex" />
+        <entry key="mutexes" value="Mutex" />
+        <entry key="mysql_config" value="MysqlConfig" />
+        <entry key="mysql_configs" value="MysqlConfig" />
         <entry key="notice" value="Notice" />
         <entry key="notices" value="Notice" />
+        <entry key="out_battle_effect" value="OutBattleEffect" />
+        <entry key="out_battle_effects" value="OutBattleEffect" />
+        <entry key="outbattleeffectconfig" value="outbattleeffectconfig" />
+        <entry key="outbattleeffectconfigs" value="outbattleeffectconfig" />
+        <entry key="passive_skill" value="PassiveSkill" />
+        <entry key="passive_skill_config" value="passiveSkillConfig" />
+        <entry key="passive_skill_configs" value="passiveSkillConfig" />
+        <entry key="passive_skills" value="PassiveSkill" />
+        <entry key="path_key" value="pathKey" />
+        <entry key="path_keys" value="pathKey" />
         <entry key="player" value="Player" />
+        <entry key="player_key" value="playerKey" />
+        <entry key="player_keys" value="playerKey" />
         <entry key="players" value="Player" />
+        <entry key="pool" value="pool" />
+        <entry key="pools" value="pool" />
+        <entry key="push" value="Push" />
+        <entry key="pushes" value="Push" />
+        <entry key="pvp_fighting_report" value="PvpFightingReport" />
+        <entry key="pvp_fighting_reports" value="PvpFightingReport" />
+        <entry key="pvp_fighting_robot" value="PvpFightingRobot" />
+        <entry key="pvp_fighting_robots" value="PvpFightingRobot" />
+        <entry key="red_client" value="RedClient" />
+        <entry key="red_clients" value="RedClient" />
+        <entry key="red_lock" value="RedLock" />
+        <entry key="red_locks" value="RedLock" />
+        <entry key="redis_dist_lock" value="redisDistLock" />
+        <entry key="redis_dist_locks" value="redisDistLock" />
+        <entry key="redsync" value="Redsync" />
+        <entry key="redsyncs" value="Redsync" />
         <entry key="room_detail" value="RoomDetail" />
         <entry key="room_details" value="RoomDetail" />
+        <entry key="scene" value="Scene" />
+        <entry key="scenes" value="Scene" />
+        <entry key="script" value="Script" />
+        <entry key="scripts" value="Script" />
+        <entry key="server_num_struct" value="ServerNumStruct" />
+        <entry key="server_num_structs" value="ServerNumStruct" />
+        <entry key="service" value="Service" />
+        <entry key="services" value="Service" />
+        <entry key="simple_cache" value="SimpleCache" />
+        <entry key="simple_caches" value="SimpleCache" />
+        <entry key="state" value="State" />
+        <entry key="states" value="State" />
+        <entry key="system_a" value="systemA" />
+        <entry key="system_as" value="systemA" />
+        <entry key="system_b" value="systemB" />
+        <entry key="system_bs" value="systemB" />
+        <entry key="t_log_fields" value="TLogFields" />
+        <entry key="t_log_fieldses" value="TLogFields" />
+        <entry key="t_log_resource" value="TLogResource" />
+        <entry key="t_log_resources" value="TLogResource" />
+        <entry key="t_t_pvp_histories" value="TTPvpHistory" />
+        <entry key="t_t_pvp_history" value="TTPvpHistory" />
+        <entry key="t_t_pvp_history_rank" value="TTPvpHistoryRank" />
+        <entry key="t_t_pvp_history_ranks" value="TTPvpHistoryRank" />
+        <entry key="t_t_pvp_player_daily_task_info" value="TTPvpPlayerDailyTaskInfo" />
+        <entry key="t_t_pvp_player_daily_task_infoes" value="TTPvpPlayerDailyTaskInfo" />
+        <entry key="t_t_pvp_player_info" value="TTPvpPlayerInfo" />
+        <entry key="t_t_pvp_player_infoes" value="TTPvpPlayerInfo" />
+        <entry key="t_t_pvp_player_level_task_info" value="TTPvpPlayerLevelTaskInfo" />
+        <entry key="t_t_pvp_player_level_task_infoes" value="TTPvpPlayerLevelTaskInfo" />
+        <entry key="t_t_pvp_report" value="TTPvpReport" />
+        <entry key="t_t_pvp_reports" value="TTPvpReport" />
+        <entry key="task_pool" value="TaskPool" />
+        <entry key="task_pools" value="TaskPool" />
+        <entry key="token_user" value="tokenUser" />
+        <entry key="token_users" value="tokenUser" />
+        <entry key="user_info" value="UserInfo" />
+        <entry key="user_infoes" value="UserInfo" />
+        <entry key="wrap_cfg" value="wrapCfg" />
+        <entry key="wrap_cfgs" value="wrapCfg" />
+        <entry key="wrap_error" value="wrapError" />
+        <entry key="wrap_errors" value="wrapError" />
+        <entry key="z_t_pvp_player_daily_task_info" value="ZTPvpPlayerDailyTaskInfo" />
+        <entry key="z_t_pvp_player_daily_task_infoes" value="ZTPvpPlayerDailyTaskInfo" />
+        <entry key="z_t_pvp_player_info" value="ZTPvpPlayerInfo" />
+        <entry key="z_t_pvp_player_infoes" value="ZTPvpPlayerInfo" />
+        <entry key="z_t_pvp_player_level_task_info" value="ZTPvpPlayerLevelTaskInfo" />
+        <entry key="z_t_pvp_player_level_task_infoes" value="ZTPvpPlayerLevelTaskInfo" />
+        <entry key="z_t_pvp_report" value="ZTPvpReport" />
+        <entry key="z_t_pvp_reports" value="ZTPvpReport" />
       </map>
     </option>
     <option name="lastTimeChecked" value="1700049235358" />
