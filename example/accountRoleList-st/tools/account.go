@@ -39,7 +39,7 @@ func accountRoleList(platformAccount string, account *pbPlatform.LoginResp, wg *
 		return nil, err
 	}
 
-	defer atomic.AddInt64(&QAcc, 1)
+	defer atomic.AddInt64(&RequestCount, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
 		return nil, err
@@ -73,10 +73,10 @@ func AccountRoleList() {
 	log.Info("===============开始访问accountRoleList信息!!!====================")
 	now := time.Now()
 	wg := &sync.WaitGroup{}
-	num := len(AccountLoginResp)
+	num := len(PlatformGuestLogin)
 	wg.Add(num)
 	var errNum int32
-	for k, v := range AccountLoginResp {
+	for k, v := range PlatformGuestLogin {
 		go func(accountId string, accountPlatformLoginResp *pbPlatform.LoginResp, wg *sync.WaitGroup) {
 			_, err := accountRoleList(accountId, accountPlatformLoginResp, wg)
 			if err != nil {

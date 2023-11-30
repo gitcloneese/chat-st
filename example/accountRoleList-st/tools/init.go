@@ -7,14 +7,12 @@ import (
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	log "github.com/sirupsen/logrus"
-	"google.golang.org/protobuf/proto"
 	"net/http"
 	"os"
 	"sync"
-	"sync/atomic"
 	"time"
 	pbAccount "xy3-proto/account"
-	pbchat "xy3-proto/new-chat"
+	pbLogin "xy3-proto/login"
 	pbPlatform "xy3-proto/platform"
 )
 
@@ -46,35 +44,6 @@ const (
 )
 
 var (
-	CmdM = map[pbchat.Operation]proto.Message{
-		pbchat.Operation_OP_SendChatReply:    new(pbchat.SendChatReply),
-		pbchat.Operation_OP_RecvChat:         new(pbchat.ChatMessage),
-		pbchat.Operation_OP_UpdateRoomList:   new(pbchat.UpdateRoomList),
-		pbchat.Operation_OP_RoomList:         new(pbchat.RoomListReq),
-		pbchat.Operation_OP_RoomListReply:    new(pbchat.RoomListResp),
-		pbchat.Operation_OP_RoomHistoryReply: new(pbchat.ChatHistory),
-	}
-)
-
-func operationMsg(op pbchat.Operation) proto.Message {
-	switch op {
-	case pbchat.Operation_OP_SendChatReply:
-		return new(pbchat.SendChatReply)
-	case pbchat.Operation_OP_RecvChat:
-		return new(pbchat.ChatMessage)
-	case pbchat.Operation_OP_UpdateRoomList:
-		return new(pbchat.UpdateRoomList)
-	case pbchat.Operation_OP_RoomList:
-		return new(pbchat.RoomListReq)
-	case pbchat.Operation_OP_RoomListReply:
-		return new(pbchat.RoomListResp)
-	case pbchat.Operation_OP_RoomHistoryReply:
-		return new(pbchat.ChatHistory)
-	}
-	return nil
-}
-
-var (
 	HttpClient = http.Client{
 		Timeout: time.Second * 10,
 		Transport: &http.Transport{
@@ -92,22 +61,21 @@ var (
 	PlatformAddr string
 	AccountNum   int
 
-	Local            int //本地环境测试
-	isLocal          bool
-	localPlayerIdAcc int64 = 500000000
+	isLocal bool
 
-	AccountLoginResp = make(map[string]*pbPlatform.LoginResp)
-	AccountLoginLock = new(sync.RWMutex)
+	PlatformGuestLogin = make(map[string]*pbPlatform.LoginResp)
+	PlatformLoginLock  = new(sync.RWMutex)
 
 	AccountRoleListResp = make(map[string]*pbAccount.AccountRoleListRsp)
 	AccountRoleListLock = new(sync.RWMutex)
 
+	GameLoginResp = make(map[string]*pbLogin.LoginRsp)
+	GameLoginLock = new(sync.RWMutex)
+
 	apiAccountRoleListPath = accountRoleListPath
+	apiLoginPath           = loginPath
 
-	T int // 压测类型 默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4
-
-	QAcc int64 // 用于做qps统计
-	c    int   // 并发携程数
+	RequestCount int64
 )
 
 // 配置日志输出
@@ -156,8 +124,8 @@ func addFlag(fs *flag.FlagSet) {
 	fs.StringVar(&Addr, "addr", addr, fmt.Sprintf("服务器地址默认:%s", addr))
 	fs.StringVar(&AccountAddr, "accountAddr", "", "账户服务地址")
 	fs.StringVar(&PlatformAddr, "platformAddr", "", "platform账户服务地址")
-	fs.IntVar(&Local, "local", 0, "是否是本地测试 本地测试 path地址不加 xy3-xxx前缀(不访问nginx)")
 	fs.IntVar(&AccountNum, "accountNum", 1000, fmt.Sprintf("账户数量默认:%v", 1000))
+	fs.BoolVar(&isLocal, "isLocal", false, "默认false 不是本地测试 false:不是本地测试 true:本地测试")
 
 	flag.Parse()
 
@@ -168,51 +136,10 @@ func addFlag(fs *flag.FlagSet) {
 		AccountAddr = Addr
 	}
 
-	if Local != 0 {
+	if isLocal {
 		apiAccountRoleListPath = accountRoleListPathLocal
-		isLocal = true
+		apiLoginPath = loginPathLocal
 	}
 
 	log.Infof("platformAddr:%v accountRoleListAddr:%v accountNum:%v", PlatformAddr, AccountAddr, AccountNum)
-}
-
-func generatePlayerToken(ws *sync.WaitGroup, errNum int32) {
-	defer ws.Done()
-	account := generateAccount()
-	tokenInfo, err := platformGuestLogin(account)
-	if err != nil {
-		atomic.AddInt32(&errNum, 1)
-		return
-	}
-	AccountLoginLock.Lock()
-	defer AccountLoginLock.Unlock()
-	AccountLoginResp[account] = tokenInfo
-}
-
-// PreparePlatformAccount
-// 准备所有账户
-func PreparePlatformAccount() {
-	now := time.Now()
-	log.Info("===============开始准备账户信息!!!====================")
-	temp1 := atomic.LoadInt64(&QAcc)
-	nums := AccountNum
-	wg := new(sync.WaitGroup)
-	wg.Add(int(nums))
-	var errNum int32
-	for nums > 0 {
-		nums--
-		go generatePlayerToken(wg, errNum)
-	}
-	wg.Wait()
-	latency := time.Since(now).Seconds()
-	n := len(AccountLoginResp)
-	if n > 0 {
-		//总共发出的请求数
-		temp2 := atomic.LoadInt64(&QAcc)
-		qs := temp2 - temp1
-		log.Infof("==============%v个账户信息准备完成!!! 成功：%v 失败:%v 用时:%vs 请求总数:%v QPS:%v ============== ", n, int32(AccountNum)-errNum, errNum, latency, qs, float64(qs)/latency)
-	} else {
-		log.Infof("账户信息准备失败!!! 用时:%v s ", latency)
-		panic("账户信息准备失败!!!")
-	}
 }

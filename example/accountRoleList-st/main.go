@@ -8,4 +8,5 @@ import (
 func main() {
 	tools.PreparePlatformAccount()
 	tools.AccountRoleList()
+	tools.GetLoginToken()
 }
