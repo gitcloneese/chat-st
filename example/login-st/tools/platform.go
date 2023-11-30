@@ -9,7 +9,6 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-	"xy3-proto/pkg/log"
 	pbPlatform "xy3-proto/platform"
 )
 
@@ -78,7 +77,7 @@ func preparePlatformAccount() {
 			account := generateAccount()
 			_, err := platformGuestLogin(account)
 			if err != nil {
-				log.Error("PlatformGuestLogin account:%v err:%v", account, err)
+				Error("PlatformGuestLogin account:%v err:%v", account, err)
 			}
 		}()
 		nums--
@@ -86,7 +85,7 @@ func preparePlatformAccount() {
 	wg.Wait()
 	n := len(PlatformGuestLogin)
 	if n <= 0 {
-		log.Info("账户信息准备失败!!!")
+		Error("账户信息准备失败!!!")
 		panic("账户信息准备失败!!!")
 	}
 }

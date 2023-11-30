@@ -11,7 +11,6 @@ import (
 	"sync/atomic"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
-	"xy3-proto/pkg/log"
 )
 
 // login
@@ -66,7 +65,7 @@ func getLoginToken() {
 			defer wg.Done()
 			_, err := login(PlatformGuestLogin[accountId].Unionid, accountResp)
 			if err != nil {
-				log.Error("GetLoginToken failed, accountId: %v, accountResp:%+v err:%v", accountId, accountResp, err)
+				Error("GetLoginToken failed, accountId: %v, accountResp:%+v err:%v", accountId, accountResp, err)
 			}
 		}(k, v, wg)
 	}

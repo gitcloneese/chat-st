@@ -11,7 +11,6 @@ import (
 	"sync/atomic"
 	"time"
 	pbAccount "xy3-proto/account"
-	"xy3-proto/pkg/log"
 	pbPlatform "xy3-proto/platform"
 )
 
@@ -78,7 +77,7 @@ func accountRoleList() {
 		go func(accountId string, accountPlatformLoginResp *pbPlatform.LoginResp, wg *sync.WaitGroup) {
 			_, err := accountRequest(accountId, accountPlatformLoginResp, wg)
 			if err != nil {
-				log.Error("accountRoleListReq account:%v, roleListResp:%v err:%v", accountId, accountPlatformLoginResp, err)
+				Error("accountRoleListReq account:%v, roleListResp:%v err:%v", accountId, accountPlatformLoginResp, err)
 			}
 		}(k, v, wg)
 	}

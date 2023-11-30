@@ -14,6 +14,12 @@ func ErrNum() int64 {
 	return atomic.LoadInt64(&ErrCount)
 }
 
+func Error(format string, args ...interface{}) {
+	if Debug {
+		log.Error(format, args...)
+	}
+}
+
 func RunWithLog(name string, f func()) {
 	log.Info("开始执行:%v !!!", name)
 	now := time.Now()
