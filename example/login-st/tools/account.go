@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
-	log "github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 	"sync"
 	"sync/atomic"
 	"time"
 	pbAccount "xy3-proto/account"
+	"xy3-proto/pkg/log"
 	pbPlatform "xy3-proto/platform"
 )
 
@@ -81,11 +81,11 @@ func AccountRoleList() {
 			_, err := accountRoleList(accountId, accountPlatformLoginResp, wg)
 			if err != nil {
 				atomic.AddInt32(&errNum, 1)
-				log.Errorf("accountRoleListReq account:%v, roleListResp:%v err:%v", accountId, accountPlatformLoginResp, err)
+				log.Error("accountRoleListReq account:%v, roleListResp:%v err:%v", accountId, accountPlatformLoginResp, err)
 			}
 		}(k, v, wg)
 	}
 	wg.Wait()
 	latency := time.Since(now).Seconds()
-	log.Infof("============== 成功:%v 失败:%v 用时:%v 请求总数:%v QPS:%v ============== ", int32(num)-errNum, errNum, latency, num, float64(num)/latency)
+	log.Info("============== 成功:%v 失败:%v 用时:%v 请求总数:%v QPS:%v ============== ", int32(num)-errNum, errNum, latency, num, float64(num)/latency)
 }

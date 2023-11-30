@@ -4,15 +4,12 @@ import (
 	"crypto/tls"
 	"flag"
 	"fmt"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
-	"github.com/rifflock/lfshook"
-	log "github.com/sirupsen/logrus"
 	"net/http"
-	"os"
 	"sync"
 	"time"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
+	"xy3-proto/pkg/log"
 	pbPlatform "xy3-proto/platform"
 )
 
@@ -78,45 +75,8 @@ var (
 	RequestCount int64
 )
 
-// 配置日志输出
-func logInit() {
-	// 设置日志切割 rotatelogs
-	filePath := "logs/"
-	fileName := ""
-	file := filePath + fileName
-	log.SetOutput(os.Stdout)
-
-	// 设置日志级别。低于 Debug 级别的 Trace 将不会被打印
-	log.SetLevel(log.DebugLevel)
-
-	writer, _ := rotatelogs.New(
-		file+"%Y%m%d.log",
-		//日志最大保存时间
-		rotatelogs.WithMaxAge(7*24*time.Hour),
-		rotatelogs.WithRotationTime(24*time.Hour),
-		rotatelogs.WithRotationSize(3*1024*1024),
-		rotatelogs.WithLinkName("log.txt"),
-	)
-	writeMap := lfshook.WriterMap{
-		log.PanicLevel: writer,
-		log.FatalLevel: writer,
-		log.ErrorLevel: writer,
-		log.WarnLevel:  writer,
-		log.InfoLevel:  writer,
-		log.DebugLevel: writer,
-	}
-	// 配置 lfshook
-	hook := lfshook.NewHook(writeMap, &log.TextFormatter{
-		// 设置日期格式
-		TimestampFormat: "2006-01-02 15:04:05",
-	})
-	log.AddHook(hook)
-
-}
-
 // 每个玩家默认1s发送一个聊天
 func init() {
-	logInit()
 	addFlag(flag.CommandLine)
 
 }
@@ -141,5 +101,5 @@ func addFlag(fs *flag.FlagSet) {
 		apiLoginPath = loginPathLocal
 	}
 
-	log.Infof("platformAddr:%v accountRoleListAddr:%v accountNum:%v", PlatformAddr, AccountAddr, AccountNum)
+	log.Info("platformAddr:%v accountRoleListAddr:%v accountNum:%v", PlatformAddr, AccountAddr, AccountNum)
 }
