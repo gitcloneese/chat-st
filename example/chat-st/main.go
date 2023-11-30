@@ -25,6 +25,8 @@ func ping(c *websocket.Conn) {
 // -t=0 -addr=http://8.219.160.79:81 -playerNum=30 -chatCount=50 -local=0
 // 正式环境
 // -t=0 -addr=http://xy3api.firerock.sg -playerNum=30 -chatCount=50 -local=0
+// uat环境
+// -t=0 -addr=http://8.219.59.226:81 -playerNum=30 -chatCount=50 -local=0
 
 func main() {
 	now := time.Now()

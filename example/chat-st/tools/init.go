@@ -111,7 +111,7 @@ var (
 
 	QAcc               int64 // 用于做qps统计
 	percentChatPlayers float64
-	c                  int // 并发写成数
+	c                  int // 并发携程数
 )
 
 // 配置日志输出

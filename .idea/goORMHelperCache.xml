@@ -3,6 +3,13 @@
   <component name="GoORMHelperCache">
     <option name="schemaMapping">
       <map>
+        <entry key="AchievementSys">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/scene/internal/logic/system/achievement/achievement.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="AntsLogger">
           <value>
             <set>
@@ -28,13 +35,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/model/attribute.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="Broadcast">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
             </set>
           </value>
         </entry>
@@ -140,21 +140,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/dao/chat/chat.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="ChatSettings">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/online.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="ChatUsecase">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/chat.go" />
             </set>
           </value>
         </entry>
@@ -254,7 +239,6 @@
             <set>
               <option value="file://$PROJECT_DIR$/core/pkg/util/kafka.go" />
               <option value="file://$PROJECT_DIR$/kafkaSend/util/kafka.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/core/pkg/util/kafka.go" />
             </set>
           </value>
         </entry>
@@ -262,7 +246,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/mq/kafka/kafka.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go" />
             </set>
           </value>
         </entry>
@@ -340,7 +323,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/logger/internal/logic/logic.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/logger/internal/logic/logic.go" />
             </set>
           </value>
         </entry>
@@ -418,8 +400,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/mq/kafka/kafka.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
             </set>
           </value>
         </entry>
@@ -437,20 +417,6 @@
             </set>
           </value>
         </entry>
-        <entry key="Mute">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="MutePlayer">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="Mutex">
           <value>
             <set>
@@ -465,13 +431,6 @@
             </set>
           </value>
         </entry>
-        <entry key="Notice">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="OutBattleEffect">
           <value>
             <set>
@@ -483,13 +442,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/config/hero/passiveskillconfig.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="Player">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/online.go" />
             </set>
           </value>
         </entry>
@@ -535,13 +487,6 @@
             </set>
           </value>
         </entry>
-        <entry key="RoomDetail">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="Scene">
           <value>
             <set>
@@ -567,7 +512,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/logger/internal/service/logger.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/logger/internal/service/logger.go" />
             </set>
           </value>
         </entry>
@@ -718,10 +662,10 @@
             </set>
           </value>
         </entry>
-        <entry key="chatRepo">
+        <entry key="auctionbonus">
           <value>
             <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/data/chat.go" />
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/guild/auction.go" />
             </set>
           </value>
         </entry>
@@ -744,7 +688,7 @@
             <set>
               <option value="file://$PROJECT_DIR$/core/dao/dao.go" />
               <option value="file://$PROJECT_DIR$/logger/internal/dao/dao.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/logger/internal/dao/dao.go" />
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/dao/dao.go" />
             </set>
           </value>
         </entry>
@@ -776,6 +720,13 @@
             </set>
           </value>
         </entry>
+        <entry key="effectUnitOrderMap">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/scene/internal/logic/system/lineup/attr.go" />
+            </set>
+          </value>
+        </entry>
         <entry key="eventDispatcher">
           <value>
             <set>
@@ -801,15 +752,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/mq/kafka/kafka.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go" />
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="kafkaSender">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go" />
             </set>
           </value>
         </entry>
@@ -1949,10 +1891,10 @@
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700049261473" />
+              <option name="lastModified" value="1701250264314" />
             </ScannedPath>
           </value>
         </entry>
@@ -2212,57 +2154,24 @@
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/core/kafka/kafka.go">
+        <entry key="file://$PROJECT_DIR$/../ttyy/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700115992527" />
+              <option name="lastModified" value="1701245892963" />
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/core/mq/kafka/kafka.go">
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/dao/auction.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700118133693" />
-              <option name="schema">
-                <list>
-                  <option value="Message" />
-                  <option value="KafkaSender" />
-                  <option value="kafkaReceiver" />
-                </list>
-              </option>
+              <option name="lastModified" value="1701248435468" />
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/core/pkg/util/kafka.go">
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/dao/dao.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700123200996" />
-              <option name="schema">
-                <list>
-                  <option value="KafkaConfig" />
-                </list>
-              </option>
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/cmd/wire_gen.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700121348957" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/dao/consumer.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700120670409" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/dao/dao.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700121439739" />
+              <option name="lastModified" value="1701248435360" />
               <option name="schema">
                 <list>
                   <option value="dao" />
@@ -2271,135 +2180,58 @@
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/logic/logic.go">
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/guild/auction.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700121348884" />
+              <option name="lastModified" value="1701249159950" />
               <option name="schema">
                 <list>
-                  <option value="Logic" />
+                  <option value="auctionbonus" />
                 </list>
               </option>
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/logger/internal/service/logger.go">
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/guild/guild.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700121348856" />
+              <option name="lastModified" value="1701248482814" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/guild/internal/model/constants.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701247340480" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/rank/internal/dao/role.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701243927577" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/scene/internal/logic/system/achievement/achievement.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701251819020" />
               <option name="schema">
                 <list>
-                  <option value="Service" />
+                  <option value="AchievementSys" />
                 </list>
               </option>
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/chat.go">
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/scene/internal/logic/system/lineup/attr.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1700054387037" />
+              <option name="lastModified" value="1701240012516" />
               <option name="schema">
                 <list>
-                  <option value="ChatUsecase" />
-                </list>
-              </option>
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/define.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700053923355" />
-              <option name="schema">
-                <list>
-                  <option value="RoomDetail" />
-                  <option value="Broadcast" />
-                  <option value="Notice" />
-                  <option value="Mute" />
-                  <option value="Chat" />
-                  <option value="MutePlayer" />
-                </list>
-              </option>
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/handler.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700106957621" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/kafka.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700054450465" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/biz/online.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700054504877" />
-              <option name="schema">
-                <list>
-                  <option value="Player" />
-                  <option value="ChatSettings" />
-                </list>
-              </option>
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/data/chat.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700054176725" />
-              <option name="schema">
-                <list>
-                  <option value="chatRepo" />
-                </list>
-              </option>
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/data/redis.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700107916362" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/chat_history.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700050602943" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/connect.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700054504860" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/service/send_chat.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700054386852" />
-            </ScannedPath>
-          </value>
-        </entry>
-        <entry key="file://$PROJECT_DIR$/../xy3-server/new-chat/internal/util/kafka/kafka.go">
-          <value>
-            <ScannedPath>
-              <option name="lastModified" value="1700108024987" />
-              <option name="schema">
-                <list>
-                  <option value="Message" />
-                  <option value="kafkaSender" />
-                  <option value="kafkaReceiver" />
+                  <option value="effectUnitOrderMap" />
                 </list>
               </option>
             </ScannedPath>
@@ -2422,6 +2254,8 @@
         <entry key="MLogTutorialProgress" value="MLogTutorialProgress" />
         <entry key="__apollo" value="_Apollo" />
         <entry key="__apolloes" value="_Apollo" />
+        <entry key="achievement_sys" value="AchievementSys" />
+        <entry key="achievement_syses" value="AchievementSys" />
         <entry key="ants_logger" value="AntsLogger" />
         <entry key="ants_loggers" value="AntsLogger" />
         <entry key="arena" value="Arena" />
@@ -2430,8 +2264,8 @@
         <entry key="articles" value="Article" />
         <entry key="attribute_set" value="AttributeSet" />
         <entry key="attribute_sets" value="AttributeSet" />
-        <entry key="broadcast" value="Broadcast" />
-        <entry key="broadcasts" value="Broadcast" />
+        <entry key="auctionbonus" value="auctionbonus" />
+        <entry key="auctionbonuses" value="auctionbonus" />
         <entry key="cache_auction_bider" value="CacheAuctionBider" />
         <entry key="cache_auction_biders" value="CacheAuctionBider" />
         <entry key="cache_auction_goods" value="CacheAuctionGoods" />
@@ -2461,12 +2295,6 @@
         <entry key="cache_scene_prime" value="CacheScenePrime" />
         <entry key="cache_scene_primes" value="CacheScenePrime" />
         <entry key="chat" value="Chat" />
-        <entry key="chat_repo" value="chatRepo" />
-        <entry key="chat_repoes" value="chatRepo" />
-        <entry key="chat_settings" value="ChatSettings" />
-        <entry key="chat_settingses" value="ChatSettings" />
-        <entry key="chat_usecase" value="ChatUsecase" />
-        <entry key="chat_usecases" value="ChatUsecase" />
         <entry key="chats" value="Chat" />
         <entry key="client" value="Client" />
         <entry key="clients" value="Client" />
@@ -2488,6 +2316,8 @@
         <entry key="ding_texts" value="dingText" />
         <entry key="dist_lock_opt" value="distLockOpt" />
         <entry key="dist_lock_opts" value="distLockOpt" />
+        <entry key="effect_unit_order_map" value="effectUnitOrderMap" />
+        <entry key="effect_unit_order_maps" value="effectUnitOrderMap" />
         <entry key="event_dispatcher" value="eventDispatcher" />
         <entry key="event_dispatchers" value="eventDispatcher" />
         <entry key="free_cache" value="FreeCache" />
@@ -2552,16 +2382,10 @@
         <entry key="monster_heroes" value="MonsterHero" />
         <entry key="mssql_config" value="MssqlConfig" />
         <entry key="mssql_configs" value="MssqlConfig" />
-        <entry key="mute" value="Mute" />
-        <entry key="mute_player" value="MutePlayer" />
-        <entry key="mute_players" value="MutePlayer" />
-        <entry key="mutes" value="Mute" />
         <entry key="mutex" value="Mutex" />
         <entry key="mutexes" value="Mutex" />
         <entry key="mysql_config" value="MysqlConfig" />
         <entry key="mysql_configs" value="MysqlConfig" />
-        <entry key="notice" value="Notice" />
-        <entry key="notices" value="Notice" />
         <entry key="out_battle_effect" value="OutBattleEffect" />
         <entry key="out_battle_effects" value="OutBattleEffect" />
         <entry key="outbattleeffectconfig" value="outbattleeffectconfig" />
@@ -2572,10 +2396,8 @@
         <entry key="passive_skills" value="PassiveSkill" />
         <entry key="path_key" value="pathKey" />
         <entry key="path_keys" value="pathKey" />
-        <entry key="player" value="Player" />
         <entry key="player_key" value="playerKey" />
         <entry key="player_keys" value="playerKey" />
-        <entry key="players" value="Player" />
         <entry key="pool" value="pool" />
         <entry key="pools" value="pool" />
         <entry key="push" value="Push" />
@@ -2592,8 +2414,6 @@
         <entry key="redis_dist_locks" value="redisDistLock" />
         <entry key="redsync" value="Redsync" />
         <entry key="redsyncs" value="Redsync" />
-        <entry key="room_detail" value="RoomDetail" />
-        <entry key="room_details" value="RoomDetail" />
         <entry key="scene" value="Scene" />
         <entry key="scenes" value="Scene" />
         <entry key="script" value="Script" />
@@ -2646,6 +2466,6 @@
         <entry key="z_t_pvp_reports" value="ZTPvpReport" />
       </map>
     </option>
-    <option name="lastTimeChecked" value="1700049235358" />
+    <option name="lastTimeChecked" value="1701228124896" />
   </component>
 </project>
