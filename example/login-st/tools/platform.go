@@ -29,6 +29,13 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 		imei = generateImei()
 	}
 
+	var err error
+	defer func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
+
 	reqB, err := json.Marshal(pbPlatform.GuestLoginReq{
 		Deviceuid: imei,
 	})

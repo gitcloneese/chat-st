@@ -26,6 +26,12 @@ func accountRequest(platformAccount string, account *pbPlatform.LoginResp, wg *s
 	if wg != nil {
 		defer wg.Done()
 	}
+	var err error
+	defer func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
 	// 统计qps
 	//log.Infof("正在获取Account认证 accountID:%v", accountId)
 	reqB, err := json.Marshal(pbAccount.AccountRoleListReq{
@@ -41,7 +47,6 @@ func accountRequest(platformAccount string, account *pbPlatform.LoginResp, wg *s
 	defer atomic.AddInt64(&RequestCount, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
-		atomic.AddInt64(&ErrCount, 1)
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {

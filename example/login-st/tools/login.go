@@ -16,6 +16,12 @@ import (
 // login
 // 获取登录token
 func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogin.LoginRsp, error) {
+	var err error
+	defer func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
 	reqB, err := json.Marshal(pbLogin.LoginReq{
 		AccountToken: accountResp.AccountToken,
 		SDKAccountId: accountId,

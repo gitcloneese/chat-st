@@ -30,6 +30,6 @@ func RunWithLog(name string, f func()) {
 	errNum := ErrNum() - errNum1
 	success := allRequestNum - errNum
 	latency := time.Since(now).Seconds()
-	log.Info("执行完毕:%5v| 总请求次数:%5v | 成功:%4v | 失败:%5v | 用时:%5v | qps:%16v ", name, allRequestNum, success, errNum, latency, float64(allRequestNum)/latency)
+	log.Info("|||执行完毕:%20v| 总请求次数:%5v | 成功:%4v | 失败:%5v | 用时:%10.4f | qps:%10.4f |||", name, allRequestNum, success, errNum, latency, float64(allRequestNum)/latency)
 	time.Sleep(time.Second)
 }
