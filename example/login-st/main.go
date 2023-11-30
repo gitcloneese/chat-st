@@ -17,18 +17,18 @@ func main() {
 	switch tools.T {
 	case RunAll:
 		// 游戏登录platform
-		tools.PreparePlatformAccount()
+		tools.RunPlatform()
 		time.Sleep(time.Second)
 		// 访问account对应的玩家列表
-		tools.AccountRoleList()
+		tools.RunAccountRoleList()
 		time.Sleep(time.Second)
 		// 获取游戏登录token
-		tools.GetLoginToken()
+		tools.RunGameLogin()
 	case RunPlatform:
-		tools.PreparePlatformAccount()
+		tools.RunPlatform()
 	case RunAccountRoleList:
-		tools.PreparePlatformAccount()
+		tools.RunPlatform()
 		time.Sleep(time.Second * 5)
-		tools.AccountRoleList()
+		tools.RunAccountRoleList()
 	}
 }

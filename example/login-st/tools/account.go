@@ -21,9 +21,9 @@ func generateAccount() string {
 	return fmt.Sprintf("%v%02v%02v-%02v%02v%02v-%v", y, m, d, h, M, s, atomic.AddInt32(acc, 1))
 }
 
-// accountRoleList
+// account
 // 获取Account认证
-func accountRoleList(platformAccount string, account *pbPlatform.LoginResp, wg *sync.WaitGroup) (*pbAccount.AccountRoleListRsp, error) {
+func accountRequest(platformAccount string, account *pbPlatform.LoginResp, wg *sync.WaitGroup) (*pbAccount.AccountRoleListRsp, error) {
 	if wg != nil {
 		defer wg.Done()
 	}
@@ -42,6 +42,7 @@ func accountRoleList(platformAccount string, account *pbPlatform.LoginResp, wg *
 	defer atomic.AddInt64(&RequestCount, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
+		atomic.AddInt64(&ErrCount, 1)
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
@@ -67,25 +68,26 @@ func accountRoleList(platformAccount string, account *pbPlatform.LoginResp, wg *
 	return accountRsp, nil
 }
 
-// AccountRoleList
+// accountRoleList
 // 测试账号角色列表
-func AccountRoleList() {
-	log.Info("===============开始访问accountRoleList信息!!!====================")
-	now := time.Now()
+func accountRoleList() {
 	wg := &sync.WaitGroup{}
 	num := len(PlatformGuestLogin)
 	wg.Add(num)
-	var errNum int32
 	for k, v := range PlatformGuestLogin {
 		go func(accountId string, accountPlatformLoginResp *pbPlatform.LoginResp, wg *sync.WaitGroup) {
-			_, err := accountRoleList(accountId, accountPlatformLoginResp, wg)
+			_, err := accountRequest(accountId, accountPlatformLoginResp, wg)
 			if err != nil {
-				atomic.AddInt32(&errNum, 1)
 				log.Error("accountRoleListReq account:%v, roleListResp:%v err:%v", accountId, accountPlatformLoginResp, err)
 			}
 		}(k, v, wg)
 	}
 	wg.Wait()
-	latency := time.Since(now).Seconds()
-	log.Info("============== 成功:%v 失败:%v 用时:%v 请求总数:%v QPS:%v ============== ", int32(num)-errNum, errNum, latency, num, float64(num)/latency)
+	if len(AccountRoleListResp) == 0 {
+		panic("accountRoleList all error")
+	}
+}
+
+func RunAccountRoleList() {
+	RunWithLog("accountRoleList", accountRoleList)
 }

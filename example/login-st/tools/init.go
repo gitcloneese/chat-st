@@ -73,6 +73,7 @@ var (
 	apiLoginPath           = loginPath
 
 	RequestCount int64
+	ErrCount     int64
 
 	T int64
 )

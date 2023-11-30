@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"sync"
 	"sync/atomic"
-	"time"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
 	"xy3-proto/pkg/log"
@@ -28,6 +27,7 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 	defer atomic.AddInt64(&RequestCount, 1)
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiLoginPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
+		atomic.AddInt64(&ErrCount, 1)
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
@@ -55,26 +55,24 @@ func login(accountId string, accountResp *pbAccount.AccountRoleListRsp) (*pbLogi
 	return loginRsp, nil
 }
 
-// GetLoginToken
+// getLoginToken
 // 访问单个服务的login 获得登录权限
-func GetLoginToken() {
+func getLoginToken() {
 	wg := &sync.WaitGroup{}
 	length := len(AccountRoleListResp)
 	wg.Add(length)
-	var errCount int32
-	now := time.Now()
-	log.Info("===============开始访问GetLoginToken信息!!!====================")
 	for k, v := range AccountRoleListResp {
 		go func(accountId string, accountResp *pbAccount.AccountRoleListRsp, wg *sync.WaitGroup) {
 			defer wg.Done()
 			_, err := login(PlatformGuestLogin[accountId].Unionid, accountResp)
 			if err != nil {
-				atomic.AddInt32(&errCount, 1)
 				log.Error("GetLoginToken failed, accountId: %v, accountResp:%+v err:%v", accountId, accountResp, err)
 			}
 		}(k, v, wg)
 	}
 	wg.Wait()
-	latency := time.Since(now).Seconds()
-	log.Info("============== 成功:%v 失败:%v 用时:%v 请求总数:%v QPS:%v ============== ", int32(length)-errCount, errCount, latency, length, float64(length)/latency)
+}
+
+func RunGameLogin() {
+	RunWithLog("getLoginToken", getLoginToken)
 }
