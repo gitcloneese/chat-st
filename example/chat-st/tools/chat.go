@@ -6,143 +6,115 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
 	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
+	"github.com/panjf2000/ants/v2"
 	"io"
 	"net/http"
 	"net/url"
 	"sync"
 	"sync/atomic"
-	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
+	"xy3-proto/pkg/log"
 )
 
-func TestChat() {
+func RunChat() {
 	// 异步发送消息
-	go TestSendMessage()
+	go RunSendMessage()
 	// 接收消息
-	TestReceiveMessageBlock()
+	go RunTestReceiveMessage()
 }
 
 // TestPlayerSendMessage
 // 单个玩家发送消息
-func TestPlayerSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup, delayMillSecond ...int) {
-	if wg != nil {
-		defer wg.Done()
-	}
+func TestPlayerSendMessage(info *pblogin.LoginRsp) {
 	// 发送消息
+	wg := &sync.WaitGroup{}
+	p, _ := ants.NewPoolWithFunc(C, func(i interface{}) {
+		defer wg.Done()
+		err := sendMessage(info, i.(int32))
+		if err != nil {
+			Error("sendMessage:%v", err)
+			return
+		}
+
+	})
+	defer p.Release()
 	var count int32
 	for count < int32(ChatCount) {
 		count++
-		err := sendMessage(info, count)
-		if err != nil {
-			log.Errorf("玩家:%v 发送聊天失败:%v ", info.PlayerID, err)
-		}
-		if len(delayMillSecond) > 0 {
-			time.Sleep(time.Millisecond * time.Duration(delayMillSecond[0]))
-		}
+		wg.Add(1)
+		_ = p.Invoke(count)
+
 	}
+	wg.Wait()
+}
+
+func RunSendMessage() {
+	RunWithLogTick("sendMessage", TestSendMessage)
 }
 
 // TestSendMessage
 // 压测发送消息
 func TestSendMessage() {
-	playerNums := len(PlayerTokens)
-	chatNum := int32(float64(playerNums) * percentChatPlayers)
-	log.Infof("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================ ", chatNum, ChatCount)
-
-	now := time.Now()
-	temp1 := atomic.LoadInt64(&QAcc)
-
-	wg := &sync.WaitGroup{}
-	var nowCount int32
-	wg.Add(playerNums)
-	for _, v := range PlayerTokens {
-		go TestPlayerSendMessage(v, wg)
-		nowCount++
-		// 聊天玩家百分比
-		if nowCount >= chatNum {
-			break
-		}
+	if len(PlayerTokens) < 1 {
+		panic("PlayerTokens must be at least 1")
 	}
-	wg.Wait()
-	temp2 := atomic.LoadInt64(&QAcc)
-	qs := temp2 - temp1
-
-	latency := time.Since(now).Seconds()
-	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================ ", latency, qs, float64(qs)/latency)
+	var loginInfo *pblogin.LoginRsp
+	for _, token := range PlayerTokens {
+		loginInfo = token
+		break
+	}
+	TestPlayerSendMessage(loginInfo)
 }
 
 // TestOneSendMessage
 // 一个玩家发送消息
 func TestOneSendMessage() {
-	playerNums := len(PlayerTokens)
-	chatNum := int32(float64(playerNums) * percentChatPlayers)
-	log.Infof("================开始压测发送消息!!! 玩家数量:%v 每个玩家发送:%v次================ ", chatNum, ChatCount)
+	if len(PlayerTokens) < 1 {
+		log.Error("压测发送消息, 玩家数量不足")
+		return
+	}
+	wg := &sync.WaitGroup{}
+	wg.Add(ChatCount)
 
-	now := time.Now()
-	temp1 := atomic.LoadInt64(&QAcc)
-
-	var one *pblogin.LoginRsp
-	for k := range PlayerTokens {
-		one = PlayerTokens[k]
+	var info *pblogin.LoginRsp
+	for _, v := range PlayerTokens {
+		info = v
 		break
 	}
-	count := 0
-	wg := &sync.WaitGroup{}
-	wg.Add(c)
-	perNum := ChatCount / c
-	for count < c {
-		TestGoroutineSendMessage(one, wg, perNum)
-		count++
+
+	var chatNum int
+	for chatNum < ChatCount {
+		go func() {
+			err := sendMessage(info, int32(chatNum))
+			if err != nil {
+			}
+		}()
+		chatNum++
 	}
 	wg.Wait()
-	temp2 := atomic.LoadInt64(&QAcc)
-	qs := temp2 - temp1
-
-	latency := time.Since(now).Seconds()
-	log.Infof("================压测发送消息完成!!! 用时:%vs 请求总数:%v QPS:%v ================ ", latency, qs, float64(qs)/latency)
 }
 
-// TestGoroutineSendMessage 单个携程发送
-func TestGoroutineSendMessage(info *pblogin.LoginRsp, wg *sync.WaitGroup, n int) {
-	if wg != nil {
-		defer wg.Done()
-	}
-	var i int
-	for i < n {
-		TestPlayerSendMessage(info, nil, 2)
-		i++
-	}
-}
-
-// TestReceiveMessageUnBlock
-// 压测接收消息 建立连接后就返回
-// 只为测ws连接数量 玩家数量
-func TestReceiveMessageUnBlock() {
-	playerNums := len(PlayerTokens)
-	log.Infof("================开始压测接收消息!!! 不阻塞接收 只为测ws连接数量 玩家数量:%v================ ", playerNums)
-
-	now := time.Now()
-	wg := new(sync.WaitGroup)
-	for _, v := range PlayerTokens {
-		wg.Add(1)
-		go receiveMsg(v, wg)
-	}
-	wg.Wait()
-	latency := time.Since(now).Seconds()
-	log.Infof("================结束压测接收消息!!! 玩家数量:%v 用时:%vs ================ ", playerNums, latency)
+func RunTestReceiveMessage() {
+	RunReceiveMsgWithLogTick("receiveMessageBlock", TestReceiveMessageBlock)
 }
 
 // TestReceiveMessageBlock
 // 压测接收消息 阻塞接收
 func TestReceiveMessageBlock() {
-	playerNums := len(PlayerTokens)
-	log.Infof("================开始压测接收消息!!! 阻塞接收 玩家数量:%v================ ", playerNums)
-
+	wg := new(sync.WaitGroup)
+	p, _ := ants.NewPoolWithFunc(C, func(i interface{}) {
+		go receiveMsg(i.(*pblogin.LoginRsp))
+		wg.Done()
+	})
+	defer p.Release()
 	for _, v := range PlayerTokens {
-		go receiveMsg(v, nil)
+		wg.Add(1)
+		err := p.Invoke(v)
+		if err != nil {
+		}
 	}
+	wg.Wait()
 }
 
 func bearToken(token string) string {
@@ -150,7 +122,12 @@ func bearToken(token string) string {
 }
 
 // 设置区服
-func setZoneServer(info *pblogin.LoginRsp) error {
+func setZoneServer(info *pblogin.LoginRsp) (err error) {
+	func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
 	reqB, err := json.Marshal(pbchat.SetZoneServerReq{
 		ZoneId:   "1", // 压力测试
 		ServerId: "2",
@@ -159,7 +136,7 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 	if err != nil {
 		return err
 	}
-	defer atomic.AddInt64(&QAcc, 1)
+	defer atomic.AddInt64(&RequestCount, 1)
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath), bytes.NewReader(reqB))
 	if err != nil {
 		return err
@@ -176,10 +153,10 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 	if err != nil {
 		return err
 	}
+	errCodes.Store(resp.StatusCode, 1)
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("setZoneServer failed, status code: %v", resp.StatusCode)
 	}
-
 	bodyByte, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
@@ -191,8 +168,6 @@ func setZoneServer(info *pblogin.LoginRsp) error {
 	if err := encoding.GetCodec("json").Unmarshal(bodyByte, setZoneServerRsp); err != nil {
 		return err
 	}
-
-	//log.Infof("设置zoneServer信息成功: player:%v", info.PlayerID)
 	return nil
 }
 
@@ -201,7 +176,12 @@ func generateMessage(playerId int64, accId int32) string {
 }
 
 // 发送消息
-func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
+func sendMessage(info *pblogin.LoginRsp, chatNums int32) (err error) {
+	defer func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
 	msg := generateMessage(info.PlayerID, chatNums)
 	reqB, err := json.Marshal(pbchat.SendChat{
 		Msg:        msg,
@@ -211,7 +191,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 	if err != nil {
 		return err
 	}
-	defer atomic.AddInt64(&QAcc, 1)
+	defer atomic.AddInt64(&RequestCount, 1)
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSendMessagePath), bytes.NewReader(reqB))
 	if err != nil {
 		return err
@@ -228,6 +208,7 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 	if err != nil {
 		return err
 	}
+	errCodes.Store(resp.StatusCode, 1)
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("sendMessage failed, status code: %v", resp.StatusCode)
 	}
@@ -244,20 +225,16 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) error {
 		return err
 	}
 
-	//log.Infof("发送信息成功: player:%v :Msg:%v", info.PlayerID, msg)
 	return nil
 }
 
 // 接收消息
-func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
-	if wg != nil {
-		defer wg.Done()
-	}
-
+func receiveMsg(info *pblogin.LoginRsp) {
 	uri, err := url.Parse(ChatAddr)
 	if err != nil {
 		panic("receiveMsg parse url failed" + err.Error())
 	}
+
 	scheme := "ws"
 	if uri.Scheme == "https" {
 		scheme = "wss"
@@ -275,29 +252,29 @@ func receiveMsg(info *pblogin.LoginRsp, wg *sync.WaitGroup) {
 		reqHeader.Add("Authorization", bearToken(info.PlayerToken))
 	}
 
-	//log.Infof("connect to chat %v", u.String())
-
 	c, _, err1 := websocket.DefaultDialer.Dial(u.String(), reqHeader)
+	atomic.AddInt64(&RequestCount, 1)
 	if err1 != nil {
-		log.Errorf("receiveMsg websocket Dail err:%v", err1)
+		Error("receiveMsg websocket Dail err:%v", err1)
+		atomic.AddInt64(&ErrCount, 1)
 		return
 	}
 	defer c.Close()
 
-	if wg != nil {
-		return // 这里只测试ws连接数， 不做其他处理
-	} else {
-		// 这里阻塞接口 收到的消息
-		for {
-			_, message, err := c.ReadMessage()
-			if err != nil {
-				log.Errorf("read websocket err: %v", err)
-				break
-			}
-			flag := message[0]
-			if flag == 0 {
-				distribute(message[1:])
-			}
+	// 记录长练级数量
+	atomic.AddInt64(&chatConnectCount, 1)
+	defer atomic.AddInt64(&chatConnectCount, -1)
+
+	// 这里阻塞接口 收到的消息
+	for {
+		_, message, err := c.ReadMessage()
+		if err != nil {
+			Error("read websocket err: %v", err)
+			break
+		}
+		flag := message[0]
+		if flag == 0 {
+			distribute(message[1:])
 		}
 	}
 }

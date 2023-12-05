@@ -4,9 +4,6 @@ import (
 	"bytes"
 	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
-	"os"
-	"os/signal"
-	"syscall"
 	"time"
 	"x-server/example/chat-st/tools"
 )
@@ -28,14 +25,24 @@ func ping(c *websocket.Conn) {
 // uat环境
 // -t=0 -addr=http://8.219.59.226:81 -playerNum=30 -chatCount=50 -local=0
 
+const (
+	TALl            = iota // 流程全跑一遍
+	TSendMessage           // 发送消息
+	TReceiveMessage        // 接收消息
+)
+
 func main() {
-	now := time.Now()
-	tools.PreparePlayers()
+	tools.RunPreparePlayers()
 	// 开始聊天测试
-	tools.PrepareChat()
-	ch := make(chan os.Signal)
-	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
-	<-ch
-	latency := time.Since(now).Seconds()
-	log.Infof("exit 总耗时:%v ", latency)
+	time.Sleep(1 * time.Second)
+	switch tools.T {
+	case TALl: // 0
+		tools.RunChat() // 发送消息, 接收消息
+	case TSendMessage: // 1 // 发送多少条消息， 平均耗时， 成功率， 失败率
+		tools.RunSendMessage()
+	case TReceiveMessage: // 2 测试能建立多少ws长连接
+		tools.RunTestReceiveMessage()
+	}
+	//监听os.Signal
+
 }

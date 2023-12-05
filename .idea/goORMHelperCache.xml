@@ -505,6 +505,7 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/logger/internal/service/logger.go" />
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/login/internal/service/service.go" />
             </set>
           </value>
         </entry>
@@ -916,7 +917,7 @@
         <entry key="file://$PROJECT_DIR$/core/dao/arena/arena.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1689564167338" />
+              <option name="lastModified" value="1701336347195" />
               <option name="schema">
                 <list>
                   <option value="Arena" />
@@ -928,21 +929,21 @@
         <entry key="file://$PROJECT_DIR$/core/dao/arena/pvp.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1695096351639" />
+              <option name="lastModified" value="1701336347219" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/core/dao/arena/pvp_rank.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1698911049683" />
+              <option name="lastModified" value="1701336347234" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/core/dao/arena/ttpvp.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1689564167338" />
+              <option name="lastModified" value="1701336347235" />
             </ScannedPath>
           </value>
         </entry>
@@ -1904,6 +1905,69 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701660279875" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701658976209" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/chat.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701660182128" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/cmds.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701659791538" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/distribute.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701659092416" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/init.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701659105791" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/log.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701659054227" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701658731662" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/chat-st/tools/platform.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701654442512" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/example/login-st/main.go">
           <value>
             <ScannedPath>
@@ -1914,14 +1978,14 @@
         <entry key="file://$PROJECT_DIR$/example/login-st/tools/account.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701332138548" />
+              <option name="lastModified" value="1701339220370" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/login-st/tools/act.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701332383786" />
+              <option name="lastModified" value="1701339310634" />
             </ScannedPath>
           </value>
         </entry>
@@ -1935,21 +1999,21 @@
         <entry key="file://$PROJECT_DIR$/example/login-st/tools/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701331702469" />
+              <option name="lastModified" value="1701336348459" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/login-st/tools/login.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701332017295" />
+              <option name="lastModified" value="1701339254212" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/login-st/tools/platform.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701331701919" />
+              <option name="lastModified" value="1701339240166" />
             </ScannedPath>
           </value>
         </entry>
@@ -2209,6 +2273,20 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/../ttyy/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701425172785" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/core/dao/login/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701396443607" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/../work/xy3-server/example/login-st/main.go">
           <value>
             <ScannedPath>
@@ -2220,6 +2298,18 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1701329728376" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/login/internal/service/service.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701401250672" />
+              <option name="schema">
+                <list>
+                  <option value="Service" />
+                </list>
+              </option>
             </ScannedPath>
           </value>
         </entry>

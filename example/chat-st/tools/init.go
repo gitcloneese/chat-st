@@ -4,17 +4,14 @@ import (
 	"crypto/tls"
 	"flag"
 	"fmt"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
-	"github.com/rifflock/lfshook"
-	log "github.com/sirupsen/logrus"
+	"github.com/panjf2000/ants/v2"
 	"google.golang.org/protobuf/proto"
 	"net/http"
-	"os"
 	"sync"
-	"sync/atomic"
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
+	"xy3-proto/pkg/log"
 )
 
 const (
@@ -109,50 +106,18 @@ var (
 
 	T int // 压测类型 默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4
 
-	QAcc               int64 // 用于做qps统计
+	RequestCount       int64 // 用于做qps统计
+	ErrCount           int64 // 用于做失败统计
 	percentChatPlayers float64
-	c                  int // 并发携程数
+	C                  int  // 并发携程数
+	Debug              bool // debug will print log, if true will print debug information
+	errCodes           = new(sync.Map)
+
+	chatConnectCount int64 // 连上chat ws长连接数量
 )
-
-// 配置日志输出
-func logInit() {
-	// 设置日志切割 rotatelogs
-	filePath := "logs/"
-	fileName := ""
-	file := filePath + fileName
-	log.SetOutput(os.Stdout)
-
-	// 设置日志级别。低于 Debug 级别的 Trace 将不会被打印
-	log.SetLevel(log.DebugLevel)
-
-	writer, _ := rotatelogs.New(
-		file+"%Y%m%d.log",
-		//日志最大保存时间
-		rotatelogs.WithMaxAge(7*24*time.Hour),
-		rotatelogs.WithRotationTime(24*time.Hour),
-		rotatelogs.WithRotationSize(3*1024*1024),
-		rotatelogs.WithLinkName("log.txt"),
-	)
-	writeMap := lfshook.WriterMap{
-		log.PanicLevel: writer,
-		log.FatalLevel: writer,
-		log.ErrorLevel: writer,
-		log.WarnLevel:  writer,
-		log.InfoLevel:  writer,
-		log.DebugLevel: writer,
-	}
-	// 配置 lfshook
-	hook := lfshook.NewHook(writeMap, &log.TextFormatter{
-		// 设置日期格式
-		TimestampFormat: "2006-01-02 15:04:05",
-	})
-	log.AddHook(hook)
-
-}
 
 // 每个玩家默认1s发送一个聊天
 func init() {
-	logInit()
 	addFlag(flag.CommandLine)
 
 }
@@ -167,7 +132,8 @@ func addFlag(fs *flag.FlagSet) {
 	fs.IntVar(&ChatCount, "chatCount", 1000, fmt.Sprintf("玩家发言次数默认:%v", 1000))
 	fs.IntVar(&T, "t", 0, "压测类型 不设置默认全流程 1:发送消息 2:接口消息(tcp的连接上线), 3, 4")
 	fs.Float64Var(&percentChatPlayers, "percentChatPlayers", 1, "聊天玩家百分比")
-	fs.IntVar(&c, "c", 1, "并发携程书")
+	fs.IntVar(&C, "c", 10, "并发携程数量")
+	fs.BoolVar(&Debug, "debug", false, "是否开启debug")
 
 	flag.Parse()
 
@@ -190,11 +156,10 @@ func addFlag(fs *flag.FlagSet) {
 		isLocal = true
 	}
 
-	log.Infof("addr:%v wsPath:%v playerNum:%v", Addr, apiConnectChatPath, PlayerNum)
+	log.Info("addr:%v wsPath:%v playerNum:%v\n", Addr, apiConnectChatPath, PlayerNum)
 }
 
-func generatePlayerToken(ws *sync.WaitGroup) {
-	defer ws.Done()
+func generatePlayerToken() {
 	account := generateAccount()
 	info, err := getChatToken(account)
 	if err != nil {
@@ -207,65 +172,29 @@ func generatePlayerToken(ws *sync.WaitGroup) {
 
 // PreparePlayers
 // 准备所有玩家token信息
-func PreparePlayers() {
-	now := time.Now()
-	log.Info("===============开始准备玩家信息!!!====================")
-	temp1 := atomic.LoadInt64(&QAcc)
+func preparePlayers() {
 	if PlayerTokens == nil {
 		PlayerTokens = make(map[string]*pblogin.LoginRsp)
 	}
 	playerNums := PlayerNum
 	wg := new(sync.WaitGroup)
-	wg.Add(playerNums)
+	p, _ := ants.NewPool(C)
+	defer p.Release()
 	for playerNums > 0 {
 		playerNums--
-		go generatePlayerToken(wg)
+		wg.Add(1)
+		_ = p.Submit(func() {
+			defer wg.Done()
+			generatePlayerToken()
+		})
 	}
 	wg.Wait()
-	latency := time.Since(now).Seconds()
 	n := len(PlayerTokens)
-	if n > 0 {
-		//总共发出的请求数
-		temp2 := atomic.LoadInt64(&QAcc)
-		qs := temp2 - temp1
-		log.Infof("==============%v个玩家信息准备完成!!! 用时:%vs 请求总数:%v QPS:%v ============== ", n, latency, qs, float64(qs)/latency)
-	} else {
-		log.Infof("玩家信息准备失败!!! 用时:%v s ", latency)
+	if n <= 0 {
 		panic("玩家信息准备失败!!!")
 	}
 }
 
-// PrepareChat
-// 开始聊天
-func PrepareChat() {
-	time.Sleep(2 * time.Second)
-	switch T {
-	case 0:
-		log.Info(`=====================开始压测!!!================================`)
-		log.Info(`=========当前压测类型t为0:压测全部(发送消息/阻塞接收消息)=================`)
-		log.Info(`===============================================================`)
-		TestChat()
-	case 1:
-		log.Info(`=====================开始压测!!!================================`)
-		log.Info(`=========当前压测类型t为1:压测发送消息==============================`)
-		log.Info(`===============================================================`)
-		TestSendMessage()
-	case 2:
-		time.Sleep(time.Second * 10)
-		log.Info(`=====================开始压测!!!================================`)
-		log.Info(`=========当前压测类型t为2:压测接收消息 阻塞接收 =====================`)
-		log.Info(`===============================================================`)
-		TestReceiveMessageBlock()
-	case 3:
-		log.Info(`=====================开始压测!!!=====================================`)
-		log.Info(`=========当前压测类型t为3:压测接收消息 **** 不 ** 阻塞接收,只为了测连接数上限****`)
-		log.Info(`====================================================================`)
-		TestReceiveMessageUnBlock()
-	case 4:
-		// 一个玩家发送消息 求成功率， 平均耗时
-		log.Info(`=====================开始压测!!!=====================================`)
-		log.Info(`=========当前压测类型t为4:压测一个玩家发送消息  成功率， 耗时`)
-		log.Info(`====================================================================`)
-		TestOneSendMessage()
-	}
+func RunPreparePlayers() {
+	RunWithLogTick("preparePlayers", preparePlayers)
 }
