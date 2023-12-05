@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
+	"github.com/panjf2000/ants/v2"
 	"net/http"
 	"sync"
 	"sync/atomic"
@@ -28,28 +29,29 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 	if imei == "" {
 		imei = generateImei()
 	}
-
 	var err error
-	defer func() {
-		if err != nil {
-			atomic.AddInt64(&ErrCount, 1)
-		}
-	}()
-
 	reqB, err := json.Marshal(pbPlatform.GuestLoginReq{
 		Deviceuid: imei,
 	})
 	if err != nil {
 		return nil, err
 	}
+	defer func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
 	defer atomic.AddInt64(&RequestCount, 1)
+	// 设置延迟
+	defer SetLatency()(time.Now())
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", PlatformAddr, platformPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
-		atomic.AddInt64(&ErrCount, 1)
 		return nil, err
 	}
+	errCodes.Store(resp.StatusCode, 1)
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("platform login failed, status code: %v", resp.StatusCode)
+		err = fmt.Errorf("platform login failed, status code: %v", resp.StatusCode)
+		return nil, err
 	}
 
 	loginResp := new(pbPlatform.LoginResp)
@@ -78,15 +80,20 @@ func preparePlatformAccount() {
 	nums := AccountNum
 	wg := new(sync.WaitGroup)
 	wg.Add(nums)
+	p, _ := ants.NewPool(C)
+	defer p.Release()
 	for nums > 0 {
-		go func() {
+		err := p.Submit(func() {
 			defer wg.Done()
 			account := generateAccount()
 			_, err := platformGuestLogin(account)
 			if err != nil {
 				Error("PlatformGuestLogin account:%v err:%v", account, err)
 			}
-		}()
+		})
+		if err != nil {
+			print("preparePlatformAccount err: ", err)
+		}
 		nums--
 	}
 	wg.Wait()
@@ -97,6 +104,6 @@ func preparePlatformAccount() {
 	}
 }
 
-func RunPlatform() {
-	RunWithLog("platform", preparePlatformAccount)
+func RunPlatformGuestLoginReq() {
+	RunWithLogTick("platformGuestLoginReq", preparePlatformAccount, fmt.Sprintf("%v%v", PlatformAddr, platformPath))
 }

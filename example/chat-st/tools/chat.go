@@ -44,7 +44,6 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp) {
 		count++
 		wg.Add(1)
 		_ = p.Invoke(count)
-
 	}
 	wg.Wait()
 }

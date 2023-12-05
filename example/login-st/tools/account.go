@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
+	"github.com/panjf2000/ants/v2"
 	"io"
 	"net/http"
 	"sync"
@@ -22,35 +23,35 @@ func generateAccount() string {
 
 // account
 // 获取Account认证
-func accountRequest(platformAccount string, account *pbPlatform.LoginResp, wg *sync.WaitGroup) (*pbAccount.AccountRoleListRsp, error) {
-	if wg != nil {
-		defer wg.Done()
-	}
+func accountRoleListRequest(info *accountPlatformLoginInfo) (*pbAccount.AccountRoleListRsp, error) {
+	platformAccount := info.account
+	platformLoginResp := info.loginInfo
 	var err error
-	defer func() {
-		if err != nil {
-			atomic.AddInt64(&ErrCount, 1)
-		}
-	}()
-	// 统计qps
-	//log.Infof("正在获取Account认证 accountID:%v", accountId)
 	reqB, err := json.Marshal(pbAccount.AccountRoleListReq{
 		PlatformID:   1, // 内部测试 TODO 因为不同环境是根据配置来决定的 -1: 用来测试 不经过platform平台认证 1:测试服 4: k8s集群
-		SDKAccountId: account.Unionid,
-		SdkToken:     account.Accesstoken,
+		SDKAccountId: platformLoginResp.Unionid,
+		SdkToken:     platformLoginResp.Accesstoken,
 		ChannelID:    0,
 	})
 	if err != nil {
 		return nil, err
 	}
-
+	defer func() {
+		if err != nil {
+			atomic.AddInt64(&ErrCount, 1)
+		}
+	}()
 	defer atomic.AddInt64(&RequestCount, 1)
+	// 设置延迟
+	defer SetLatency()(time.Now())
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
 	if err != nil {
 		return nil, err
 	}
+	errCodes.Store(resp.StatusCode, 1)
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("accountRoleList failed, status code: %v", resp.StatusCode)
+		err = fmt.Errorf("accountRoleList failed, status code: %v", resp.StatusCode)
+		return nil, err
 	}
 
 	bodyByte, err := io.ReadAll(resp.Body)
@@ -72,26 +73,39 @@ func accountRequest(platformAccount string, account *pbPlatform.LoginResp, wg *s
 	return accountRsp, nil
 }
 
+type accountPlatformLoginInfo struct {
+	account   string
+	loginInfo *pbPlatform.LoginResp
+}
+
 // accountRoleList
 // 测试账号角色列表
 func accountRoleList() {
 	wg := &sync.WaitGroup{}
-	num := len(PlatformGuestLogin)
-	wg.Add(num)
+	p, _ := ants.NewPoolWithFunc(C, func(i interface{}) {
+		defer wg.Done()
+		platformLoginInfo := i.(*accountPlatformLoginInfo)
+		_, err := accountRoleListRequest(platformLoginInfo)
+		if err != nil {
+			Error("accountRoleListReq account:%v, err:%v\n", platformLoginInfo, err)
+		}
+	})
+	defer p.Release()
+
 	for k, v := range PlatformGuestLogin {
-		go func(accountId string, accountPlatformLoginResp *pbPlatform.LoginResp, wg *sync.WaitGroup) {
-			_, err := accountRequest(accountId, accountPlatformLoginResp, wg)
-			if err != nil {
-				Error("accountRoleListReq account:%v, roleListResp:%v err:%v", accountId, accountPlatformLoginResp, err)
-			}
-		}(k, v, wg)
+		wg.Add(1)
+		err := p.Invoke(&accountPlatformLoginInfo{k, v})
+		if err != nil {
+			print("accountRoleList", err)
+		}
 	}
 	wg.Wait()
+
 	if len(AccountRoleListResp) == 0 {
 		panic("accountRoleList all error")
 	}
 }
 
-func RunAccountRoleList() {
-	RunWithLog("accountRoleList", accountRoleList)
+func RunAccountRoleListReq() {
+	RunWithLogTick("accountRoleListReq", accountRoleList, fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath))
 }

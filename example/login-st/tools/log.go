@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"sort"
 	"strings"
 	"sync"
 	"sync/atomic"
-	"syscall"
 	"time"
 	"xy3-proto/pkg/log"
 )
@@ -16,16 +16,91 @@ func RequestNum() int64 {
 	return atomic.LoadInt64(&RequestCount)
 }
 
-func connectCount() int64 {
-	return atomic.LoadInt64(&chatConnectCount)
-}
-
-func msgCount() int64 {
-	return atomic.LoadInt64(&receiveMsgCount)
-}
-
 func ErrNum() int64 {
 	return atomic.LoadInt64(&ErrCount)
+}
+
+func allLatency() float64 {
+	AllLatencyLock.RLock()
+	defer AllLatencyLock.RUnlock()
+	return AllLatency
+}
+
+// 最小请求延迟时间
+func minLatency() float64 {
+	MinLatencyLock.RLock()
+	defer MinLatencyLock.RUnlock()
+	return MinLatency
+}
+
+func setMinLatency(latency float64) {
+	MinLatencyLock.Lock()
+	defer MinLatencyLock.Unlock()
+	if MinLatency <= 0 && latency > 0 {
+		MinLatency = latency
+		return
+	}
+
+	if latency < MinLatency {
+		MinLatency = latency
+	}
+}
+
+func setAllLatency(latency float64) {
+	AllLatencyLock.Lock()
+	defer AllLatencyLock.Unlock()
+	AllLatency += latency
+}
+
+func resetMinRequestLatency() {
+	MinLatencyLock.Lock()
+	defer MinLatencyLock.Unlock()
+	MinLatency = 0
+}
+func resetAllRequestLatency() {
+	AllLatencyLock.Lock()
+	defer AllLatencyLock.Unlock()
+	AllLatency = 0
+}
+
+// 最大请求延迟
+func maxLatency() float64 {
+	MaxLatencyLock.RLock()
+	defer MaxLatencyLock.RUnlock()
+	return MaxLatency
+}
+
+func setMaxLatency(latency float64) {
+	MaxLatencyLock.Lock()
+	defer MaxLatencyLock.Unlock()
+	if latency > MaxLatency {
+		MaxLatency = latency
+	}
+}
+
+func resetMaxRequestLatency() {
+	MaxLatencyLock.Lock()
+	defer MaxLatencyLock.Unlock()
+	MaxLatency = 0
+}
+
+// ResetLatency
+// 重置延迟记录
+func ResetLatency() {
+	resetMinRequestLatency()
+	resetMaxRequestLatency()
+	resetAllRequestLatency()
+}
+
+// SetLatency
+// 设置延迟时间 , 这是一个defer方法
+func SetLatency() func(time.Time) {
+	return func(startTime time.Time) {
+		latency := time.Since(startTime).Seconds()
+		setMinLatency(latency)
+		setMaxLatency(latency)
+		setAllLatency(latency)
+	}
 }
 
 func Error(format string, args ...interface{}) {
@@ -43,9 +118,9 @@ func Error(format string, args ...interface{}) {
 }
 
 func RunWithLog(name string, f func()) {
-	fmt.Println("------------------------------------------")
 	log.Info("开始执行:%v !!!", name)
 	now := time.Now()
+	errCodes = new(sync.Map)
 	request1 := RequestNum()
 	errNum1 := ErrNum()
 	f()
@@ -58,7 +133,6 @@ func RunWithLog(name string, f func()) {
 		errCode = append(errCode, fmt.Sprintf("%v", key.(int)))
 		return true
 	})
-	errCodes = new(sync.Map)
 	fmt.Printf("|||执行完毕:%20v| 总请求次数:%5v | 成功:%4v | 失败:%5v | 用时:%10.4f | qps:%10.4f | 错误码:%v |||\n", name, allRequestNum, success, errNum, latency, float64(allRequestNum)/latency, strings.Join(errCode, ","))
 	time.Sleep(time.Second)
 }
@@ -69,11 +143,15 @@ func RunWithLog(name string, f func()) {
 func RunWithLogTick(name string, f func(), apiPath ...string) {
 	fmt.Println("------------------------------------------")
 	if len(apiPath) > 0 {
-		fmt.Printf("执行:%v 接口地址:%v 线程数:%v !!!\n", name, apiPath[0], C)
+		path := apiPath[0]
+		fmt.Printf("开始执行:%v 接口地址:%v 线程数:%v!!!\n", name, path, C)
 	} else {
-		fmt.Printf("执行:%v 线程数:%v !!!\n", name, C)
+		fmt.Printf("开始执行:%v 线程数:%v!!!\n", name, C)
 	}
+	// 清除错误码
 	errCodes = new(sync.Map)
+	// 重置延迟时间
+	ResetLatency()
 	now := time.Now()
 	request := RequestNum()
 	errNum := ErrNum()
@@ -98,12 +176,21 @@ func tickLog(name string, startTime time.Time, errStart, requestCountStart int64
 		errNum := ErrNum() - errStart
 		success := allRequestNum - errNum
 		latency := time.Since(startTime).Seconds()
-		errCode := make([]string, 0, 10)
+		errCode := make([]int, 0, 10)
 		errCodes.Range(func(key, value interface{}) bool {
-			errCode = append(errCode, fmt.Sprintf("%v", key.(int)))
+			errCode = append(errCode, key.(int))
 			return true
 		})
-		fmt.Printf("|||执行:%20v| 总请求次数:%5v | 成功:%4v | 失败:%5v | ws数量:%5v | 用时:%10.4f | qps:%10.4f | 平均延迟:%7.4f | 错误码:%v |||\n", name, allRequestNum, success, errNum, connectCount(), latency, float64(allRequestNum)/latency, latency/float64(allRequestNum), strings.Join(errCode, ","))
+		sort.Ints(errCode)
+		codes := ""
+		for _, v := range errCode {
+			if codes == "" {
+				codes = fmt.Sprintf("%v", v)
+			} else {
+				codes = fmt.Sprintf("%v,%v", codes, v)
+			}
+		}
+		fmt.Printf("|||执行:%20v| 总请求次数:%7v | 成功:%7v | 失败:%7v | 用时:%10.4f | qps:%10.4f | 平均延迟:%7.4f | 最大延迟:%7.4v | 最小延迟:%7.4v | 错误码:%v |||\n", name, allRequestNum, success, errNum, latency, float64(allRequestNum)/latency, allLatency()/float64(allRequestNum), maxLatency(), minLatency(), codes)
 	}
 
 	for {
@@ -115,45 +202,6 @@ func tickLog(name string, startTime time.Time, errStart, requestCountStart int64
 			printLog()
 			return
 		case <-stop:
-			// 额外再打印一次
-			printLog()
-			return
-		}
-	}
-}
-
-// RunReceiveMsgWithLogTick
-// 打印接收消日志
-func RunReceiveMsgWithLogTick(name string, f func()) {
-	log.Info("开始执行:%v !!!", name)
-	errCodes = new(sync.Map)
-	now := time.Now()
-	// 异步执行task
-	go f()
-	tickReceiveMsgLog(name, now)
-}
-
-// 每隔1秒钟 做一次日志打印
-func tickReceiveMsgLog(name string, startTime time.Time) {
-	tick := time.NewTicker(800 * time.Millisecond)
-	defer tick.Stop()
-	stopCh := make(chan os.Signal, 1)
-	signal.Notify(stopCh, os.Interrupt, os.Kill, syscall.SIGTERM)
-	printLog := func() {
-		latency := time.Since(startTime).Seconds()
-		errCode := make([]string, 0, 10)
-		errCodes.Range(func(key, value interface{}) bool {
-			errCode = append(errCode, fmt.Sprintf("%v", key.(int)))
-			return true
-		})
-		fmt.Printf("|||执行:%20v| ws长连接数量:%5v | 收到消息数:%5v | 用时:%10.4f |||\n", name, connectCount(), msgCount(), latency)
-	}
-
-	for {
-		select {
-		case <-tick.C:
-			printLog()
-		case <-stopCh:
 			// 额外再打印一次
 			printLog()
 			return
