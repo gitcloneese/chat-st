@@ -114,6 +114,7 @@ var (
 	errCodes           = new(sync.Map)
 
 	chatConnectCount int64 // 连上chat ws长连接数量
+	receiveMsgCount  int64 // 系统总收到消息数量 playerNum * perPlayerReceived
 )
 
 // 每个玩家默认1s发送一个聊天
@@ -156,7 +157,7 @@ func addFlag(fs *flag.FlagSet) {
 		isLocal = true
 	}
 
-	log.Info("addr:%v wsPath:%v playerNum:%v\n", Addr, apiConnectChatPath, PlayerNum)
+	log.Info("addr:%v wsPath:%v playerNum:%v threading:%v \n", Addr, apiConnectChatPath, PlayerNum, C)
 }
 
 func generatePlayerToken() {

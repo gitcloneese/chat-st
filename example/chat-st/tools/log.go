@@ -20,6 +20,10 @@ func connectCount() int64 {
 	return atomic.LoadInt64(&chatConnectCount)
 }
 
+func msgCount() int64 {
+	return atomic.LoadInt64(&receiveMsgCount)
+}
+
 func ErrNum() int64 {
 	return atomic.LoadInt64(&ErrCount)
 }
@@ -135,7 +139,7 @@ func tickReceiveMsgLog(name string, startTime time.Time) {
 			errCode = append(errCode, fmt.Sprintf("%v", key.(int)))
 			return true
 		})
-		fmt.Printf("|||执行:%20v| ws长连接数量:%5v | 用时:%10.4f |||\n", name, connectCount(), latency)
+		fmt.Printf("|||执行:%20v| ws长连接数量:%5v | 收到消息数:%5v | 用时:%10.4f |||\n", name, connectCount(), msgCount(), latency)
 	}
 
 	for {

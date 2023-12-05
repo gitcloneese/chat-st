@@ -272,6 +272,7 @@ func receiveMsg(info *pblogin.LoginRsp) {
 			Error("read websocket err: %v", err)
 			break
 		}
+		atomic.AddInt64(&receiveMsgCount, 1)
 		flag := message[0]
 		if flag == 0 {
 			distribute(message[1:])
