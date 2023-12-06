@@ -33,6 +33,4 @@ func main() {
 	case TReceiveMessage: // 2 测试能建立多少ws长连接
 		tools.RunTestReceiveMessage()
 	}
-	//监听os.Signal
-
 }
