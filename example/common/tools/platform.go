@@ -43,11 +43,13 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 	}()
 	defer atomic.AddInt64(&RequestCount, 1)
 	// 设置延迟
-	defer SetLatency()(time.Now())
+	now := time.Now()
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", PlatformAddr, platformPath), "application/json", bytes.NewReader(reqB))
+	SetLatency(now)
 	if err != nil {
 		return nil, err
 	}
+
 	errCodes.Store(resp.StatusCode, 1)
 	if resp.StatusCode != http.StatusOK {
 		err = fmt.Errorf("platform login failed, status code: %v", resp.StatusCode)

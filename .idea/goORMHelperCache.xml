@@ -1998,7 +1998,7 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/account.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701840465165" />
+              <option name="lastModified" value="1701862354315" />
               <option name="schema">
                 <list>
                   <option value="accountPlatformLoginInfo" />
@@ -2010,7 +2010,7 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701852244925" />
+              <option name="lastModified" value="1701862421552" />
             </ScannedPath>
           </value>
         </entry>
@@ -2024,14 +2024,14 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/log.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701844546862" />
+              <option name="lastModified" value="1701862536198" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/common/tools/login.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701847532876" />
+              <option name="lastModified" value="1701862440111" />
               <option name="schema">
                 <list>
                   <option value="GameAccountResp" />
@@ -2043,7 +2043,7 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/platform.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701844476239" />
+              <option name="lastModified" value="1701862471688" />
             </ScannedPath>
           </value>
         </entry>

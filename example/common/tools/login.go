@@ -37,8 +37,9 @@ func login(info *GameAccountResp) (*pbLogin.LoginRsp, error) {
 
 	defer atomic.AddInt64(&RequestCount, 1)
 	// 设置延迟
-	defer SetLatency()(time.Now())
+	now := time.Now()
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiLoginPath), "application/json", bytes.NewReader(reqB))
+	SetLatency(now)
 	if err != nil {
 		atomic.AddInt64(&ErrCount, 1)
 		return nil, err

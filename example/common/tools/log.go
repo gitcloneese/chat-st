@@ -108,14 +108,12 @@ func ResetLatency() {
 }
 
 // SetLatency
-// 设置延迟时间 , 这是一个defer方法
-func SetLatency() func(time.Time) {
-	return func(startTime time.Time) {
-		latency := time.Since(startTime).Seconds()
-		setMinLatency(latency)
-		setMaxLatency(latency)
-		setAllLatency(latency)
-	}
+// 设置延迟时间
+func SetLatency(startTime time.Time) {
+	latency := time.Since(startTime).Seconds()
+	setMinLatency(latency)
+	setMaxLatency(latency)
+	setAllLatency(latency)
 }
 
 func Error(format string, args ...interface{}) {
@@ -185,7 +183,8 @@ func tickLog(name string, startTime time.Time, errStart, requestCountStart int64
 				codes = fmt.Sprintf("%v,%v", codes, v)
 			}
 		}
-		fmt.Printf("|||执行:%20v| 总请求次数:%7v | 成功:%7v | 失败:%7v | 用时:%10.4f | qps:%10.4f | 平均延迟:%7.4f | 最大延迟:%7.4v | 最小延迟:%7.4v | 错误码:%v |||\n", name, allRequestNum, success, errNum, latency, float64(allRequestNum)/latency, allLatency()/float64(allRequestNum), maxLatency(), minLatency(), codes)
+		allRequestLatency := allLatency() // 系统api接口访问总延迟,只计算http request时间
+		fmt.Printf("|||执行:%20v| 总请求次数:%7v | 成功:%7v | 失败:%7v | 系统用时:%10.4f | 请求总用时:%7.4v | qps:%10.4f | 平均延迟:%7.4f | 最大延迟:%7.4v | 最小延迟:%7.4v | 错误码:%v |||\n", name, allRequestNum, success, errNum, latency, allRequestLatency, float64(allRequestNum)/allRequestLatency, allRequestLatency/float64(allRequestNum), maxLatency(), minLatency(), codes)
 	}
 
 	for {

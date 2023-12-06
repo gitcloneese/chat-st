@@ -43,8 +43,9 @@ func accountRoleListRequest(info *accountPlatformLoginInfo) (*pbAccount.AccountR
 	}()
 	defer atomic.AddInt64(&RequestCount, 1)
 	// 设置延迟
-	defer SetLatency()(time.Now())
+	now := time.Now()
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
+	SetLatency(now)
 	if err != nil {
 		return nil, err
 	}
