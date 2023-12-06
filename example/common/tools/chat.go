@@ -7,6 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/encoding"
 	"github.com/gorilla/websocket"
 	"github.com/panjf2000/ants/v2"
+	"google.golang.org/protobuf/proto"
 	"io"
 	"net/http"
 	"net/url"
@@ -16,6 +17,19 @@ import (
 	pbchat "xy3-proto/new-chat"
 	"xy3-proto/pkg/log"
 )
+
+var (
+	chatConnectCount int64 // 连上chat ws长连接数量
+	receiveMsgCount  int64 // 系统总收到消息数量 playerNum * perPlayerReceived
+)
+
+func connectCount() int64 {
+	return atomic.LoadInt64(&chatConnectCount)
+}
+
+func msgCount() int64 {
+	return atomic.LoadInt64(&receiveMsgCount)
+}
 
 func RunChat() {
 	// 异步发送消息
@@ -55,43 +69,15 @@ func RunSendMessage() {
 // TestSendMessage
 // 压测发送消息
 func TestSendMessage() {
-	if len(PlayerTokens) < 1 {
-		panic("PlayerTokens must be at least 1")
+	if len(GameLoginResp) < 1 {
+		panic("GameLoginResp must be at least 1")
 	}
 	var loginInfo *pblogin.LoginRsp
-	for _, token := range PlayerTokens {
+	for _, token := range GameLoginResp {
 		loginInfo = token
 		break
 	}
 	TestPlayerSendMessage(loginInfo)
-}
-
-// TestOneSendMessage
-// 一个玩家发送消息
-func TestOneSendMessage() {
-	if len(PlayerTokens) < 1 {
-		log.Error("压测发送消息, 玩家数量不足")
-		return
-	}
-	wg := &sync.WaitGroup{}
-	wg.Add(ChatCount)
-
-	var info *pblogin.LoginRsp
-	for _, v := range PlayerTokens {
-		info = v
-		break
-	}
-
-	var chatNum int
-	for chatNum < ChatCount {
-		go func() {
-			err := sendMessage(info, int32(chatNum))
-			if err != nil {
-			}
-		}()
-		chatNum++
-	}
-	wg.Wait()
 }
 
 func RunTestReceiveMessage() {
@@ -107,7 +93,7 @@ func TestReceiveMessageBlock() {
 		wg.Done()
 	})
 	defer p.Release()
-	for _, v := range PlayerTokens {
+	for _, v := range GameLoginResp {
 		wg.Add(1)
 		err := p.Invoke(v)
 		if err != nil {
@@ -277,4 +263,65 @@ func receiveMsg(info *pblogin.LoginRsp) {
 			distribute(message[1:])
 		}
 	}
+}
+
+func distribute(data []byte) {
+	msg := &pbchat.Message{}
+	err := proto.Unmarshal(data, msg)
+	if err != nil {
+		log.Error("distribute proto Unmarshal err:%v", err)
+		return
+	}
+	cmdLogic(msg.Ops, msg.Data)
+}
+
+func cmdLogic(ops pbchat.Operation, data []byte) {
+	v := operationMsg(ops)
+	if v == nil {
+		log.Error("ops %v not find parse message", ops)
+		return
+	}
+	err := proto.Unmarshal(data, v)
+	if err != nil {
+		log.Error("ops %v message parse err %v", ops, err)
+		return
+	}
+
+	buf, err := json.MarshalIndent(v, "\t", "    ")
+	if err != nil {
+		log.Error("json marshal indent err %v", err)
+		return
+	}
+
+	log.Info("ops %v message  %v", ops, string(buf))
+	fmt.Println(string(buf))
+}
+
+var (
+	CmdM = map[pbchat.Operation]proto.Message{
+		pbchat.Operation_OP_SendChatReply:    new(pbchat.SendChatReply),
+		pbchat.Operation_OP_RecvChat:         new(pbchat.ChatMessage),
+		pbchat.Operation_OP_UpdateRoomList:   new(pbchat.UpdateRoomList),
+		pbchat.Operation_OP_RoomList:         new(pbchat.RoomListReq),
+		pbchat.Operation_OP_RoomListReply:    new(pbchat.RoomListResp),
+		pbchat.Operation_OP_RoomHistoryReply: new(pbchat.ChatHistory),
+	}
+)
+
+func operationMsg(op pbchat.Operation) proto.Message {
+	switch op {
+	case pbchat.Operation_OP_SendChatReply:
+		return new(pbchat.SendChatReply)
+	case pbchat.Operation_OP_RecvChat:
+		return new(pbchat.ChatMessage)
+	case pbchat.Operation_OP_UpdateRoomList:
+		return new(pbchat.UpdateRoomList)
+	case pbchat.Operation_OP_RoomList:
+		return new(pbchat.RoomListReq)
+	case pbchat.Operation_OP_RoomListReply:
+		return new(pbchat.RoomListResp)
+	case pbchat.Operation_OP_RoomHistoryReply:
+		return new(pbchat.ChatHistory)
+	}
+	return nil
 }

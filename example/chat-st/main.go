@@ -1,29 +1,15 @@
 package main
 
 import (
-	"bytes"
-	"github.com/gorilla/websocket"
-	log "github.com/sirupsen/logrus"
-	"time"
-	"x-server/example/chat-st/tools"
+	"x-server/example/common/tools"
 )
 
-func ping(c *websocket.Conn) {
-	buf := new(bytes.Buffer)
-	buf.WriteByte(byte(3))
-	if err := c.WriteMessage(websocket.BinaryMessage, buf.Bytes()); err != nil {
-		log.Infof("websocket send ping err:%v", err)
-	}
-}
-
-// 测试本地
-// -addr=http://127.0.0.1:8200 -playerNum=100 -chatCount=100 -local=1 -loginAdd=http://127.0.0.1:8000  -t=1
-// 测试远端
-// -t=0 -addr=http://8.219.160.79:81 -playerNum=30 -chatCount=50 -local=0
 // 正式环境
-// -t=0 -addr=http://xy3api.firerock.sg -playerNum=30 -chatCount=50 -local=0
+// -t=0 -addr=http://xy3api.firerock.sg
 // uat环境
-// -t=0 -addr=http://8.219.59.226:81 -playerNum=30 -chatCount=50 -local=0
+// -t=0 -addr=http://8.219.59.226:81
+// 测试环境
+//-c=50 -t=2 -platformAddr=http://8.219.160.79:82 -addr=http://8.219.160.79:81 -accountNum=100 -chatCount=100 --debug=true
 
 const (
 	TALl            = iota // 流程全跑一遍
@@ -32,9 +18,13 @@ const (
 )
 
 func main() {
-	tools.RunPreparePlayers()
+	// 游客登录
+	tools.RunPlatformGuestLoginReq()
+	// 访问account对应的玩家列表
+	tools.RunAccountRoleListReq()
+	// 获取游戏登录token
+	tools.RunGameLoginReq()
 	// 开始聊天测试
-	time.Sleep(1 * time.Second)
 	switch tools.T {
 	case TALl: // 0
 		tools.RunChat() // 发送消息, 接收消息

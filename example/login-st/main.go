@@ -1,7 +1,7 @@
 package main
 
 import (
-	"x-server/example/login-st/tools"
+	"x-server/example/common/tools"
 )
 
 const (
@@ -10,7 +10,7 @@ const (
 	//RunGetGameLoginToken        //  运行GetGameLoginToken
 )
 
-// -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=100 --debug=true --c=100
+// -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=100 --debug=true -c=100
 // -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=10
 func main() {
 	// 游客登录
