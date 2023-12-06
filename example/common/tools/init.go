@@ -53,6 +53,7 @@ var (
 
 var (
 	ServerId               int
+	PlatformId             int // 平台id
 	Addr                   string
 	AccountAddr            string
 	PlatformAddr           string
@@ -85,6 +86,7 @@ func init() {
 
 func addFlag(fs *flag.FlagSet) {
 	fs.IntVar(&ServerId, "serverId", 2, "服务器id: 1, 2, 现在默认第二服务器")
+	fs.IntVar(&PlatformId, "platformId", 1, "平台id 默认是1, -1:用来测试 不经过platform平台认证  1:测试服 4: k8s集群")
 	fs.StringVar(&Addr, "addr", addr, fmt.Sprintf("服务器地址默认:%s", addr))
 	fs.StringVar(&AccountAddr, "accountAddr", "", "账户服务地址")
 	fs.StringVar(&PlatformAddr, "platformAddr", "", "platform账户服务地址")

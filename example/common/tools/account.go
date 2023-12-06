@@ -28,7 +28,7 @@ func accountRoleListRequest(info *accountPlatformLoginInfo) (*pbAccount.AccountR
 	platformLoginResp := info.loginInfo
 	var err error
 	reqB, err := json.Marshal(pbAccount.AccountRoleListReq{
-		PlatformID:   1, // 内部测试 TODO 因为不同环境是根据配置来决定的 -1: 用来测试 不经过platform平台认证 1:测试服 4: k8s集群
+		PlatformID:   int32(PlatformId), // 内部测试 TODO 因为不同环境是根据配置来决定的 -1: 用来测试 不经过platform平台认证 1:测试服 4: k8s集群
 		SDKAccountId: platformLoginResp.Unionid,
 		SdkToken:     platformLoginResp.Accesstoken,
 		ChannelID:    0,
