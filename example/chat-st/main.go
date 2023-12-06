@@ -10,7 +10,8 @@ import (
 // uat环境
 // -t=0 -addr=http://8.219.59.226:81
 // 测试环境
-//-c=50 -t=2 -platformAddr=http://8.219.160.79:82 -addr=http://8.219.160.79:81 -accountNum=100 -chatCount=100 --debug=true
+//-c=10 -t=2 -platformAddr=http://8.219.160.79:82 -addr=http://8.219.160.79:81 -accountNum=100 -chatCount=100 --debug=true
+//-c=10 -t=2 -platformAddr=https://xy3api.firerock.sg -addr=https://xy3api.firerock.sg -accountNum=100 -chatCount=100 --debug=true -platformId=4
 
 const (
 	TALl            = iota // 流程全跑一遍
