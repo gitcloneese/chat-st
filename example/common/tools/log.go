@@ -165,7 +165,7 @@ func tickLog(name string, startTime time.Time, errStart, requestCountStart int64
 	defer tick.Stop()
 	osStop := make(chan os.Signal, 1)
 	defer close(osStop)
-	signal.Notify(osStop, os.Interrupt, os.Kill)
+	signal.Notify(osStop, syscall.SIGTERM, syscall.SIGKILL)
 	printLog := func() {
 		allRequestNum := RequestNum() - requestCountStart
 		errNum := ErrNum() - errStart
@@ -226,7 +226,7 @@ func tickReceiveMsgLog(name string, startTime time.Time) {
 	tick := time.NewTicker(800 * time.Millisecond)
 	defer tick.Stop()
 	stopCh := make(chan os.Signal, 1)
-	signal.Notify(stopCh, os.Interrupt, os.Kill, syscall.SIGTERM)
+	signal.Notify(stopCh, syscall.SIGKILL, syscall.SIGTERM)
 	printLog := func() {
 		latency := time.Since(startTime).Seconds()
 		errCode := make([]string, 0, 10)

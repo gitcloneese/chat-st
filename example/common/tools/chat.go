@@ -98,6 +98,7 @@ func TestReceiveMessageBlock() {
 		wg.Add(1)
 		err := p.Invoke(v)
 		if err != nil {
+			Error("TestReceiveMessageBlock err:%v", err)
 		}
 	}
 	wg.Wait()
@@ -130,6 +131,7 @@ func SetZoneServer() {
 	for _, v := range GameLoginResp {
 		err := p.Invoke(v)
 		if err != nil {
+			Error("setZoneServer err:%v", err)
 		}
 	}
 	wg.Wait()

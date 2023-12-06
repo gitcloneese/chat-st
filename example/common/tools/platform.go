@@ -20,7 +20,7 @@ var (
 func generateImei() string {
 	y, m, d := time.Now().Date()
 	h, M, s := time.Now().Clock()
-	return fmt.Sprintf("%v-%v-%v-%-%-%v-%v", y, m, d, h, M, s, atomic.AddInt32(acc, 1))
+	return fmt.Sprintf("%v-%v-%v-%v-%v-%v-%v", y, m, d, h, M, s, atomic.AddInt32(acc, 1))
 }
 
 // 获取平台token
