@@ -13,6 +13,7 @@ import (
 	"net/url"
 	"sync"
 	"sync/atomic"
+	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
 	"xy3-proto/pkg/log"
@@ -81,7 +82,7 @@ func TestSendMessage() {
 }
 
 func RunTestReceiveMessage() {
-	RunReceiveMsgWithLogTick("receiveMessageBlock", TestReceiveMessageBlock)
+	RunReceiveMsgWithLogTick("receiveMessageBlock", TestReceiveMessageBlock, fmt.Sprintf("%v%v", ChatAddr, apiConnectChatPath))
 }
 
 // TestReceiveMessageBlock
@@ -104,6 +105,34 @@ func TestReceiveMessageBlock() {
 
 func bearToken(token string) string {
 	return fmt.Sprintf("Bearer %v", token)
+}
+
+// RunSetZoneServer
+// 设置聊天频道
+func RunSetZoneServer() {
+	RunWithLogTick("chatSetZoneServer", SetZoneServer, fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath))
+}
+
+func SetZoneServer() {
+	if len(GameLoginResp) < 1 {
+		panic("GameLoginResp must be at least 1")
+	}
+	wg := new(sync.WaitGroup)
+	wg.Add(len(GameLoginResp))
+	p, _ := ants.NewPoolWithFunc(C, func(i interface{}) {
+		err := setZoneServer(i.(*pblogin.LoginRsp))
+		if err != nil {
+			Error("setZoneServer err:%v", err)
+		}
+		wg.Done()
+	})
+	defer p.Release()
+	for _, v := range GameLoginResp {
+		err := p.Invoke(v)
+		if err != nil {
+		}
+	}
+	wg.Wait()
 }
 
 // 设置区服
@@ -249,6 +278,26 @@ func receiveMsg(info *pblogin.LoginRsp) {
 	// 记录长练级数量
 	atomic.AddInt64(&chatConnectCount, 1)
 	defer atomic.AddInt64(&chatConnectCount, -1)
+
+	// 加一个ping
+	stopChan := make(chan struct{}, 1)
+	defer close(stopChan)
+	go func(stop chan struct{}) {
+		buf := new(bytes.Buffer)
+		buf.WriteByte(byte(3))
+		tick := time.NewTicker(time.Second * 10)
+		defer tick.Stop()
+		for {
+			select {
+			case <-stop:
+				return
+			case <-tick.C:
+				if err := c.WriteMessage(websocket.PingMessage, buf.Bytes()); err != nil {
+					Error("receiveMsg websocket ping err:%v", err)
+				}
+			}
+		}
+	}(stopChan)
 
 	// 这里阻塞接口 收到的消息
 	for {

@@ -1886,7 +1886,7 @@
         <entry key="file://$PROJECT_DIR$/example/chat-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701832350536" />
+              <option name="lastModified" value="1701838667659" />
             </ScannedPath>
           </value>
         </entry>
@@ -1949,21 +1949,21 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701831166254" />
+              <option name="lastModified" value="1701836089263" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/common/tools/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701831855581" />
+              <option name="lastModified" value="1701838948458" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/common/tools/log.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701832090710" />
+              <option name="lastModified" value="1701835251743" />
             </ScannedPath>
           </value>
         </entry>

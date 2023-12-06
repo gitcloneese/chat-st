@@ -27,7 +27,7 @@ const (
 	accountRoleListPathLocal = "/account/AccountRoleList"
 	// loginPath
 	// 获取登录token
-	loginPath      = "/xy3-2/login/Login"
+	loginPath      = "/xy3-%v/login/Login"
 	loginPathLocal = "/login/Login"
 	// setZoneServerPath
 	// 设置角色所在区服
@@ -52,6 +52,7 @@ var (
 )
 
 var (
+	ServerId               int
 	Addr                   string
 	AccountAddr            string
 	PlatformAddr           string
@@ -83,6 +84,7 @@ func init() {
 }
 
 func addFlag(fs *flag.FlagSet) {
+	fs.IntVar(&ServerId, "serverId", 2, "服务器id: 1, 2, 现在默认第二服务器")
 	fs.StringVar(&Addr, "addr", addr, fmt.Sprintf("服务器地址默认:%s", addr))
 	fs.StringVar(&AccountAddr, "accountAddr", "", "账户服务地址")
 	fs.StringVar(&PlatformAddr, "platformAddr", "", "platform账户服务地址")
@@ -111,6 +113,11 @@ func addFlag(fs *flag.FlagSet) {
 		ChatAddr = Addr
 	}
 
+	// 服务器设置相关路基设置
+	{
+		apiLoginPath = fmt.Sprintf(loginPath, ServerId)
+	}
+
 	if isLocal {
 		apiAccountRoleListPath = accountRoleListPathLocal
 		apiLoginPath = loginPathLocal
@@ -119,6 +126,7 @@ func addFlag(fs *flag.FlagSet) {
 		apiSetZoneServerPath = setZoneServerPathLocal
 		apiConnectChatPath = wsPathLocal
 		apiSendMessagePath = sendMessagePathLocal
+		apiLoginPath = loginPathLocal
 	}
 
 	fmt.Printf("platformAddr:%v accountRoleListAddr:%v accountNum:%v C:%v\n", PlatformAddr, AccountAddr, AccountNum, C)

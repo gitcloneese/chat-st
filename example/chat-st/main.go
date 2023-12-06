@@ -1,6 +1,7 @@
 package main
 
 import (
+	"time"
 	"x-server/example/common/tools"
 )
 
@@ -17,6 +18,7 @@ const (
 	TReceiveMessage        // 接收消息
 )
 
+// 默认是在第二服务器
 func main() {
 	// 游客登录
 	tools.RunPlatformGuestLoginReq()
@@ -24,6 +26,8 @@ func main() {
 	tools.RunAccountRoleListReq()
 	// 获取游戏登录token
 	tools.RunGameLoginReq()
+	// 设置世界聊天频道
+	tools.RunSetZoneServer()
 	// 开始聊天测试
 	switch tools.T {
 	case TALl: // 0
@@ -33,4 +37,5 @@ func main() {
 	case TReceiveMessage: // 2 测试能建立多少ws长连接
 		tools.RunTestReceiveMessage()
 	}
+	time.Sleep(time.Second * 10000)
 }

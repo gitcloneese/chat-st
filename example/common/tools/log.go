@@ -10,7 +10,6 @@ import (
 	"sync/atomic"
 	"syscall"
 	"time"
-	"xy3-proto/pkg/log"
 )
 
 var (
@@ -207,8 +206,14 @@ func tickLog(name string, startTime time.Time, errStart, requestCountStart int64
 
 // RunReceiveMsgWithLogTick
 // 打印接收消日志
-func RunReceiveMsgWithLogTick(name string, f func()) {
-	log.Info("开始执行:%v !!!", name)
+func RunReceiveMsgWithLogTick(name string, f func(), apiPath ...string) {
+	fmt.Println("------------------------------------------")
+	if len(apiPath) > 0 {
+		path := apiPath[0]
+		fmt.Printf("开始执行:%v 接口地址:%v 线程数:%v!!!\n", name, path, C)
+	} else {
+		fmt.Printf("开始执行:%v 线程数:%v!!!\n", name, C)
+	}
 	errCodes = new(sync.Map)
 	now := time.Now()
 	// 异步执行task
