@@ -86,7 +86,7 @@ func getLoginToken() {
 		req := i.(*GameAccountResp)
 		_, err := login(req)
 		if err != nil {
-			Error("GetLoginToken failed, accountId: %v, accountResp:%#v err:%v", req.UnionId, req.AccountResp, err)
+			Error("GetLoginToken failed, accountId: %v, err:%v", req.UnionId, err)
 		}
 	})
 	defer p.Release()
