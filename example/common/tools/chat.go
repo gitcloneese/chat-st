@@ -171,7 +171,8 @@ func setZoneServer(info *pblogin.LoginRsp) (err error) {
 	}
 	errCodes.Store(resp.StatusCode, 1)
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("setZoneServer failed, status code: %v", resp.StatusCode)
+		err = fmt.Errorf("setZoneServer failed, status code: %v", resp.StatusCode)
+		return err
 	}
 	bodyByte, err := io.ReadAll(resp.Body)
 	if err != nil {
