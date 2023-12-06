@@ -32,10 +32,11 @@ func main() {
 	switch tools.T {
 	case TALl: // 0
 		tools.RunChat() // 发送消息, 接收消息
+		time.Sleep(time.Second * 10000)
 	case TSendMessage: // 1 // 发送多少条消息， 平均耗时， 成功率， 失败率
 		tools.RunSendMessage()
 	case TReceiveMessage: // 2 测试能建立多少ws长连接
 		tools.RunTestReceiveMessage()
+		time.Sleep(time.Second * 10000)
 	}
-	time.Sleep(time.Second * 10000)
 }
