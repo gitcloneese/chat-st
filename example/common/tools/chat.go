@@ -90,8 +90,8 @@ func RunTestReceiveMessage() {
 func TestReceiveMessageBlock() {
 	wg := new(sync.WaitGroup)
 	p, _ := ants.NewPoolWithFunc(C, func(i interface{}) {
-		go receiveMsg(i.(*pblogin.LoginRsp))
-		wg.Done()
+		defer wg.Done()
+		receiveMsg(i.(*pblogin.LoginRsp))
 	})
 	defer p.Release()
 	for _, v := range GameLoginResp {
@@ -244,21 +244,38 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) (err error) {
 	return nil
 }
 
+var (
+	chatUrl     *url.URL
+	chatUrlOnce sync.Once
+)
+
 // 接收消息
 func receiveMsg(info *pblogin.LoginRsp) {
-	uri, err := url.Parse(ChatAddr)
-	if err != nil {
-		panic("receiveMsg parse url failed" + err.Error())
+	if chatUrl == nil {
+		chatUrlOnce.Do(func() {
+			uri, err := url.Parse(ChatAddr)
+			if err != nil {
+				panic("receiveMsg parse url failed" + err.Error())
+			}
+			scheme := "ws"
+			if uri.Scheme == "https" {
+				scheme = "wss"
+			}
+			chatUrl = &url.URL{
+				Scheme: scheme,
+				Host:   uri.Host,
+				Path:   apiConnectChatPath,
+			}
+		})
 	}
-
-	scheme := "ws"
-	if uri.Scheme == "https" {
-		scheme = "wss"
+	if chatUrl == nil {
+		Error("receiveMsg chatUrl is nil")
+		return
 	}
-	u := url.URL{
-		Scheme: scheme,
-		Host:   uri.Host,
-		Path:   apiConnectChatPath,
+	u := &url.URL{
+		Scheme: chatUrl.Scheme,
+		Host:   chatUrl.Host,
+		Path:   chatUrl.Path,
 	}
 
 	reqHeader := http.Header{}
@@ -275,45 +292,47 @@ func receiveMsg(info *pblogin.LoginRsp) {
 		atomic.AddInt64(&ErrCount, 1)
 		return
 	}
-	defer c.Close()
 
-	// 记录长练级数量
-	atomic.AddInt64(&chatConnectCount, 1)
-	defer atomic.AddInt64(&chatConnectCount, -1)
+	go func(c *websocket.Conn) {
+		defer c.Close()
+		// 记录长练级数量
+		atomic.AddInt64(&chatConnectCount, 1)
+		defer atomic.AddInt64(&chatConnectCount, -1)
 
-	// 加一个ping
-	stopChan := make(chan struct{}, 1)
-	defer close(stopChan)
-	go func(stop chan struct{}) {
-		buf := new(bytes.Buffer)
-		buf.WriteByte(byte(3))
-		tick := time.NewTicker(time.Second * 10)
-		defer tick.Stop()
-		for {
-			select {
-			case <-stop:
-				return
-			case <-tick.C:
-				if err := c.WriteMessage(websocket.PingMessage, buf.Bytes()); err != nil {
-					Error("receiveMsg websocket ping err:%v", err)
+		// 加一个ping
+		stopChan := make(chan struct{}, 1)
+		defer close(stopChan)
+		go func(stop chan struct{}) {
+			buf := new(bytes.Buffer)
+			buf.WriteByte(byte(3))
+			tick := time.NewTicker(time.Second * 10)
+			defer tick.Stop()
+			for {
+				select {
+				case <-stop:
+					return
+				case <-tick.C:
+					if err := c.WriteMessage(websocket.PingMessage, buf.Bytes()); err != nil {
+						Error("receiveMsg websocket ping err:%v", err)
+					}
 				}
 			}
-		}
-	}(stopChan)
+		}(stopChan)
 
-	// 这里阻塞接口 收到的消息
-	for {
-		_, message, err := c.ReadMessage()
-		if err != nil {
-			Error("read websocket err: %v", err)
-			break
+		// 这里阻塞接口 收到的消息
+		for {
+			_, message, err := c.ReadMessage()
+			if err != nil {
+				Error("read websocket err: %v", err)
+				break
+			}
+			atomic.AddInt64(&receiveMsgCount, 1)
+			flag := message[0]
+			if flag == 0 {
+				distribute(message[1:])
+			}
 		}
-		atomic.AddInt64(&receiveMsgCount, 1)
-		flag := message[0]
-		if flag == 0 {
-			distribute(message[1:])
-		}
-	}
+	}(c)
 }
 
 func distribute(data []byte) {

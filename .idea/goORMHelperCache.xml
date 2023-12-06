@@ -202,6 +202,7 @@
         <entry key="GameAccountResp">
           <value>
             <set>
+              <option value="file://$PROJECT_DIR$/example/common/tools/login.go" />
               <option value="file://$PROJECT_DIR$/example/login-st/tools/login.go" />
               <option value="file://$PROJECT_DIR$/../work/xy3-server/example/common/tools/login.go" />
             </set>
@@ -1963,7 +1964,7 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/chat.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1701844592843" />
+              <option name="lastModified" value="1701851883934" />
             </ScannedPath>
           </value>
         </entry>
@@ -1978,6 +1979,18 @@
           <value>
             <ScannedPath>
               <option name="lastModified" value="1701844546862" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/common/tools/login.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1701847532876" />
+              <option name="schema">
+                <list>
+                  <option value="GameAccountResp" />
+                </list>
+              </option>
             </ScannedPath>
           </value>
         </entry>
