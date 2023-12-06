@@ -267,6 +267,7 @@ func receiveMsg(info *pblogin.LoginRsp) {
 				Path:   apiConnectChatPath,
 			}
 		})
+		time.Sleep(time.Millisecond * 10)
 	}
 	if chatUrl == nil {
 		Error("receiveMsg chatUrl is nil")
