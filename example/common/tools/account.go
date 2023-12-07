@@ -6,13 +6,19 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
 	"github.com/panjf2000/ants/v2"
-	"io"
-	"net/http"
 	"sync"
 	"sync/atomic"
 	"time"
 	pbAccount "xy3-proto/account"
 	pbPlatform "xy3-proto/platform"
+)
+
+const (
+	// accountRoleListPath
+	// 获取游戏角色列表,聊天服token
+	accountRoleListPath      = "/xy3-cross/account/AccountRoleList"
+	accountRoleListPathLocal = "/account/AccountRoleList"
+	// setZoneServerPath
 )
 
 func generateAccount() string {
@@ -21,8 +27,6 @@ func generateAccount() string {
 	return fmt.Sprintf("%v%02v%02v-%02v%02v%02v-%v", y, m, d, h, M, s, atomic.AddInt32(acc, 1))
 }
 
-// account
-// 获取Account认证
 func accountRoleListRequest(info *accountPlatformLoginInfo) (*pbAccount.AccountRoleListRsp, error) {
 	platformAccount := info.account
 	platformLoginResp := info.loginInfo
@@ -36,42 +40,15 @@ func accountRoleListRequest(info *accountPlatformLoginInfo) (*pbAccount.AccountR
 	if err != nil {
 		return nil, err
 	}
-	defer func() {
-		if err != nil {
-			atomic.AddInt64(&ErrCount, 1)
-		}
-	}()
-	defer atomic.AddInt64(&RequestCount, 1)
-	// 设置延迟
-	now := time.Now()
-	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath), "application/json", bytes.NewReader(reqB))
-	SetLatency(now)
-	atomic.AddInt64(&RequestCount, 1)
-	if err != nil {
-		return nil, err
-	}
-	errCodes.Store(resp.StatusCode, 1)
-	if resp.StatusCode != http.StatusOK {
-		err = fmt.Errorf("accountRoleList failed, status code: %v", resp.StatusCode)
-		return nil, err
-	}
-
-	bodyByte, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
+	path := fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath)
+	bodyByte, err := HttpPost(path, bytes.NewReader(reqB), nil)
 	accountRsp := new(pbAccount.AccountRoleListRsp)
-
 	if err := encoding.GetCodec("json").Unmarshal(bodyByte, accountRsp); err != nil {
 		return nil, err
 	}
-
 	AccountRoleListLock.Lock()
 	defer AccountRoleListLock.Unlock()
 	AccountRoleListResp[platformAccount] = accountRsp
-
 	return accountRsp, nil
 }
 

@@ -6,14 +6,21 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/encoding"
 	"github.com/panjf2000/ants/v2"
-	"io"
-	"net/http"
 	"sync"
-	"sync/atomic"
-	"time"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
 )
+
+// loginPath
+// 获取登录token
+var (
+	loginPath      = "/xy3-%v/login/Login"
+	loginPathLocal = "/login/Login"
+)
+
+func initLoginPath() {
+	apiLoginPath = fmt.Sprintf(loginPath, ServerId)
+}
 
 // login
 // 获取登录token
@@ -28,46 +35,15 @@ func login(info *GameAccountResp) (*pbLogin.LoginRsp, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	defer func() {
-		if err != nil {
-			atomic.AddInt64(&ErrCount, 1)
-		}
-	}()
-
-	// 设置延迟
-	now := time.Now()
-	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", AccountAddr, apiLoginPath), "application/json", bytes.NewReader(reqB))
-	SetLatency(now)
-	atomic.AddInt64(&RequestCount, 1)
-	if err != nil {
-		atomic.AddInt64(&ErrCount, 1)
-		return nil, err
-	}
-	errCodes.Store(resp.StatusCode, 1)
-	if resp.StatusCode != http.StatusOK {
-		b, _ := io.ReadAll(resp.Body)
-		err = fmt.Errorf("login failed, status code: %v body:%v", resp.StatusCode, string(b))
-		return nil, err
-	}
-
+	url := fmt.Sprintf("%v%v", AccountAddr, apiLoginPath)
+	resp, err := HttpPost(url, bytes.NewReader(reqB), nil)
 	loginRsp := new(pbLogin.LoginRsp)
-
-	buff := new(bytes.Buffer)
-	from, err := buff.ReadFrom(resp.Body)
-	if err != nil || from == 0 {
+	if err := encoding.GetCodec("json").Unmarshal(resp, loginRsp); err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-
-	if err := encoding.GetCodec("json").Unmarshal(buff.Bytes(), loginRsp); err != nil {
-		return nil, err
-	}
-
 	GameLoginLock.Lock()
 	defer GameLoginLock.Unlock()
 	GameLoginResp[accountId] = loginRsp
-
 	return loginRsp, nil
 }
 

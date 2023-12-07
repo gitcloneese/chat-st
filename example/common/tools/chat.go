@@ -4,11 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/go-kratos/kratos/v2/encoding"
 	"github.com/gorilla/websocket"
 	"github.com/panjf2000/ants/v2"
 	"google.golang.org/protobuf/proto"
-	"io"
 	"net/http"
 	"net/url"
 	"sync"
@@ -16,6 +14,20 @@ import (
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
+)
+
+const (
+	// wsPath
+	// 连接聊天服
+	wsPath      = "/xy3-cross/new-chat/Connect"
+	wsPathLocal = "/new-chat/Connect"
+	// 设置角色所在区服
+	setZoneServerPath      = "/xy3-cross/new-chat/SetZoneServer"
+	setZoneServerPathLocal = "/new-chat/SetZoneServer"
+	// sendMessagePath
+	// 发送消息
+	sendMessagePath      = "/xy3-cross/new-chat/SendMessage"
+	sendMessagePathLocal = "/new-chat/SendMessage"
 )
 
 var (
@@ -53,6 +65,10 @@ func TestPlayerSendMessage(info *pblogin.LoginRsp) {
 
 	})
 	defer p.Release()
+	// 一个玩家压所有接口n次
+	if TestOne {
+		ChatCount = N
+	}
 	var count int32
 	for count < int32(ChatCount) {
 		count++
@@ -138,11 +154,6 @@ func SetZoneServer() {
 
 // 设置区服
 func setZoneServer(info *pblogin.LoginRsp) (err error) {
-	func() {
-		if err != nil {
-			atomic.AddInt64(&ErrCount, 1)
-		}
-	}()
 	reqB, err := json.Marshal(pbchat.SetZoneServerReq{
 		ZoneId:   "1", // 压力测试
 		ServerId: "2",
@@ -151,39 +162,16 @@ func setZoneServer(info *pblogin.LoginRsp) (err error) {
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath), bytes.NewReader(reqB))
-	if err != nil {
-		return err
+	path := fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath)
+	headers := map[string]string{
+		"Authorization": bearToken(info.PlayerToken),
 	}
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", bearToken(info.PlayerToken))
-
-	// 本地test
 	if isLocal {
-		req.Header.Set("userid", fmt.Sprintf("%v", info.PlayerID))
+		headers["userid"] = fmt.Sprintf("%v", info.PlayerID)
 	}
-	// 设置延迟
-	now := time.Now()
-	resp, err := HttpClient.Do(req)
-	SetLatency(now)
-	atomic.AddInt64(&RequestCount, 1)
-	if err != nil {
-		return err
-	}
-	errCodes.Store(resp.StatusCode, 1)
-	if resp.StatusCode != http.StatusOK {
-		err = fmt.Errorf("setZoneServer failed, status code: %v", resp.StatusCode)
-		return err
-	}
-	bodyByte, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
 
-	setZoneServerRsp := new(pbchat.SetZoneServerReply)
-
-	if err := encoding.GetCodec("json").Unmarshal(bodyByte, setZoneServerRsp); err != nil {
+	_, err = HttpPost(path, bytes.NewReader(reqB), headers)
+	if err != nil {
 		return err
 	}
 	return nil
@@ -195,11 +183,6 @@ func generateMessage(playerId int64, accId int32) string {
 
 // 发送消息
 func sendMessage(info *pblogin.LoginRsp, chatNums int32) (err error) {
-	defer func() {
-		if err != nil {
-			atomic.AddInt64(&ErrCount, 1)
-		}
-	}()
 	msg := generateMessage(info.PlayerID, chatNums)
 	reqB, err := json.Marshal(pbchat.SendChat{
 		Msg:        msg,
@@ -209,43 +192,21 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) (err error) {
 	if err != nil {
 		return err
 	}
-	// 设置延迟
-	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSendMessagePath), bytes.NewReader(reqB))
-	if err != nil {
-		return err
+	headers := map[string]string{
+		"Authorization": bearToken(info.PlayerToken),
 	}
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", bearToken(info.PlayerToken))
-
-	// 本地test
 	if isLocal {
-		req.Header.Set("userid", fmt.Sprintf("%v", info.PlayerID))
+		headers["userid"] = fmt.Sprintf("%v", info.PlayerID)
 	}
-
-	now := time.Now()
-	resp, err := HttpClient.Do(req)
-	SetLatency(now)
-	atomic.AddInt64(&RequestCount, 1)
+	path := fmt.Sprintf("%v%v", ChatAddr, apiSendMessagePath)
+	_, err = HttpPost(path, bytes.NewReader(reqB), headers)
 	if err != nil {
 		return err
 	}
-	errCodes.Store(resp.StatusCode, 1)
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("sendMessage failed, status code: %v", resp.StatusCode)
-	}
-
-	bodyByte, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	msgRsp := new(pbchat.SendChatReply)
-
-	if err := encoding.GetCodec("json").Unmarshal(bodyByte, msgRsp); err != nil {
-		return err
-	}
-
+	//msgRsp := new(pbchat.SendChatReply)
+	//if err := encoding.GetCodec("json").Unmarshal(bodyByte, msgRsp); err != nil {
+	//	return err
+	//}
 	return nil
 }
 

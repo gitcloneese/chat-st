@@ -1,12 +1,9 @@
 package tools
 
 import (
-	"crypto/tls"
 	"flag"
 	"fmt"
-	"net/http"
 	"sync"
-	"time"
 	pbAccount "xy3-proto/account"
 	pbLogin "xy3-proto/login"
 	pbPlatform "xy3-proto/platform"
@@ -14,41 +11,6 @@ import (
 
 const (
 	addr = "127.0.0.1:8000"
-	// wsPath
-	// 连接聊天服
-	wsPath      = "/xy3-cross/new-chat/Connect"
-	wsPathLocal = "/new-chat/Connect"
-	// platformPath
-	// 获取account登录授权
-	platformPath = "/auth/platform/GuestLogin"
-	// accountRoleListPath
-	// 获取游戏角色列表,聊天服token
-	accountRoleListPath      = "/xy3-cross/account/AccountRoleList"
-	accountRoleListPathLocal = "/account/AccountRoleList"
-	// loginPath
-	// 获取登录token
-	loginPath      = "/xy3-%v/login/Login"
-	loginPathLocal = "/login/Login"
-	// setZoneServerPath
-	// 设置角色所在区服
-	setZoneServerPath      = "/xy3-cross/new-chat/SetZoneServer"
-	setZoneServerPathLocal = "/new-chat/SetZoneServer"
-	// sendMessagePath
-	// 发送消息
-	sendMessagePath      = "/xy3-cross/new-chat/SendMessage"
-	sendMessagePathLocal = "/new-chat/SendMessage"
-)
-
-var (
-	HttpClient = http.Client{
-		Timeout: time.Second * 30,
-		Transport: &http.Transport{
-			TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
-			MaxIdleConnsPerHost: 50000,
-			MaxIdleConns:        50000,
-			IdleConnTimeout:     time.Second * 10,
-		},
-	}
 )
 
 var (
@@ -77,6 +39,9 @@ var (
 	Debug                  bool // debug模式将会打印error日志
 	C                      int  // 并发携程数
 
+	// TestOne 压一个玩家的所有接口， 每个接口执行N次, 为true时, accountNum 参数不生效
+	TestOne bool //
+	N       int
 )
 
 // 每个玩家默认1s发送一个聊天
@@ -101,6 +66,10 @@ func addFlag(fs *flag.FlagSet) {
 	fs.StringVar(&WsPath, "wsPath", wsPath, "wsPath to connect to server")
 	fs.IntVar(&ChatCount, "chatCount", 1000, fmt.Sprintf("玩家发言次数默认:%v", 1000))
 
+	// 压一个玩家的所有接口， 每个接口执行N次
+	fs.BoolVar(&TestOne, "testOne", false, "压一个玩家的所有接口， 每个接口执行N次 需要设置 -n=xxx")
+	fs.IntVar(&N, "n", 1000, "压一个玩家的所有接口， 每个接口执行N次 需要设置 -n=xxx")
+
 	flag.Parse()
 
 	if PlatformAddr == "" {
@@ -117,7 +86,8 @@ func addFlag(fs *flag.FlagSet) {
 
 	// 服务器设置相关路基设置
 	{
-		apiLoginPath = fmt.Sprintf(loginPath, ServerId)
+		initLoginPath()
+		initManualPath()
 	}
 
 	if isLocal {
@@ -130,6 +100,10 @@ func addFlag(fs *flag.FlagSet) {
 		apiSendMessagePath = sendMessagePathLocal
 		apiLoginPath = loginPathLocal
 	}
+	if TestOne {
+		AccountNum = 1
+	}
 
-	fmt.Printf("platformAddr:%v accountRoleListAddr:%v accountNum:%v C:%v\n", PlatformAddr, AccountAddr, AccountNum, C)
+	fmt.Printf("-testOne=bool设置, 压一个玩家的所有接口 一个接口压n次 -n=int设置, 默认1000\n")
+	fmt.Printf("platformAddr:%v accountRoleListAddr:%v TestOne:%v accountNum:%v C:%v\n", PlatformAddr, AccountAddr, TestOne, AccountNum, C)
 }

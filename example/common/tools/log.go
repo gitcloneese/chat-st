@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"reflect"
+	"runtime"
 	"sort"
 	"strings"
 	"sync"
@@ -257,4 +259,24 @@ func tickReceiveMsgLog(name string, startTime time.Time) {
 			return
 		}
 	}
+}
+
+// GetFunctionName
+// 获取匿名函数名称
+func GetFunctionName(i interface{}, seps ...rune) string {
+	fn := runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
+	// 用 seps 进行分割
+	fields := strings.FieldsFunc(fn, func(sep rune) bool {
+		for _, s := range seps {
+			if sep == s {
+				return true
+			}
+		}
+		return false
+	})
+
+	if size := len(fields); size > 0 {
+		return fields[size-1]
+	}
+	return ""
 }
