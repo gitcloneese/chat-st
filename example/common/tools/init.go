@@ -41,7 +41,7 @@ const (
 
 var (
 	HttpClient = http.Client{
-		Timeout: time.Second * 10,
+		Timeout: time.Second * 30,
 		Transport: &http.Transport{
 			TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
 			MaxIdleConnsPerHost: 50000,

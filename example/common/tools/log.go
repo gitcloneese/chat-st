@@ -184,18 +184,18 @@ func tickLog(name string, startTime time.Time, errStart, requestCountStart int64
 			}
 		}
 		allRequestLatency := allLatency()
-		qps := float64(allRequestNum) / latency // 每秒事务数量
+		qps := float64(success) / latency // 每秒事务数量 成功数量/当前延迟
 		averageLatency := allRequestLatency / float64(allRequestNum)
 		// qps 每秒请求数 tps 每秒事务数
 		allRequestLatencyStr := fmt.Sprintf("%v", allRequestLatency)
 		allRequestLatencyStrSli := strings.Split(allRequestLatencyStr, ".")
 		if len(allRequestLatencyStrSli) == 2 {
-			if len(allRequestLatencyStrSli[1]) > 4 {
-				allRequestLatencyStrSli[1] = allRequestLatencyStrSli[1][:4]
+			if len(allRequestLatencyStrSli[1]) > 2 {
+				allRequestLatencyStrSli[1] = allRequestLatencyStrSli[1][:2]
 			}
 			allRequestLatencyStr = strings.Join(allRequestLatencyStrSli, ".")
 		}
-		fmt.Printf("|||执行:%20v| 总请求次数:%7v | 成功:%7v | 失败:%7v | 压测用时:%10.4f | 接口总延迟:%13v | qps:%10.4v | 接口平均耗时:%7.4f | 最大耗时:%7.4v | 最小耗时:%7.4v | 错误码:%v |||\n", name, allRequestNum, success, errNum, latency, allRequestLatencyStr, qps, averageLatency, maxLatency(), minLatency(), codes)
+		fmt.Printf("|||执行:%20v| 总请求次数:%7v | 成功:%7v | 失败:%7v | 压测用时:%10.4f | 接口总延迟:%10v | qps:%7v | 接口平均耗时:%7.4f | 最大耗时:%7.4v | 最小耗时:%7.4v | 错误码:%v |||\n", name, allRequestNum, success, errNum, latency, allRequestLatencyStr, int(qps), averageLatency, maxLatency(), minLatency(), codes)
 	}
 
 	for {
