@@ -16,7 +16,6 @@ import (
 	"time"
 	pblogin "xy3-proto/login"
 	pbchat "xy3-proto/new-chat"
-	"xy3-proto/pkg/log"
 )
 
 var (
@@ -346,7 +345,7 @@ func distribute(data []byte) {
 	msg := &pbchat.Message{}
 	err := proto.Unmarshal(data, msg)
 	if err != nil {
-		log.Error("distribute proto Unmarshal err:%v", err)
+		Error("distribute proto Unmarshal err:%v", err)
 		return
 	}
 	cmdLogic(msg.Ops, msg.Data)
@@ -355,23 +354,22 @@ func distribute(data []byte) {
 func cmdLogic(ops pbchat.Operation, data []byte) {
 	v := operationMsg(ops)
 	if v == nil {
-		log.Error("ops %v not find parse message", ops)
+		Error("ops %v not find parse message", ops)
 		return
 	}
 	err := proto.Unmarshal(data, v)
 	if err != nil {
-		log.Error("ops %v message parse err %v", ops, err)
+		Error("ops %v message parse err %v", ops, err)
 		return
 	}
 
 	buf, err := json.MarshalIndent(v, "\t", "    ")
 	if err != nil {
-		log.Error("json marshal indent err %v", err)
+		Error("json marshal indent err %v", err)
 		return
 	}
 
-	log.Info("ops %v message  %v", ops, string(buf))
-	fmt.Println(string(buf))
+	Error("ops %v message  %v", ops, string(buf))
 }
 
 var (
