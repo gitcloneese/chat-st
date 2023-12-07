@@ -41,11 +41,11 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 			atomic.AddInt64(&ErrCount, 1)
 		}
 	}()
-	defer atomic.AddInt64(&RequestCount, 1)
 	// 设置延迟
 	now := time.Now()
 	resp, err := HttpClient.Post(fmt.Sprintf("%v%v", PlatformAddr, platformPath), "application/json", bytes.NewReader(reqB))
 	SetLatency(now)
+	atomic.AddInt64(&RequestCount, 1)
 	if err != nil {
 		return nil, err
 	}

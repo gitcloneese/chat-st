@@ -152,7 +152,6 @@ func setZoneServer(info *pblogin.LoginRsp) (err error) {
 	if err != nil {
 		return err
 	}
-	defer atomic.AddInt64(&RequestCount, 1)
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSetZoneServerPath), bytes.NewReader(reqB))
 	if err != nil {
 		return err
@@ -168,6 +167,7 @@ func setZoneServer(info *pblogin.LoginRsp) (err error) {
 	now := time.Now()
 	resp, err := HttpClient.Do(req)
 	SetLatency(now)
+	atomic.AddInt64(&RequestCount, 1)
 	if err != nil {
 		return err
 	}
@@ -210,11 +210,8 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) (err error) {
 	if err != nil {
 		return err
 	}
-	defer atomic.AddInt64(&RequestCount, 1)
 	// 设置延迟
-	now := time.Now()
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", ChatAddr, apiSendMessagePath), bytes.NewReader(reqB))
-	SetLatency(now)
 	if err != nil {
 		return err
 	}
@@ -226,7 +223,10 @@ func sendMessage(info *pblogin.LoginRsp, chatNums int32) (err error) {
 		req.Header.Set("userid", fmt.Sprintf("%v", info.PlayerID))
 	}
 
+	now := time.Now()
 	resp, err := HttpClient.Do(req)
+	SetLatency(now)
+	atomic.AddInt64(&RequestCount, 1)
 	if err != nil {
 		return err
 	}
