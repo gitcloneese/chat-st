@@ -37,6 +37,9 @@ func login(info *GameAccountResp) (*pbLogin.LoginRsp, error) {
 	}
 	url := fmt.Sprintf("%v%v", AccountAddr, apiLoginPath)
 	resp, err := HttpPost(url, bytes.NewReader(reqB), nil)
+	if err != nil {
+		return nil, err
+	}
 	loginRsp := new(pbLogin.LoginRsp)
 	if err := encoding.GetCodec("json").Unmarshal(resp, loginRsp); err != nil {
 		return nil, err

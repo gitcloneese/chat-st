@@ -20,7 +20,6 @@ require (
 	github.com/redis/go-redis/v9 v9.3.0
 	github.com/segmentio/kafka-go v0.4.40
 	github.com/shirou/gopsutil v3.21.11+incompatible
-	github.com/sirupsen/logrus v1.9.3
 	github.com/smartystreets/goconvey v1.8.0
 	github.com/stretchr/testify v1.8.4
 	github.com/zeromicro/go-zero v1.5.2
@@ -93,6 +92,7 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.9.0 // indirect
+	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/smartystreets/assertions v1.13.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
@@ -120,9 +120,9 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.11.1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20231120223509-83a465c0220f // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20231120223509-83a465c0220f // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20231106174013-bbf56f31fb17 // indirect
+	google.golang.org/genproto v0.0.0-20231127180814-3a041ad873d4 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20231127180814-3a041ad873d4 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20231120223509-83a465c0220f // indirect
 	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -138,4 +138,5 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace xy3-proto => gitlab.com/firerocksg/xy3-proto/xy3-proto v0.0.0-20231127101708-e95e70f48fb0
+//go mod edit -replace xy3-proto=gitlab.com/firerocksg/xy3-proto/xy3-proto@develop
+replace xy3-proto => gitlab.com/firerocksg/xy3-proto/xy3-proto v0.0.0-20231220103024-fd6b6c396f58

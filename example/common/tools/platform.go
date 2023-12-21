@@ -43,6 +43,9 @@ func platformGuestLogin(imei string) (*pbPlatform.LoginResp, error) {
 	}
 	url := fmt.Sprintf("%v%v", PlatformAddr, platformPath)
 	resp, err := HttpPost(url, bytes.NewReader(reqB), nil)
+	if err != nil {
+		return nil, err
+	}
 	loginResp := new(pbPlatform.LoginResp)
 	if err := encoding.GetCodec("json").Unmarshal(resp, loginResp); err != nil {
 		return nil, err

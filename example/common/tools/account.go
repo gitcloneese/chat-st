@@ -42,6 +42,9 @@ func accountRoleListRequest(info *accountPlatformLoginInfo) (*pbAccount.AccountR
 	}
 	path := fmt.Sprintf("%v%v", AccountAddr, apiAccountRoleListPath)
 	bodyByte, err := HttpPost(path, bytes.NewReader(reqB), nil)
+	if err != nil {
+		return nil, err
+	}
 	accountRsp := new(pbAccount.AccountRoleListRsp)
 	if err := encoding.GetCodec("json").Unmarshal(bodyByte, accountRsp); err != nil {
 		return nil, err
