@@ -14,6 +14,7 @@ const (
 // -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=10
 // -c=50 -t=1 -platformAddr=https://xy3api.firerock.sg -addr=https://xy3api.firerock.sg -accountNum=3000 -chatCount=100 --debug=false -platformId=4
 // -c=200 -t=1 -platformAddr=https://xy3api.firerock.sg -addr=https://xy3api.firerock.sg -accountNum=3000 -chatCount=100 --debug=false -testOne=true -n=10000 -platformId=4 -serverId=1
+// -serverId=1 -platformId=4 -platformAddr=https://xy3api.firerock.sg -accountAddr=https://xy3api.firerock.sg -accountNum=10000 --debug=true -c=300 -testOne=false -n=1000 -t=2 -accountId=panll035
 func main() {
 	// 游客登录
 	tools.RunPlatformGuestLoginReq()

@@ -3,20 +3,6 @@
   <component name="GoORMHelperCache">
     <option name="schemaMapping">
       <map>
-        <entry key="Account">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../work/xy3-server/account/internal/logic/platformsdk/platformsdk.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="AccountResp">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../work/xy3-server/account/internal/logic/platformsdk/platformsdk.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="AntsLogger">
           <value>
             <set>
@@ -182,6 +168,7 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/dao/friend/friend.go" />
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/core/dao/friend/friend.go" />
             </set>
           </value>
         </entry>
@@ -217,6 +204,7 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/dao/guild/guild.go" />
+              <option value="file://$PROJECT_DIR$/../ttyy/main.go" />
             </set>
           </value>
         </entry>
@@ -452,24 +440,11 @@
             </set>
           </value>
         </entry>
-        <entry key="PlatformReq">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../work/xy3-server/account/internal/logic/platformsdk/platformsdk.go" />
-            </set>
-          </value>
-        </entry>
-        <entry key="PlatformResp">
-          <value>
-            <set>
-              <option value="file://$PROJECT_DIR$/../work/xy3-server/account/internal/logic/platformsdk/platformsdk.go" />
-            </set>
-          </value>
-        </entry>
         <entry key="Push">
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/dao/push/push.go" />
+              <option value="file://$PROJECT_DIR$/../work/xy3-server/core/dao/push/push.go" />
             </set>
           </value>
         </entry>
@@ -533,7 +508,6 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/logger/internal/service/logger.go" />
-              <option value="file://$PROJECT_DIR$/../work/xy3-server/account/internal/service/account.go" />
             </set>
           </value>
         </entry>
@@ -681,6 +655,13 @@
           <value>
             <set>
               <option value="file://$PROJECT_DIR$/core/apollo/default.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="accountPlatformLoginInfo">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/example/common/tools/account.go" />
             </set>
           </value>
         </entry>
@@ -1898,6 +1879,39 @@
             </ScannedPath>
           </value>
         </entry>
+        <entry key="file://$PROJECT_DIR$/example/common/tools/account.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704363574596" />
+              <option name="schema">
+                <list>
+                  <option value="accountPlatformLoginInfo" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/common/tools/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704365532552" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/common/tools/init.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704363408561" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/example/login-st/main.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704364388947" />
+            </ScannedPath>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/kafkaSend/config/apolloConfig/config.go">
           <value>
             <ScannedPath>
@@ -2154,30 +2168,55 @@
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../work/xy3-server/account/internal/logic/platformsdk/platformsdk.go">
+        <entry key="file://$PROJECT_DIR$/../ttyy/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1702264060197" />
+              <option name="lastModified" value="1704339274943" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/core/dao/friend/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704341879056" />
               <option name="schema">
                 <list>
-                  <option value="PlatformReq" />
-                  <option value="PlatformResp" />
-                  <option value="Account" />
-                  <option value="AccountResp" />
+                  <option value="Friend" />
                 </list>
               </option>
             </ScannedPath>
           </value>
         </entry>
-        <entry key="file://$PROJECT_DIR$/../work/xy3-server/account/internal/service/account.go">
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/core/dao/push/push.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1702264047853" />
+              <option name="lastModified" value="1704349854320" />
               <option name="schema">
                 <list>
-                  <option value="Service" />
+                  <option value="Push" />
                 </list>
               </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/friend/internal/service/backup.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704341140027" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/friend/internal/service/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704353862326" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/scene/internal/logic/system/activity/handler.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704356973271" />
             </ScannedPath>
           </value>
         </entry>
@@ -2198,10 +2237,8 @@
         <entry key="MLogTutorialProgress" value="MLogTutorialProgress" />
         <entry key="__apollo" value="_Apollo" />
         <entry key="__apolloes" value="_Apollo" />
-        <entry key="account" value="Account" />
-        <entry key="account_resp" value="AccountResp" />
-        <entry key="account_resps" value="AccountResp" />
-        <entry key="accounts" value="Account" />
+        <entry key="account_platform_login_info" value="accountPlatformLoginInfo" />
+        <entry key="account_platform_login_infoes" value="accountPlatformLoginInfo" />
         <entry key="ants_logger" value="AntsLogger" />
         <entry key="ants_loggers" value="AntsLogger" />
         <entry key="arena" value="Arena" />
@@ -2338,10 +2375,6 @@
         <entry key="passive_skills" value="PassiveSkill" />
         <entry key="path_key" value="pathKey" />
         <entry key="path_keys" value="pathKey" />
-        <entry key="platform_req" value="PlatformReq" />
-        <entry key="platform_reqs" value="PlatformReq" />
-        <entry key="platform_resp" value="PlatformResp" />
-        <entry key="platform_resps" value="PlatformResp" />
         <entry key="player_key" value="playerKey" />
         <entry key="player_keys" value="playerKey" />
         <entry key="pool" value="pool" />
@@ -2412,6 +2445,6 @@
         <entry key="z_t_pvp_reports" value="ZTPvpReport" />
       </map>
     </option>
-    <option name="lastTimeChecked" value="1702259441755" />
+    <option name="lastTimeChecked" value="1704248819112" />
   </component>
 </project>
