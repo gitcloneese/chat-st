@@ -5,14 +5,15 @@ import (
 )
 
 const (
-	RunAll        = iota //  运行所有测试用例
-	RunManualList        //  运行获取任务手册
+	RunAll        = iota // 运行所有测试用例
+	RunManualList        // 运行获取任务手册
+	Friend               // 好友相关
 )
 
 // -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=100 --debug=true -c=100
 // -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=10
 // -c=50 -t=1 -platformAddr=https://xy3api.firerock.sg -addr=https://xy3api.firerock.sg -accountNum=3000 -chatCount=100 --debug=false -platformId=4
-// -c=200 -t=1 -platformAddr=https://xy3api.firerock.sg -addr=https://xy3api.firerock.sg -accountNum=3000 -chatCount=100 --debug=false -testOne=true -n=10000 -platformId=4
+// -c=200 -t=1 -platformAddr=https://xy3api.firerock.sg -addr=https://xy3api.firerock.sg -accountNum=3000 -chatCount=100 --debug=false -testOne=true -n=10000 -platformId=4 -serverId=1
 func main() {
 	// 游客登录
 	tools.RunPlatformGuestLoginReq()
@@ -31,5 +32,8 @@ func main() {
 		// need 登录
 		tools.RunManualListReq()
 		tools.RunManualGrandTotalListReq()
+	case Friend: // 好友
+		tools.RunFriendRequestReq()
+		tools.RunFriendRequestListReq()
 	}
 }

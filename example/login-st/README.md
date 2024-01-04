@@ -1,0 +1,14 @@
+```todo
+http://8.219.160.79:82/auth/platform/GuestLogin
+http://8.219.160.79:81/xy3-cross/account/AccountRoleList
+http://8.219.160.79:81/xy3-cross/account/AccountRoleList 
+http://8.219.160.79:81/xy3-2/login/Login
+http://8.219.160.79:81/xy3-2/manual/getList
+http://8.219.160.79:81/xy3-2/manual/getGrandTotalTaskList
+http://8.219.160.79:81/xy3-cross/new-chat/Connect
+http://8.219.160.79:81/xy3-2/friend/FriendRequestList 
+http://8.219.160.79:81/xy3-2/guild/GuildInvitedList 
+http://8.219.160.79:81/xy3-2/friend/LeaseHeroRequestList 
+http://8.219.160.79:81/xy3-2/friend/FriendList 
+http://8.219.160.79:81/xy3-2/arena/GetRankList 
+```

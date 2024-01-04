@@ -22,6 +22,12 @@ const (
 )
 
 func generateAccount() string {
+	if TestOne {
+		// 指定账户名称
+		if AccountId != "" {
+			return AccountId
+		}
+	}
 	y, m, d := time.Now().Date()
 	h, M, s := time.Now().Clock()
 	return fmt.Sprintf("%v%02v%02v-%02v%02v%02v-%v", y, m, d, h, M, s, atomic.AddInt32(acc, 1))
