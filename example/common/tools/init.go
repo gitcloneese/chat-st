@@ -43,6 +43,7 @@ var (
 	TestOne   bool   //
 	AccountId string // 账户 指定testOne时 有需要则设置
 	N         int
+	Data      string // 自定义json数据
 )
 
 // 每个玩家默认1s发送一个聊天
@@ -70,6 +71,7 @@ func addFlag(fs *flag.FlagSet) {
 	// 压一个玩家的所有接口， 每个接口执行N次
 	fs.BoolVar(&TestOne, "testOne", false, "压一个玩家的所有接口， 每个接口执行N次 需要设置 -n=xxx")
 	fs.StringVar(&AccountId, "accountId", "", "指定账户名")
+	fs.StringVar(&Data, "data", "", `指定请求内容:'{"xxx":"xxx"}'`)
 	fs.IntVar(&N, "n", 1000, "压一个玩家的所有接口， 每个接口执行N次 需要设置 -n=xxx")
 
 	flag.Parse()

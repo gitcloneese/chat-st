@@ -14,10 +14,13 @@ const (
 	friendRequestPath = "/xy3-cross/friend/FriendRequest"
 	// 好友请求列表
 	friendRequestListPath = "/xy3-cross/friend/FriendRequestList"
+	// 好有搜索
+	friendSearchPath = "/xy3-cross/friend/FriendSeach"
 )
 const (
 	keyFriendRequest = iota
 	keyFriendRequestList
+	keyFriendSearch
 )
 
 func RunFriendRequestReq() {
@@ -26,6 +29,10 @@ func RunFriendRequestReq() {
 
 func RunFriendRequestListReq() {
 	RunWithLogTick("FriendRequestListReq", friendRequestByKey(keyFriendRequestList), fmt.Sprintf("%v%v", AccountAddr, friendRequestListPath))
+}
+
+func RunFriendSearchReq() {
+	RunWithLogTick("FriendSearchReq", friendRequestByKey(keyFriendSearch), fmt.Sprintf("%v%v", AccountAddr, friendSearchPath))
 }
 
 // 好友请求
@@ -39,6 +46,8 @@ func friendRequestByKey(key int) func() {
 		f = friendRequestFun
 	case keyFriendRequestList:
 		f = friendRequestListFun
+	case keyFriendSearch:
+		f = friendRequestSearchFun
 	}
 	var token string
 	if TestOne {
@@ -105,6 +114,33 @@ func friendRequestListFun(token string) error {
 		return err
 	}
 	path := fmt.Sprintf("%v%v", AccountAddr, friendRequestListPath)
+	headers := map[string]string{
+		"Authorization": bearToken(token),
+	}
+	_, err = HttpPost(path, bytes.NewReader(reqB), headers)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// 好友搜索推荐
+func friendRequestSearchFun(token string) error {
+	var (
+		reqB []byte
+		err  error
+	)
+	if Data != "" {
+		reqB = []byte(Data)
+	} else {
+		reqB, err = json.Marshal(pbfriend.FriendSeachReq{
+			SeachParam: "南海",
+		})
+		if err != nil {
+			return err
+		}
+	}
+	path := fmt.Sprintf("%v%v", AccountAddr, friendSearchPath)
 	headers := map[string]string{
 		"Authorization": bearToken(token),
 	}
