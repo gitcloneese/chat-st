@@ -87,6 +87,9 @@ func ensureIndex(db *mongo.Client) {
 // SetDbPlayer
 // player login token ttl两个小时
 func SetDbPlayer(m map[string]*pblogin.LoginRsp) {
+	if !useDB {
+		return
+	}
 	if dbClient == nil {
 		mdb()
 	}
@@ -94,6 +97,9 @@ func SetDbPlayer(m map[string]*pblogin.LoginRsp) {
 		return
 	}
 	mClient := DBClient()
+	if mClient == nil {
+		return
+	}
 	collection := mClient.Database(DB).Collection(COL)
 	opt := options.Update()
 	opt.SetUpsert(true)
@@ -117,10 +123,17 @@ func SetDbPlayer(m map[string]*pblogin.LoginRsp) {
 // GetDBPlayer
 // 获取是否有从db中获取玩家
 func GetDBPlayer() bool {
+	if !useDB {
+		return false
+	}
 	if dbClient == nil {
 		mdb()
 	}
 	mClient := DBClient()
+
+	if mClient == nil {
+		return false
+	}
 	collection := mClient.Database(DB).Collection(COL)
 	var res []*User
 	startTime := time.Now().Unix() - 3600*2
