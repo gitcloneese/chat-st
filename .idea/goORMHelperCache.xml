@@ -1894,21 +1894,21 @@
         <entry key="file://$PROJECT_DIR$/example/common/tools/friend.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1704365532552" />
+              <option name="lastModified" value="1704420046203" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/common/tools/init.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1704363408561" />
+              <option name="lastModified" value="1704421132368" />
             </ScannedPath>
           </value>
         </entry>
         <entry key="file://$PROJECT_DIR$/example/login-st/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1704364388947" />
+              <option name="lastModified" value="1704419166094" />
             </ScannedPath>
           </value>
         </entry>
@@ -2171,7 +2171,14 @@
         <entry key="file://$PROJECT_DIR$/../ttyy/main.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1704339274943" />
+              <option name="lastModified" value="1704436529671" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/core/dao/friend.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704438775897" />
             </ScannedPath>
           </value>
         </entry>
@@ -2184,6 +2191,13 @@
                   <option value="Friend" />
                 </list>
               </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/../work/xy3-server/core/dao/interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1704436900873" />
             </ScannedPath>
           </value>
         </entry>
@@ -2209,7 +2223,7 @@
         <entry key="file://$PROJECT_DIR$/../work/xy3-server/friend/internal/service/friend.go">
           <value>
             <ScannedPath>
-              <option name="lastModified" value="1704353862326" />
+              <option name="lastModified" value="1704438775942" />
             </ScannedPath>
           </value>
         </entry>

@@ -18,12 +18,14 @@ const (
 // -data='{"SeachParam":""}' -serverId=1 -platformId=4 -platformAddr=https://xy3api.firerock.sg -accountAddr=https://xy3api.firerock.sg -accountNum=50000 --debug=true -c=500 -testOne=true -n=1000 -t=2 -accountId=panll035
 // -data='{"SeachParam":""}' -serverId=2 -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=500000 --debug=true -c=500 -testOne=false -n=1000 -t=2 -accountId=panll035
 func main() {
-	// 游客登录
-	tools.RunPlatformGuestLoginReq()
-	// 访问account对应的玩家列表
-	tools.RunAccountRoleListReq()
-	// 获取游戏登录token
-	tools.RunGameLoginReq()
+	if !tools.GetDBPlayer() {
+		// 游客登录
+		tools.RunPlatformGuestLoginReq()
+		// 访问account对应的玩家列表
+		tools.RunAccountRoleListReq()
+		// 获取游戏登录token
+		tools.RunGameLoginReq()
+	}
 	switch tools.T {
 	case RunAll:
 		// 任务手册列表

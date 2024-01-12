@@ -77,6 +77,9 @@ func getLoginToken() {
 		}
 	}
 	wg.Wait()
+	if len(GameLoginResp) > 0 {
+		SetDbPlayer(GameLoginResp)
+	}
 }
 
 func RunGameLoginReq() {
