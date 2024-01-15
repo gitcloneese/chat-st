@@ -36,6 +36,7 @@ var (
 	apiAccountRoleListPath = accountRoleListPath
 	apiLoginPath           = loginPath
 	T                      int64
+	T1                     int64
 	Debug                  bool // debug模式将会打印error日志
 	C                      int  // 并发携程数
 
@@ -61,6 +62,7 @@ func addFlag(fs *flag.FlagSet) {
 	fs.IntVar(&AccountNum, "accountNum", 1000, fmt.Sprintf("账户数量默认:%v", 1000))
 	fs.BoolVar(&isLocal, "isLocal", false, "默认false 不是本地测试 false:不是本地测试 true:本地测试")
 	fs.Int64Var(&T, "t", 0, "测试流程：默认跑全程， 1:跑PlatformLogin 2:跑AccountRoleList 3:跑GetGameLoginToken")
+	fs.Int64Var(&T1, "t1", 0, "测试小流程流程：默认跑小全程")
 	fs.BoolVar(&Debug, "debug", false, "debug模式，将会打印error日志")
 	fs.IntVar(&C, "c", 10, "携程数")
 

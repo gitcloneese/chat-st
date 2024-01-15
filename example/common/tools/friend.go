@@ -90,9 +90,17 @@ func friendRequestByKey(key int) func() {
 
 // 好友请求
 func friendRequestFun(token string) error {
-	reqB, err := json.Marshal(pbfriend.FriendRequestReq{
-		FriendId: []int64{11451102, 11781103},
-	})
+	var (
+		reqB []byte
+		err  error
+	)
+	if Data != "" {
+		reqB = []byte(Data)
+	} else {
+		reqB, err = json.Marshal(pbfriend.FriendRequestReq{
+			FriendId: []int64{11451102, 11781103},
+		})
+	}
 	if err != nil {
 		return err
 	}

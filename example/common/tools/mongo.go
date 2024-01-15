@@ -161,5 +161,9 @@ func GetDBPlayer() bool {
 	}
 
 	fmt.Printf("GetDBPlayer getPlayers len:%v", len(GameLoginResp))
+	if !TestOne && len(GameLoginResp) <= 1 {
+		GameLoginResp = make(map[string]*pblogin.LoginRsp)
+		return false
+	}
 	return true
 }

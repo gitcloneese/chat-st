@@ -17,7 +17,9 @@ const (
 // -serverId=1 -platformId=4 -platformAddr=https://xy3api.firerock.sg -accountAddr=https://xy3api.firerock.sg -accountNum=10000 --debug=true -c=300 -testOne=false -n=1000 -t=2 -accountId=panll035
 // -data='{"SeachParam":""}' -serverId=1 -platformId=4 -platformAddr=https://xy3api.firerock.sg -accountAddr=https://xy3api.firerock.sg -accountNum=50000 --debug=true -c=500 -testOne=true -n=1000 -t=2 -accountId=panll035
 // -data='{"SeachParam":""}' -serverId=2 -platformAddr=http://8.219.160.79:82 -accountAddr=http://8.219.160.79:81 -accountNum=500000 --debug=true -c=500 -testOne=false -n=1000 -t=2 -accountId=panll035
+// -data='{"SeachParam":"傲来国"}' -serverId=1 -platformId=4 -platformAddr=https://xy3api.firerock.sg -accountAddr=https://xy3api.firerock.sg -accountNum=50000 --debug=true -c=500 -testOne=false -n=1000 -t=2 -t1=3 -accountId=panll035
 func main() {
+	// 从db中获取玩家 就不用走platform, accountRoleList, login了， 直接获取token进行测试
 	if !tools.GetDBPlayer() {
 		// 游客登录
 		tools.RunPlatformGuestLoginReq()
@@ -38,8 +40,17 @@ func main() {
 		tools.RunManualListReq()
 		tools.RunManualGrandTotalListReq()
 	case Friend: // 好友
-		tools.RunFriendRequestReq()
-		tools.RunFriendRequestListReq()
-		tools.RunFriendSearchReq()
+		switch tools.T1 {
+		case 0:
+			tools.RunFriendRequestReq()
+			tools.RunFriendRequestListReq()
+			tools.RunFriendSearchReq()
+		case 1:
+			tools.RunFriendRequestReq()
+		case 2:
+			tools.RunFriendRequestListReq()
+		case 3:
+			tools.RunFriendSearchReq()
+		}
 	}
 }
